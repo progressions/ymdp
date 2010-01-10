@@ -68,9 +68,30 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency(%q<haml>, [">= 0"])
+      s.add_development_dependency(%q<json>, [">= 0"])
+      s.add_development_dependency(%q<hpricot>, [">= 0"])
+      s.add_development_dependency(%q<ruby-growl>, [">= 0"])
+      s.add_development_dependency(%q<activesupport>, [">= 0"])
+      s.add_development_dependency(%q<sishen-rtranslate>, [">= 0"])
+      s.add_development_dependency(%q<basepath>, [">= 0"])
     else
+      s.add_dependency(%q<haml>, [">= 0"])
+      s.add_dependency(%q<json>, [">= 0"])
+      s.add_dependency(%q<hpricot>, [">= 0"])
+      s.add_dependency(%q<ruby-growl>, [">= 0"])
+      s.add_dependency(%q<activesupport>, [">= 0"])
+      s.add_dependency(%q<sishen-rtranslate>, [">= 0"])
+      s.add_dependency(%q<basepath>, [">= 0"])
     end
   else
+    s.add_dependency(%q<haml>, [">= 0"])
+    s.add_dependency(%q<json>, [">= 0"])
+    s.add_dependency(%q<hpricot>, [">= 0"])
+    s.add_dependency(%q<ruby-growl>, [">= 0"])
+    s.add_dependency(%q<activesupport>, [">= 0"])
+    s.add_dependency(%q<sishen-rtranslate>, [">= 0"])
+    s.add_dependency(%q<basepath>, [">= 0"])
   end
 end
 
