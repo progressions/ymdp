@@ -1,5 +1,3 @@
-require "#{APPLICATION_PATH}/tag_helper"
-
 module ApplicationView
   include ActionView::Helpers::TagHelper
     

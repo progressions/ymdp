@@ -1,5 +1,3 @@
-require 'support/timer'
-
 include Grit
 
 include ApplicationView::Config

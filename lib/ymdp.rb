@@ -8,6 +8,7 @@ $LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
 #
 
 require File.expand_path("#{dir}/tag_helper")
+require File.expand_path("#{dir}/asset_tag_helper")
 
 Dir["#{dir}/*.rb"].each do |path|
   require File.expand_path(path)
