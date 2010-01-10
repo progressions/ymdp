@@ -272,7 +272,7 @@ class TemplateCompiler
     
       process_domains(domains, git_hash, options)
     
-      # system "rm ./tmp/*"
+      system "rm ./tmp/*"
     end
   rescue StandardError => e
     puts e.message
@@ -348,6 +348,7 @@ class TemplateCompiler
     yrb = YRBTemplate.new(tmp_file, domain, hash, options[:message], options[:verbose])
     yrb.build
     yrb.validate
+    system "rm #{tmp_file}"
   end
   
   def self.clean_domain(d)
