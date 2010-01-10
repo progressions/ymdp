@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+@view = ARGV[0]
+
+system "./script/generate keys #{@view}"

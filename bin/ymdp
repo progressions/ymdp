@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+
+@command = ARGV[0]
+
+if @command == "init"
+
+  require 'fileutils'
+
+  dir = File.dirname(__FILE__)
+
+  new_application_dir = "#{dir}/../lib/new_application/."
+
+  # Create the structure for a YMDP project
+
+  @project_name = ARGV[1]
+
+  @message = <<MESSAGE
+Creating YMDP directory for project #{@project_name}
+
+First, run:
+
+  gem bundle
+
+Then:
+
+  ./script/config
+
+Then open config.yml and set your username and password.
+Then open servers.yml and set your server keys.
+
+Then run:
+
+  bin/rake create:all
+
+to fetch your applications from Yahoo! Mail's servers.
+
+MESSAGE
+
+  puts @message
+
+  FileUtils.mkdir_p(@project_name)
+  FileUtils.cp_r(new_application_dir, @project_name)
+else
+  commands = ARGV.join(" ")
+  if File.exists?("./rake")
+    system "./rake #{commands}"
+  else
+    system "rake #{commands}"
+  end
+end
+

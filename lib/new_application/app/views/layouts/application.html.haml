@@ -1,0 +1,35 @@
+!!!
+%html
+  %head
+    /
+      = "Sprint #{@version} #{@sprint_name}"
+      = "'#{@view}' view for #{@domain}: #{@server}"
+      = "built at #{Time.now}"
+      = "commit #{@hash}, '#{@message}'"
+
+    %title= "#{@view} view for #{@domain}: #{@server}"
+
+    = render :partial => 'stylesheets'
+    
+    / Prototype
+
+    = javascript_include "prototype.js"
+    = javascript_include "scriptaculous.js"
+    
+
+  %body{:class => @view}
+    = render :partial => 'loading'
+    = render :partial => 'flash'
+  
+    #main{:style => "display: none;"}
+
+      #content
+        = @content
+    
+    = render :partial => 'javascripts'
+    
+/
+  = "Sprint #{@version} #{@sprint_name}"
+  = "'#{@view}' view for #{@domain}: #{@server}"
+  = "built at #{Time.now}"
+  = "commit #{@hash}, '#{@message}'"

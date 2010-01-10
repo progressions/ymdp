@@ -1,0 +1,12 @@
+gem "haml"
+gem "grit"
+gem "json"
+gem "hpricot"
+gem "ruby-growl"
+gem "activesupport", :require_as => "active_support"
+gem "sishen-rtranslate"
+gem "basepath"
+gem "rake"
+gem "ymdp"
+
+disable_system_gems
