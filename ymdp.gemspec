@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
      "lib/application_view/commands/generate.rb",
      "lib/application_view/compiler/template_compiler.rb",
      "lib/application_view/config.rb",
-     "lib/application_view/environment.rb",
      "lib/application_view/generator/base.rb",
      "lib/application_view/generator/templates/javascript.js",
      "lib/application_view/generator/templates/stylesheet.css",
