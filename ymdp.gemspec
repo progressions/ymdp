@@ -110,6 +110,7 @@ Gem::Specification.new do |s|
      "lib/new_application/script/ymdt",
      "lib/new_application/script/ymdt.old",
      "lib/new_application/script/yuicompressor-2.4.2.jar",
+     "lib/new_application/ymdp",
      "lib/ymdp.rb",
      "test/helper.rb",
      "test/test_ymdp.rb",
