@@ -1,0 +1,8 @@
+# REMOVE 'NEW' FROM THIS FILENAME WHEN PROFESSIONAL TRANSLATIONS HAVE BEEN DONE
+#
+# <%= @view.capitalize %> view resource file
+#
+
+<%= @view.upcase %>_HEADING=<%= @view.capitalize %>
+
+<%= @view.upcase %>_SUBHEAD=
