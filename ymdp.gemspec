@@ -137,7 +137,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<ruby-growl>, [">= 0"])
       s.add_development_dependency(%q<activesupport>, [">= 0"])
       s.add_development_dependency(%q<sishen-rtranslate>, [">= 0"])
-      s.add_development_dependency(%q<basepath>, [">= 0"])
+      s.add_development_dependency(%q<progressions-basepath>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
     else
       s.add_dependency(%q<haml>, [">= 0"])
@@ -146,7 +146,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<ruby-growl>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 0"])
       s.add_dependency(%q<sishen-rtranslate>, [">= 0"])
-      s.add_dependency(%q<basepath>, [">= 0"])
+      s.add_dependency(%q<progressions-basepath>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
     end
   else
@@ -156,7 +156,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<ruby-growl>, [">= 0"])
     s.add_dependency(%q<activesupport>, [">= 0"])
     s.add_dependency(%q<sishen-rtranslate>, [">= 0"])
-    s.add_dependency(%q<basepath>, [">= 0"])
+    s.add_dependency(%q<progressions-basepath>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
   end
 end
