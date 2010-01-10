@@ -11,6 +11,13 @@ begin
     gem.homepage = "http://github.com/progressions/ymdp"
     gem.authors = ["Jeff Coleman"]
     # gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_development_dependency "haml", ">= 0"
+    gem.add_development_dependency "json", ">= 0"
+    gem.add_development_dependency "hpricot", ">= 0"
+    gem.add_development_dependency "ruby-growl", ">= 0"
+    gem.add_development_dependency "activesupport", ">= 0"
+    gem.add_development_dependency "sishen-rtranslate", ">= 0"
+    gem.add_development_dependency "basepath", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
