@@ -1,17 +1,20 @@
+dir = File.dirname(__FILE__)
+$LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
+
+dir = File.expand_path("#{dir}/application_view")
+$LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
+
 # load application
 #
-Dir["lib/application_view/*.rb"].each do |path|
-  require path
+
+require File.expand_path("#{dir}/tag_helper")
+
+Dir["#{dir}/*.rb"].each do |path|
+  require File.expand_path(path)
 end
 
 # load support
 #
-Dir["lib/application_view/support/*.rb"].each do |path|
-  require path
-end
-
-# load everything in the lib directory
-#
-Dir["lib/**/*.rb"].each do |path|
-  require path unless path == File.expand_path(__FILE__)
+Dir["#{dir}/support/*.rb"].each do |path|
+  require File.expand_path(path)
 end
