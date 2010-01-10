@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+commands = ARGV.join(" ")
+if File.exists?("./rake")
+  system "./rake #{commands}"
+else
+  system "rake #{commands}"
+end
