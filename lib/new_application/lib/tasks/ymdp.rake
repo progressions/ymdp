@@ -2,6 +2,7 @@ YMDP_ENV="deploy"
 require "lib/init"
 
 include Timer
+include ApplicationView::Config
 
 @start_time = Time.now
 

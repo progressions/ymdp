@@ -1,5 +1,4 @@
 require 'lib/init'
-require 'translator/base'
 
 @key = ENV["key"] || ""
 @key = @key.upcase
