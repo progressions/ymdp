@@ -357,6 +357,7 @@ class TemplateCompiler
     system "rm -rf #{dir}/assets/javascripts"
     system "rm -rf #{dir}/assets/stylesheets"
     system "rm -rf #{dir}/assets/yrb"
+    system "rm #{TMP_DIR}/*"
   end
 
   def log(text)
