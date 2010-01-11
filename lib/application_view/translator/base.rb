@@ -2,7 +2,6 @@ require 'rubygems'
 require 'rtranslate'
 require 'timer'
 require 'compiler/template_compiler'
-require 'translator/ymdp_translate'
 
 module ApplicationView
   module Yaml
@@ -98,7 +97,6 @@ module ApplicationView
     class Base
       include ApplicationView::FileSupport
       extend ApplicationView::FileSupport
-      include ApplicationView::Support::Timer
       include ApplicationView::Translator::Support
 
       def self.original_translations
