@@ -542,7 +542,6 @@ def deploy(application, path)
   Rake::Task["validate:#{application}:javascripts"].invoke if validate_js_assets?
   Rake::Task["validate:#{application}:json"].invoke if validate_json_assets?
 
-  puts "About to invoke_ymdt: put, #{application}, #{path}"
   invoke_ymdt("put", application, path)
 end
 
