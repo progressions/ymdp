@@ -1,4 +1,4 @@
 YMDP_ENV="deploy"
 require "lib/init"
 
-load 'tasks/ymdp.rake'
+load 'application_view/tasks/ymdp.rake'

@@ -1,7 +1,6 @@
 include Grit
 
 include ApplicationView::Config
-include Timer
 
 class GitHelper
   def get_hash(branch)
@@ -250,7 +249,7 @@ class TemplateCompiler
   attr_accessor :domain, :git_hash, :options
   
   def self.compile
-    time("", :title => "YMDP") do
+    Timer.new(:title => "YMDP").time do
       system "rm ./tmp/*"
     
       options = parse_options

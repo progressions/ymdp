@@ -1,7 +1,4 @@
-include Timer
 include ApplicationView::Config
-
-@start_time = Time.now
 
 begin
   CATEGORIES = YAML.load_file("./config/categories.yml")["categories"] unless defined?(CATEGORIES)
@@ -158,6 +155,10 @@ DOCS
   # TODO: add more documentation
 
   puts docs
+end
+
+def time(message="")
+  Timer.new(:title => "YMDP").time(message) yield
 end
 
 desc "Deploys application to YMDP servers"
