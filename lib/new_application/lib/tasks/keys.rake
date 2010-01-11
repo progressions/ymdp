@@ -1,3 +1,3 @@
 require 'lib/init'
 
-load 'tasks/keys.rake'
+load 'application_view/tasks/keys.rake'
