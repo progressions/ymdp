@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.0.10"
+  s.version = "0.0.11"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
@@ -41,16 +41,13 @@ Gem::Specification.new do |s|
      "lib/application_view/processor/compressor.rb",
      "lib/application_view/processor/processor.rb",
      "lib/application_view/processor/validator.rb",
+     "lib/application_view/support/blank.rb",
      "lib/application_view/support/file.rb",
      "lib/application_view/support/form_post.rb",
      "lib/application_view/support/g.rb",
-     "lib/application_view/support/growl.rb",
-     "lib/application_view/support/timer.rb",
      "lib/application_view/support/w3c.rb",
      "lib/application_view/tag_helper.rb",
      "lib/application_view/translator/base.rb",
-     "lib/application_view/translator/blank.rb",
-     "lib/application_view/translator/ymdp_translate.rb",
      "lib/new_application/.base",
      "lib/new_application/Gemfile",
      "lib/new_application/Rakefile",
@@ -138,7 +135,9 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<activesupport>, [">= 0"])
       s.add_development_dependency(%q<sishen-rtranslate>, [">= 0"])
       s.add_development_dependency(%q<progressions-basepath>, [">= 0"])
+      s.add_development_dependency(%q<progressions-g>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
+      s.add_development_dependency(%q<timer>, [">= 0"])
     else
       s.add_dependency(%q<haml>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
@@ -147,7 +146,9 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<activesupport>, [">= 0"])
       s.add_dependency(%q<sishen-rtranslate>, [">= 0"])
       s.add_dependency(%q<progressions-basepath>, [">= 0"])
+      s.add_dependency(%q<progressions-g>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
+      s.add_dependency(%q<timer>, [">= 0"])
     end
   else
     s.add_dependency(%q<haml>, [">= 0"])
@@ -157,7 +158,9 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<activesupport>, [">= 0"])
     s.add_dependency(%q<sishen-rtranslate>, [">= 0"])
     s.add_dependency(%q<progressions-basepath>, [">= 0"])
+    s.add_dependency(%q<progressions-g>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
+    s.add_dependency(%q<timer>, [">= 0"])
   end
 end
 
