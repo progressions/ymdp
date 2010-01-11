@@ -1,5 +1,6 @@
+require 'rubygems'
 require 'rtranslate'
-require 'support/timer'
+require 'timer'
 require 'compiler/template_compiler'
 require 'translator/ymdp_translate'
 

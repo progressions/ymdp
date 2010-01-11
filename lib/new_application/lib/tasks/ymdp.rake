@@ -1,7 +1,7 @@
 YMDP_ENV="deploy"
 require "lib/init"
 
-# system "rm ./tmp/*"
+include Timer
 
 @start_time = Time.now
 
