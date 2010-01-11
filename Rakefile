@@ -10,7 +10,6 @@ begin
     gem.email = "progressions@gmail.com"
     gem.homepage = "http://github.com/progressions/ymdp"
     gem.authors = ["Jeff Coleman"]
-    # gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     gem.add_development_dependency "haml", ">= 0"
     gem.add_development_dependency "json", ">= 0"
     gem.add_development_dependency "hpricot", ">= 0"
