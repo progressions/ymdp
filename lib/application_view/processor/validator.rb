@@ -113,8 +113,6 @@ JSLINT
       end
       
       def pre_process(output)
-        output = output.gsub("\\u003C", "HELLO")
-        output = output.gsub("\\u003E", "HELLO")
         output
       end
       
