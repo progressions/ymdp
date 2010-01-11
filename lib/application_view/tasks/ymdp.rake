@@ -158,7 +158,9 @@ DOCS
 end
 
 def time(message="")
-  Timer.new(:title => "YMDP").time(message) yield
+  Timer.new(:title => "YMDP").time(message) do
+    yield
+  end
 end
 
 desc "Deploys application to YMDP servers"
