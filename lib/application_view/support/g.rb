@@ -1,6 +1,6 @@
-def g(s)
+def growl(s)
   if CONFIG["growl"]
-    growl(s, :title => "YMDP")
+    g(s, :title => "YMDP")
   end
 rescue StandardError => e
   if e.message =~ /Connection refused/

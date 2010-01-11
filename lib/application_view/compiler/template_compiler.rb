@@ -1,7 +1,7 @@
 include Grit
 
 include ApplicationView::Config
-include ApplicationView::Support::Timer
+include Timer
 
 class GitHelper
   def get_hash(branch)
