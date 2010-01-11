@@ -250,7 +250,7 @@ class TemplateCompiler
   attr_accessor :domain, :git_hash, :options
   
   def self.compile
-    time do
+    time("", :title => "YMDP") do
       system "rm ./tmp/*"
     
       options = parse_options
