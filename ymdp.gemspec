@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
-  s.date = %q{2010-01-11}
+  s.date = %q{2010-01-12}
   s.default_executable = %q{ymdp}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
