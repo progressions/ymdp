@@ -26,7 +26,7 @@ SORTED_LOCALES = LOCALES.sort do |a,b|
   a[1] <=> b[1]
 end unless defined?(SORTED_LOCALES)
 
-YMDP_ROOT = "." unless defined?(YMDP_ROOT)
+BASE_PATH = "." unless defined?(BASE_PATH)
 
 def file_not_found(filename)
   puts
@@ -36,17 +36,17 @@ def file_not_found(filename)
   raise "File not found: #{filename}"  
 end
 
-servers = "#{YMDP_ROOT}/config/servers.yml"
-config = "#{YMDP_ROOT}/config/config.yml"
+servers = "#{BASE_PATH}/config/servers.yml"
+config = "#{BASE_PATH}/config/config.yml"
 
 if File.exists?(servers)
-  SERVERS = YAML.load_file("#{YMDP_ROOT}/config/servers.yml") unless defined?(SERVERS)
+  SERVERS = YAML.load_file("#{BASE_PATH}/config/servers.yml") unless defined?(SERVERS)
 else
   file_not_found(servers)
 end
 
 if File.exists?(config)
-  CONFIG = YAML.load_file("#{YMDP_ROOT}/config/config.yml")["config"] unless defined?(CONFIG)
+  CONFIG = YAML.load_file("#{BASE_PATH}/config/config.yml")["config"] unless defined?(CONFIG)
 else
   file_not_found(config)
 end
