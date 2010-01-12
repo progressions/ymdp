@@ -17,11 +17,11 @@ class Application
   end
 end
 
-module ApplicationView
+module YMDP
   module Base
-    include ApplicationView::Config
-    include ApplicationView::FileSupport
-    include ApplicationView::Compressor
+    include YMDP::Config
+    include YMDP::FileSupport
+    include YMDP::Compressor
     
     extend self
     
@@ -120,7 +120,7 @@ module ApplicationView
       if File.exists?(path)
         tmp_filename = save_processed_template(path)
         if compress_css?
-          output = ApplicationView::Compressor::Stylesheet.compress(tmp_filename)
+          output = YMDP::Compressor::Stylesheet.compress(tmp_filename)
         else
           File.open(path) do |f|
             template = f.read
@@ -158,9 +158,9 @@ module ApplicationView
       end
         
       # return compressed javascript or else don't
-      output = ApplicationView::Compressor::JavaScript.compress(tmp_filename) || output
+      output = YMDP::Compressor::JavaScript.compress(tmp_filename) || output
       
-      ApplicationView::Validator::JavaScript.validate(validate_filename) if validate_filename
+      YMDP::Validator::JavaScript.validate(validate_filename) if validate_filename
       
       output
     end

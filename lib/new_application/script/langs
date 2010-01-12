@@ -4,7 +4,7 @@ require 'lib/init'
 
 YMDP_ROOT = "."
 
-include ApplicationView::Base
+include YMDP::Base
 
 def keys(lang)
   path = "#{YMDP_ROOT}/servers/my/assets/yrb/keys_#{lang}.json"

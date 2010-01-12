@@ -1,4 +1,4 @@
-module ApplicationView
+module YMDP
   module Config
     def compress_embedded_js?
       CONFIG["compress"]["embedded_js"]

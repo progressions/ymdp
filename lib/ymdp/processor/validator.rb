@@ -1,10 +1,10 @@
 require 'support/file'
 
-module ApplicationView
+module YMDP
   module Validator
     class Base
-      extend ApplicationView::Config
-      extend ApplicationView::FileSupport
+      extend YMDP::Config
+      extend YMDP::FileSupport
     end
     
     class HTML < Base

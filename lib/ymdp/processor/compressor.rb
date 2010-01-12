@@ -1,10 +1,10 @@
 require 'support/file'
 
-module ApplicationView
+module YMDP
   module Compressor
     class Base
-      extend ApplicationView::Config
-      extend ApplicationView::FileSupport
+      extend YMDP::Config
+      extend YMDP::FileSupport
   
       def self.compress(path, options={})
         compressed_display_path = display_path(path)

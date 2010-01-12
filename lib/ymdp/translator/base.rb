@@ -3,7 +3,7 @@ require 'rtranslate'
 require 'timer'
 require 'compiler/template_compiler'
 
-module ApplicationView
+module YMDP
   module Yaml
     module Support
       FILENAME_REGEXP = /(.*)_(..-..)\.yml$/
@@ -92,12 +92,12 @@ module ApplicationView
     # and translates them through Google Translate.
     #
     # Usage: 
-    #   ApplicationView::Translator::Base.new().translate
+    #   YMDP::Translator::Base.new().translate
     #
     class Base
-      include ApplicationView::FileSupport
-      extend ApplicationView::FileSupport
-      include ApplicationView::Translator::Support
+      include YMDP::FileSupport
+      extend YMDP::FileSupport
+      include YMDP::Translator::Support
 
       def self.original_translations
         Dir["#{language_path('en-US')}/#{all_source_files}"]
@@ -304,8 +304,8 @@ module ApplicationView
     end
     
     class Yaml < Base
-      include ApplicationView::Yaml::Support
-      extend ApplicationView::Yaml::Support
+      include YMDP::Yaml::Support
+      extend YMDP::Yaml::Support
       
       def self.template
         Yaml
@@ -341,8 +341,8 @@ module ApplicationView
     end
     
     class YRB < Base
-      include ApplicationView::YRB::Support
-      extend ApplicationView::YRB::Support
+      include YMDP::YRB::Support
+      extend YMDP::YRB::Support
       
       def self.template
         YRB

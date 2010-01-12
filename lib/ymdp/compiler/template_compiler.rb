@@ -1,6 +1,6 @@
 include Grit
 
-include ApplicationView::Config
+include YMDP::Config
 
 class GitHelper
   def get_hash(branch)
@@ -109,10 +109,10 @@ class YMDPTemplate
   include ActionView::Helpers::TagHelper
   include TemplateBuilder
   include ApplicationHelper
-  include ApplicationView::Base
-  include ApplicationView::AssetTagHelper
-  include ApplicationView::FormTagHelper
-  include ApplicationView::LinkTagHelper
+  include YMDP::Base
+  include YMDP::AssetTagHelper
+  include YMDP::FormTagHelper
+  include YMDP::LinkTagHelper
   
   attr_accessor :output_buffer
   
@@ -140,7 +140,7 @@ class YMDPTemplate
   
   def write_template(result)
     write_template_with_layout(result)
-    ApplicationView::Validator::HTML.validate(output_filename) if validate_html?
+    YMDP::Validator::HTML.validate(output_filename) if validate_html?
   end
 end
 
@@ -148,7 +148,7 @@ class JSTemplate < YMDPTemplate
   def compress_js(filename)
     if compress_js_assets?
       validate_filename = "#{filename}.min"
-      ApplicationView::Compressor::JavaScript.compress(filename)
+      YMDP::Compressor::JavaScript.compress(filename)
     end
   end
     
@@ -156,7 +156,7 @@ class JSTemplate < YMDPTemplate
     filename = @file.split("/").last
     tmp_filename = "./tmp/#{filename}"
     save_to_file(result, tmp_filename)
-    result = ApplicationView::Compressor::JavaScript.compress(tmp_filename) || result
+    result = YMDP::Compressor::JavaScript.compress(tmp_filename) || result
     write_template_without_layout(result)
   end
 end
@@ -198,7 +198,7 @@ class YRBTemplate
   end
   
   def validate
-    ApplicationView::Validator::JSON.validate(output_filename)
+    YMDP::Validator::JSON.validate(output_filename)
   end
   
   private
@@ -334,7 +334,7 @@ class TemplateCompiler
   
   def self.process_yrb(domain, hash, options)
     puts "Processing ./app/assets/yrb/ for #{domain}"
-    ApplicationView::Base.supported_languages.each do |lang|
+    YMDP::Base.supported_languages.each do |lang|
       process_each_yrb(lang, domain, hash, options)
     end
   end

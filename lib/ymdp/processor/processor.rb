@@ -1,14 +1,14 @@
 require 'support/file'
 require 'haml'
 
-module ApplicationView
+module YMDP
   module Renderer
     class Base
     end
     
     class Haml < Base
       def self.scope
-        ApplicationView::ViewHelpers
+        YMDP::ViewHelpers
       end
       
       def self.render(filename)
@@ -19,7 +19,7 @@ module ApplicationView
     
     class ERB < Base
       def self.scope
-        ApplicationView::ViewHelpers.get_binding
+        YMDP::ViewHelpers.get_binding
       end
       
       def self.render(filename)
@@ -30,8 +30,8 @@ module ApplicationView
   
   module Processor
     class Base
-      extend ApplicationView::Config
-      extend ApplicationView::FileSupport
+      extend YMDP::Config
+      extend YMDP::FileSupport
       
       def self.render(params)
         output = []
@@ -93,9 +93,9 @@ module ApplicationView
         File.open(path) do |f|
           template = f.read
           if path =~ /haml$/
-            output = ApplicationView::Processor::Haml.render(template, path)
+            output = YMDP::Processor::Haml.render(template, path)
           else
-            output = ApplicationView::Processor::ERB.render(template)
+            output = YMDP::Processor::ERB.render(template)
           end
         end
         

@@ -1,4 +1,4 @@
-module ApplicationView
+module YMDP
   include ActionView::Helpers::TagHelper
     
   ProtocolRegexp = %r{^[-a-z]+://}.freeze

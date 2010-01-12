@@ -2,7 +2,7 @@ require 'support/file'
 require 'translator/base'
 require 'erb'
 
-module ApplicationView
+module YMDP
   module Generator
     module Snippets
       def launcher_method(view)
@@ -19,7 +19,7 @@ OUTPUT
     
     module Templates
       class Base
-        include ApplicationView::FileSupport
+        include YMDP::FileSupport
         
         attr_accessor :view
         
@@ -163,7 +163,7 @@ OUTPUT
         Templates::Stylesheet.new(view).generate
         Templates::Translation.new(view).generate
         Templates::Modifications.new(view).generate
-        ApplicationView::Translator::YRB.translate
+        YMDP::Translator::YRB.translate
       end
     end
   end

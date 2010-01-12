@@ -77,7 +77,7 @@ namespace :keys do
   
   desc "Translate any new keys into non-US languages"
   task :translate do
-    ApplicationView::Translator::YRB.translate
+    YMDP::Translator::YRB.translate
   end
   
   task :rename do

@@ -1,4 +1,4 @@
-include ApplicationView::Config
+include YMDP::Config
 
 begin
   CATEGORIES = YAML.load_file("./config/categories.yml")["categories"] unless defined?(CATEGORIES)
@@ -274,7 +274,7 @@ namespace :validate do
   task :javascripts do
     puts "\nValidating external JavaScript assets in #{@application}..."
     Dir["#{BASE_PATH}/servers/#{@application}/assets/javascripts/*.js"].each do |path|
-      ApplicationView::Validator::JavaScript.validate(path)
+      YMDP::Validator::JavaScript.validate(path)
     end
   end
 
@@ -284,7 +284,7 @@ namespace :validate do
     Dir["./servers/#{@application}/assets/yrb/*json"].each do |json|
       filename = json.split("/").last
       path = "#{BASE_PATH}/servers/#{@application}/assets/yrb/#{filename}"
-      ApplicationView::Validator::JSON.validate(path)
+      YMDP::Validator::JSON.validate(path)
     end    
   end
 
@@ -294,7 +294,7 @@ namespace :validate do
     `rm -rf #{TMP_DIR}`
     Dir.mkdir(TMP_DIR) rescue Errno::EEXIST
     Dir["./servers/#{@application}/views/*"].each do |filename|
-      ApplicationView::Validator::HTML.validate(filename) if filename =~ /#{@path}/
+      YMDP::Validator::HTML.validate(filename) if filename =~ /#{@path}/
     end    
   end
 
@@ -530,7 +530,7 @@ def validated_embedded_js(path)
     (doc / "script").each { |js| f.puts js.inner_html + "\n\n" }
   end
 
-  ApplicationView::Validator::JavaScript.validate(js_fragment_path)
+  YMDP::Validator::JavaScript.validate(js_fragment_path)
   system "rm #{js_fragment_path}"
 end
 

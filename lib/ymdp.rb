@@ -1,7 +1,7 @@
 dir = File.dirname(__FILE__)
 $LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
 
-dir = File.expand_path("#{dir}/application_view")
+dir = File.expand_path("#{dir}/ymdp")
 $LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
 
 # load application
