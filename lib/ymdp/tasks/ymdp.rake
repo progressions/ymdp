@@ -158,7 +158,7 @@ DOCS
 end
 
 def time(message="")
-  Timer.new(:title => "YMDP").time(message) do
+  Timer.new(:title => "YMDP", :growl => growl?).time(message) do
     yield
   end
 end

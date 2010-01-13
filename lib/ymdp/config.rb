@@ -61,5 +61,9 @@ module YMDP
     def verbose?
       config("verbose")
     end
+    
+    def growl?
+      config("growl")
+    end
   end
 end
