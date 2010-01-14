@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
@@ -90,8 +90,8 @@ Gem::Specification.new do |s|
      "lib/ymdp/asset_tag_helper.rb",
      "lib/ymdp/commands/generate.rb",
      "lib/ymdp/compiler/template_compiler.rb",
-     "lib/ymdp/config.rb",
-     "lib/ymdp/deploy/ymdt.rb",
+     "lib/ymdp/configuration/config.rb",
+     "lib/ymdp/configuration/constants.rb",
      "lib/ymdp/generator/base.rb",
      "lib/ymdp/generator/templates/javascript.js",
      "lib/ymdp/generator/templates/stylesheet.css",
@@ -105,13 +105,13 @@ Gem::Specification.new do |s|
      "lib/ymdp/support/blank.rb",
      "lib/ymdp/support/file.rb",
      "lib/ymdp/support/form_post.rb",
-     "lib/ymdp/support/string_masker.rb",
      "lib/ymdp/support/w3c.rb",
      "lib/ymdp/tag_helper.rb",
      "lib/ymdp/tasks/keys.rake",
      "lib/ymdp/tasks/ymdp.rake",
      "lib/ymdp/translator/base.rb",
      "lib/ymdp/ymdp.rb",
+     "spec/configuration_spec.rb",
      "spec/data/Rakefile",
      "spec/data/VERSION",
      "spec/data/app/.gitignore",
@@ -178,7 +178,6 @@ Gem::Specification.new do |s|
      "spec/spec_helper.rb",
      "spec/translator_spec.rb",
      "spec/ymdp_spec.rb",
-     "spec/ymdt_spec.rb",
      "ymdp.gemspec"
   ]
   s.homepage = %q{http://github.com/progressions/ymdp}
@@ -187,13 +186,13 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Framework for developing applications in the Yahoo! Mail Development Platform}
   s.test_files = [
-    "spec/data/app/helpers/application_helper.rb",
+    "spec/configuration_spec.rb",
+     "spec/data/app/helpers/application_helper.rb",
      "spec/data/config/constants.rb",
      "spec/data/lib/init.rb",
      "spec/spec_helper.rb",
      "spec/translator_spec.rb",
-     "spec/ymdp_spec.rb",
-     "spec/ymdt_spec.rb"
+     "spec/ymdp_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -211,6 +210,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<progressions-g>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<timer>, [">= 0"])
+      s.add_development_dependency(%q<serenity>, [">= 0"])
     else
       s.add_dependency(%q<haml>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
@@ -222,6 +222,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<progressions-g>, [">= 0"])
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<timer>, [">= 0"])
+      s.add_dependency(%q<serenity>, [">= 0"])
     end
   else
     s.add_dependency(%q<haml>, [">= 0"])
@@ -234,6 +235,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<progressions-g>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<timer>, [">= 0"])
+    s.add_dependency(%q<serenity>, [">= 0"])
   end
 end
 

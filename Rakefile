@@ -20,6 +20,7 @@ begin
     gem.add_development_dependency "progressions-g", ">= 0"
     gem.add_development_dependency "bundler", ">= 0"
     gem.add_development_dependency "timer", ">= 0"
+    gem.add_development_dependency "serenity", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

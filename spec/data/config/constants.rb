@@ -40,13 +40,15 @@ servers = "#{YMDP_ROOT}/config/servers.yml"
 config = "#{YMDP_ROOT}/config/config.yml"
 
 if File.exists?(servers)
-  SERVERS = YAML.load_file("#{YMDP_ROOT}/config/servers.yml") unless defined?(SERVERS)
+  # SERVERS = YAML.load_file("#{YMDP_ROOT}/config/servers.yml") unless defined?(SERVERS)
+  SERVERS = YMDP::Configuration::Servers.new
 else
   file_not_found(servers)
 end
 
 if File.exists?(config)
-  CONFIG = YAML.load_file("#{YMDP_ROOT}/config/config.yml")["config"] unless defined?(CONFIG)
+  # CONFIG = YAML.load_file("#{YMDP_ROOT}/config/config.yml")["config"] unless defined?(CONFIG)
+  CONFIG = YMDP::Configuration::Config.new
 else
   file_not_found(config)
 end

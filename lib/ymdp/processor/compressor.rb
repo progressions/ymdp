@@ -3,7 +3,6 @@ require 'support/file'
 module YMDP
   module Compressor
     class Base
-      extend YMDP::Config
       extend YMDP::FileSupport
   
       def self.compress(path, options={})
@@ -16,10 +15,10 @@ module YMDP
           $stdout.print "   #{compressed_display_path}  compressing . . . "
           compressed = ''
         
-          if !obfuscate?
+          if options.delete("obfuscate")
             options["nomunge"] = ""
           end
-          if verbose?
+          if options.delete("verbose")
             options["verbose"] = ""
           end
           options["charset"] = "utf-8"
@@ -64,17 +63,13 @@ module YMDP
     
     class Stylesheet < Base
       def self.compress(path)
-        if compress_css?
-          super(path, "type" => "css")
-        end
+        super(path, "type" => "css")
       end
     end
     
     class JavaScript < Base      
       def self.compress(filename)
-        if compress_embedded_js?
-          super(filename, "type" => "js")
-        end
+        super(filename, "type" => "js")
       end
     end
   end

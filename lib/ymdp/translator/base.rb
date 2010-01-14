@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'rtranslate'
 require 'timer'
-require 'compiler/template_compiler'
+require 'compiler/template'
 
 module YMDP
   module Yaml

@@ -2,6 +2,7 @@ config:
   username: user
   password: password
   default_server: staging
+  host: myserver.com
   production_server: my
   doctype: HTML 4.0 Transitional
   growl: false

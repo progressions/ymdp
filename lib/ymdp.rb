@@ -7,6 +7,7 @@ $LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
 # load application
 #
 
+require 'rubygems'
 require 'erb'
 require 'set'
 
@@ -17,8 +18,8 @@ Dir["#{dir}/*.rb"].each do |path|
   require File.expand_path(path)
 end
 
-# load support
-#
-Dir["#{dir}/support/*.rb"].each do |path|
-  require File.expand_path(path)
+["support", "configuration"].each do |directory|
+  Dir["#{dir}/#{directory}/*.rb"].each do |path|
+    require File.expand_path(path)
+  end
 end

@@ -1,7 +1,5 @@
-require 'config'
 require 'processor/compressor'
 require 'processor/validator'
-require 'support/file'
 
 class Application
   def self.current_view?(view)
@@ -19,7 +17,7 @@ end
 
 module YMDP
   module Base
-    include YMDP::Config
+    # include YMDP::Config
     include YMDP::FileSupport
     include YMDP::Compressor
     
@@ -119,7 +117,7 @@ module YMDP
       output = ''
       if File.exists?(path)
         tmp_filename = save_processed_template(path)
-        if compress_css?
+        if CONFIG.compress_css?
           output = YMDP::Compressor::Stylesheet.compress(tmp_filename)
         else
           File.open(path) do |f|

@@ -1,6 +1,6 @@
-require 'deploy/ymdt'
+require 'ymdt'
 
-include YMDP::Config
+# include YMDP::Config
 
 begin
   CATEGORIES = YAML.load_file("./config/categories.yml")["categories"] unless defined?(CATEGORIES)
@@ -19,7 +19,7 @@ rescue
 end
 
 def create_from_servers
-  SERVERS.keys.each do |key|
+  SERVERS.each do |key, values|
     yield key.to_sym, "set_#{key}".to_sym
   end
 end
@@ -68,10 +68,10 @@ set_application_variables(@application)
 
 @sync = ENV["sync"]
 
-@validate_html = (ENV["validate_html"] || CONFIG["validate_html"].to_s) != "false"
-@validate_js_assets = (ENV["validate_js_assets"] || CONFIG["validate_js_assets"].to_s) != "false"
-@validate_json_assets = (ENV["validate_json_assets"] || CONFIG["validate_json_assets"].to_s) != "false"
-@validate_embedded_js = (ENV["validate_embedded_js"] || CONFIG["validate_embedded_js_deploy"].to_s) != "false"
+# @validate_html = (ENV["validate_html"] || CONFIG["validate_html"].to_s) != "false"
+# @validate_js_assets = (ENV["validate_js_assets"] || CONFIG["validate_js_assets"].to_s) != "false"
+# @validate_json_assets = (ENV["validate_json_assets"] || CONFIG["validate_json_assets"].to_s) != "false"
+# @validate_embedded_js = (ENV["validate_embedded_js"] || CONFIG["validate_embedded_js_deploy"].to_s) != "false"
 
 create_from_servers do |key, set_task|
   task set_task do
@@ -475,7 +475,7 @@ end
 # END OF RAKE TASKS
 
 def time(message="")
-  Timer.new(:title => "YMDP", :growl => growl?).time(message) do
+  Timer.new(:title => "YMDP", :growl => CONFIG.growl?).time(message) do
     yield
   end
 end
@@ -504,10 +504,10 @@ end
 def deploy(application, path)
   puts "\nDeploying #{application}: #{path}"
 
-  Rake::Task["validate:html"].invoke if validate_html?
-  Rake::Task["validate:embedded_js"].invoke if validate_embedded_js?
-  Rake::Task["validate:#{application}:javascripts"].invoke if validate_js_assets?
-  Rake::Task["validate:#{application}:json"].invoke if validate_json_assets?
+  Rake::Task["validate:html"].invoke if CONFIG.validate_html?
+  Rake::Task["validate:embedded_js"].invoke if CONFIG.validate_embedded_js?
+  Rake::Task["validate:#{application}:javascripts"].invoke if CONFIG.validate_js_assets?
+  Rake::Task["validate:#{application}:json"].invoke if CONFIG.validate_json_assets?
 
   ymdt.put(:application => application, :path => path)
 end
@@ -515,10 +515,10 @@ end
 def deploy_path(application, path)
   puts "\nDeploying #{application}: #{path}"
 
-  Rake::Task["validate:html"].invoke if validate_html?
-  Rake::Task["validate:embedded_js"].invoke if validate_embedded_js?
-  Rake::Task["validate:#{application}:javascripts"].invoke if validate_js_assets?
-  Rake::Task["validate:#{application}:json"].invoke if validate_json_assets?
+  Rake::Task["validate:html"].invoke if CONFIG.validate_html?
+  Rake::Task["validate:embedded_js"].invoke if CONFIG.validate_embedded_js?
+  Rake::Task["validate:#{application}:javascripts"].invoke if CONFIG.validate_js_assets?
+  Rake::Task["validate:#{application}:json"].invoke if CONFIG.validate_json_assets?
 
   dir = "./servers/#{application}"
 

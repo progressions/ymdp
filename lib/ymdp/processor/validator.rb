@@ -3,7 +3,7 @@ require 'support/file'
 module YMDP
   module Validator
     class Base
-      extend YMDP::Config
+      # extend YMDP::Config
       extend YMDP::FileSupport
     end
     
@@ -35,14 +35,8 @@ module YMDP
     end
     
     class JavaScript < Base
-      def self.validate?
-        validate_embedded_js?
-      end
-      
       def self.validate(filename)
-        if validate?
-          validate_javascript(filename)
-        end
+        validate_javascript(filename)
       end
       
       def self.use_jslint_settings?
@@ -108,10 +102,6 @@ JSLINT
     end
     
     class JSON < JavaScript
-      def self.validate?
-        validate_json_assets?
-      end
-      
       def pre_process(output)
         output
       end
