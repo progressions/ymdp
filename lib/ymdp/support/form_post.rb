@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'mime/types'
 require 'net/http'
-require 'CGI'
+# require 'CGI'
  
 class FormField
   attr_accessor :name, :value

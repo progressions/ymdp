@@ -109,7 +109,7 @@ module YMDP
       end
       
       def self.translate
-        time do
+        Timer.new(:title => "YMDP").time do
           original_translations.each do |path|
             puts "Processing #{display_path(path)}"
             template.new(path).copy
@@ -360,7 +360,7 @@ module YMDP
       end
       
       def parse_template(p)
-        YRBTemplate.new(p).to_hash
+        YMDP::Template::YRB.new(:file => p, :domain => "staging").to_hash
       end
       
       def format(key, value)

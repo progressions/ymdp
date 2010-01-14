@@ -2,8 +2,8 @@ module YMDP
   module FileSupport
     def confirm_overwrite(path)
       if File.exists?(path)
-        puts "File exists: #{display_path(path)}"
-        print "  overwrite? (y/n)"
+        $stdout.puts "File exists: #{File.expand_path(path)}"
+        $stdout.print "  overwrite? (y/n)"
         answer = $stdin.gets
         
         answer =~ /^y/i

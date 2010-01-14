@@ -1,3 +1,17 @@
+# Process source files into usable code.
+#
+# Source files can be HTML, Haml, ERB, JavaScript, or CSS files.
+#
+# Files with an extension of ".haml" will be processed with Haml, all others will
+# use ERB.
+#
+# Usage:
+#
+#   YMDP::Template::View.new(params).build
+#   YMDP::Template::JavaScript.new(params).build
+#
+# See YMDP::Template::Base#initialize for details on params.
+#
 module YMDP
   module Template
     # Compiles a single file in a single domain, processing its Haml or ERB and turning
@@ -161,6 +175,14 @@ module YMDP
     end
 
     class View < Base
+      # TODO: Refactor this.  Right now it includes all the YMDP::Base and other helper files
+      # into the same namespace where we're processing the templates.  It does this so it can
+      # send its 'binding' into the ERB or Haml template and the template will be able to 
+      # process methods like "render :partial => 'sidebar'" and so on. 
+      #
+      # All the methods which are meant to be run from inside a view need to be refactored into
+      # their own class, which can be sent into the template as a binding.
+      # 
       include ActionView::Helpers::TagHelper
   
       begin
@@ -207,49 +229,72 @@ module YMDP
         Haml::Engine.new(template, options).render(self)
       end
   
+      # Write this template with the application layout applied.
+      #
+      # Validate the resulting HTML file if that option is turned on.
+      #
       def write_template(result)
         write_template_with_layout(result)
         YMDP::Validator::HTML.validate(destination_path) if CONFIG.validate_html?
       end
     end
 
+    # Process templates for JavaScript files.
+    # 
+    # JavaScript files support ERB tags.
+    #
     class JavaScript < View
-      def compress_js(filename)
-        if compress_js_assets?
-          validate_filename = "#{filename}.min"
-          YMDP::Compressor::JavaScript.compress(filename)
-        end
-      end
-    
+      # Write the processed template without any layout.
+      #
+      # Run the JavaScript compressor on the file if that option is turned on.
+      #
       def write_template(result)
         filename = @file.split("/").last
         tmp_filename = "./tmp/#{filename}"
         save_to_file(result, tmp_filename)
-        result = YMDP::Compressor::JavaScript.compress(tmp_filename) || result
+        result = YMDP::Compressor::JavaScript.compress(tmp_filename) if CONFIG.compress_embedded_js?
         write_template_without_layout(result)
       end
     end
 
+    # Process Yahoo! Resource Bundle format translation files.
+    #
+    # Convert them to a hash and write the hash to a JSON file.
+    #
+    # Each language can have as many YRB translation files (with an extension of ".pres")
+    # as necessary.  The files are concatenated together and translated into a single JSON file
+    # for each language.
+    #
     class YRB < Base
+      # Base directory for translations for this domain.
+      #
       def directory
         directory = "#{BASE_PATH}/servers/#{@domain}/assets/yrb"
         FileUtils.mkdir_p(directory)
         directory
       end
   
+      # The destination of the compiled JSON file.
+      #
       def destination_path
         filename = convert_filename(@file.split("/").last)
         "#{directory}/#{filename}"
       end  
   
+      # JSON values of the compiled translations.
+      #
       def to_json
         processed_template
       end
   
+      # Turn it back into a hash.
+      #
       def to_hash
         JSON.parse(to_json)
       end
   
+      # Convert the hash to Yaml if you should want to do that.
+      #
       def to_yaml
         h = {}
         to_hash.each do |k,v|
@@ -259,32 +304,56 @@ module YMDP
         h.to_yaml
       end
   
+      # This function is the file which is written to the destination--in this
+      # case, the JSON file.
+      #
       def processed_template
         super.to_json
       end
   
+      # Validate the JSON file.
+      #
       def validate
         YMDP::Validator::JSON.validate(destination_path)
       end
   
       private
-  
+      
+      # Strip off the ".pres" extension from original YRB files.
+      #
       def base_filename(filename)    
         filename.gsub(/\.pres/, "")
       end
   
+      # Take the base filename and add the ".json" extension.
+      #
       def convert_filename(filename)
         "#{base_filename(filename)}.json"
       end
+      
+      # Is this line a valid comment in YRB?
+      def comment?(line)
+        line =~ /^[\s]*#/
+      end
+      
+      # Is this line valid YRB syntax?
+      #
+      def key_and_value_from_line(line)
+        if line =~ /^([^\=]+)=(.+)/
+          return $1, $2.strip
+        else
+          return nil, nil
+        end
+      end
   
+      # Parse YRB and add it to a hash.  Raise an error if the key already exists in the hash.
+      #
       def process_template(template)
         @hash = {}
         lines = template.split("\n")
         lines.each do |line|
-          unless line =~ /^[\s]*#/
-            line =~ /^([^\=]+)=(.+)/
-            key = $1
-            value = $2
+          unless comment?(line)
+            key, value = key_and_value_from_line(line)
             unless key.blank?
               if @hash.has_key?(key)
                 puts
@@ -305,6 +374,8 @@ module YMDP
         @hash
       end
   
+      # Write JSON file to its destination.
+      #
       def write_template(result)
         puts destination_path if CONFIG.verbose?
         write_template_without_layout(result)

@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.1.3.1"
+  s.version = "0.1.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
@@ -93,12 +93,10 @@ Gem::Specification.new do |s|
      "lib/ymdp/compiler/template.rb",
      "lib/ymdp/configuration/config.rb",
      "lib/ymdp/configuration/constants.rb",
-     "lib/ymdp/generator/base.rb",
      "lib/ymdp/generator/templates/javascript.js",
      "lib/ymdp/generator/templates/stylesheet.css",
      "lib/ymdp/generator/templates/translation.pres",
      "lib/ymdp/generator/templates/view.html.haml",
-     "lib/ymdp/generator/view.rb",
      "lib/ymdp/helpers.rb",
      "lib/ymdp/processor/compressor.rb",
      "lib/ymdp/processor/processor.rb",
@@ -213,6 +211,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<timer>, [">= 0"])
       s.add_development_dependency(%q<serenity>, [">= 0"])
+      s.add_development_dependency(%q<ymdp_generator>, [">= 0"])
     else
       s.add_dependency(%q<haml>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
@@ -225,6 +224,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<timer>, [">= 0"])
       s.add_dependency(%q<serenity>, [">= 0"])
+      s.add_dependency(%q<ymdp_generator>, [">= 0"])
     end
   else
     s.add_dependency(%q<haml>, [">= 0"])
@@ -238,6 +238,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<timer>, [">= 0"])
     s.add_dependency(%q<serenity>, [">= 0"])
+    s.add_dependency(%q<ymdp_generator>, [">= 0"])
   end
 end
 
