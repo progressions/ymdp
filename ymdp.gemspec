@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
-  s.date = %q{2010-01-13}
+  s.date = %q{2010-01-14}
   s.default_executable = %q{ymdp}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
@@ -89,7 +89,8 @@ Gem::Specification.new do |s|
      "lib/ymdp.rb",
      "lib/ymdp/asset_tag_helper.rb",
      "lib/ymdp/commands/generate.rb",
-     "lib/ymdp/compiler/template_compiler.rb",
+     "lib/ymdp/compiler/compiler.rb",
+     "lib/ymdp/compiler/template.rb",
      "lib/ymdp/configuration/config.rb",
      "lib/ymdp/configuration/constants.rb",
      "lib/ymdp/generator/base.rb",
@@ -105,6 +106,7 @@ Gem::Specification.new do |s|
      "lib/ymdp/support/blank.rb",
      "lib/ymdp/support/file.rb",
      "lib/ymdp/support/form_post.rb",
+     "lib/ymdp/support/git_helper.rb",
      "lib/ymdp/support/w3c.rb",
      "lib/ymdp/tag_helper.rb",
      "lib/ymdp/tasks/keys.rake",
