@@ -8,5 +8,6 @@ gem "sishen-rtranslate"
 gem "basepath"
 gem "rake"
 gem "ymdp"
+gem "timer"
 
 disable_system_gems

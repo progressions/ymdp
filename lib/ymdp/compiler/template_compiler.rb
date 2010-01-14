@@ -1,3 +1,5 @@
+require 'grit'
+
 include Grit
 
 include YMDP::Config
@@ -33,10 +35,19 @@ module TemplateBuilder
     @hash = git_hash
     @message = message
     @subdir = subdir
-    @version = CONFIG["version"]
-    @sprint_name = CONFIG["sprint_name"]
+    
+    set_content_variables
+    
     @view = base_filename(@file.split("/").last)
     Application.current_view = @view
+  end
+  
+  def set_content_variables
+    content = YAML.load_file("#{BASE_PATH}/config/content.yml")
+    content.each do |key, value|
+      attribute = "@#{key}"
+      instance_variable_set(attribute, value) unless instance_variable_defined?(attribute)
+    end
   end
 
   def build
@@ -108,7 +119,12 @@ end
 class YMDPTemplate
   include ActionView::Helpers::TagHelper
   include TemplateBuilder
-  include ApplicationHelper
+  
+  begin
+    include ApplicationHelper
+  rescue NameError 
+  end
+    
   include YMDP::Base
   include YMDP::AssetTagHelper
   include YMDP::FormTagHelper

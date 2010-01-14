@@ -91,9 +91,6 @@ module YMDP
     # Finds English language translation keys which have not been translated 
     # and translates them through Google Translate.
     #
-    # Usage: 
-    #   YMDP::Translator::Base.new().translate
-    #
     class Base
       include YMDP::FileSupport
       extend YMDP::FileSupport
@@ -303,6 +300,9 @@ module YMDP
       end    
     end
     
+    # Usage: 
+    #   YMDP::Translator::Yaml.new().translate
+    #
     class Yaml < Base
       include YMDP::Yaml::Support
       extend YMDP::Yaml::Support
@@ -340,6 +340,9 @@ module YMDP
       end
     end
     
+    # Usage: 
+    #   YMDP::Translator::YRB.new().translate
+    #
     class YRB < Base
       include YMDP::YRB::Support
       extend YMDP::YRB::Support

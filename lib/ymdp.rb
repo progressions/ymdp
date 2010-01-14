@@ -7,6 +7,9 @@ $LOAD_PATH.unshift dir unless $LOAD_PATH.include?(dir)
 # load application
 #
 
+require 'erb'
+require 'set'
+
 require File.expand_path("#{dir}/tag_helper")
 require File.expand_path("#{dir}/asset_tag_helper")
 

@@ -1,0 +1,9 @@
+development:
+  server: alpha
+  application_id: abcdefghijk
+  assets_id: abcdefghijk_1
+
+staging:
+  server: staging
+  application_id: abcdefghijk
+  assets_id: abcdefghijk_1

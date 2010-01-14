@@ -1,3 +1,5 @@
+require 'deploy/ymdt'
+
 include YMDP::Config
 
 begin
@@ -155,12 +157,6 @@ DOCS
   # TODO: add more documentation
 
   puts docs
-end
-
-def time(message="")
-  Timer.new(:title => "YMDP", :growl => growl?).time(message) do
-    yield
-  end
 end
 
 desc "Deploys application to YMDP servers"
@@ -478,45 +474,16 @@ end
 
 # END OF RAKE TASKS
 
-def invoke_ymdt(command_string, application, path="", return_results=false)
-  dir = "./servers/" << application
-  path = dir << "/" << path
-    
-  command = []  
-  command << command_string
-  command << "\"#{path}\""
-  command << "-s" if @sync
-
-  ymdt_command(command, return_results)
-end
-
-def ymdt_command(commands, return_results=false)
-  command = []
-  # command << "php"
-  command << "./script/ymdt"
-  
-  command << commands
-  
-  command << "-u#{@username}"
-  command << "-p#{@password}"
-  command_string = command.join(" ")
-  
-  display_string = command_string.dup
-  display_string.gsub!(@username, "[username]")
-  display_string.gsub!(@password, "[password]")
-  
-  puts
-  puts display_string
-
-  unless @dry_run
-    if return_results
-      `#{command_string}`
-    else
-      puts
-      system command_string
-    end
+def time(message="")
+  Timer.new(:title => "YMDP", :growl => growl?).time(message) do
+    yield
   end
 end
+
+def ymdt
+  @ymdt ||= YMDT::Base.new(:username => @username, :password => @password)
+end
+
 
 def validated_embedded_js(path)
   # jslint only accepts files, later we can hack it to accept stdin pipes
@@ -542,7 +509,7 @@ def deploy(application, path)
   Rake::Task["validate:#{application}:javascripts"].invoke if validate_js_assets?
   Rake::Task["validate:#{application}:json"].invoke if validate_json_assets?
 
-  invoke_ymdt("put", application, path)
+  ymdt.put(:application => application, :path => path)
 end
 
 def deploy_path(application, path)
@@ -568,7 +535,7 @@ def deploy_path(application, path)
   
       if file =~ Regexp.new(path)
         puts file
-        invoke_ymdt("put", application, new_path)
+        ymdt.put(:application => application, :path => new_path)
       end
     end
   end
@@ -587,7 +554,7 @@ def deploy_yrb(application, path, options={})
 end
 
 def list(application, path)
-  invoke_ymdt("ls", application, path, true)
+  ymdt.ls(:application => application, :path => path, :return_results => true)
 end
 
 def check_asset_ids(application, path)
@@ -687,22 +654,7 @@ def create_directory_from_application(application, path="")
   time("Done creating #{application}: #{path}") do
     puts "Creating #{application}: #{path}"
     application_id = SERVERS[application]["application_id"]
-  
-    dir = "./servers/#{application}"
-  
-    if path == ""
-      path = dir
-    else
-      path = "./" << path
-    end
-  
-    command = []
-  
-    command << "get"
-    command << path
-    command << "-a#{application_id}"
-  
-    ymdt_command(command)
+    ymdt.get(:application => application, :path => path, :application_id => application_id)
   end  
 end
 
