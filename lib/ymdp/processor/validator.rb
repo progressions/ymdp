@@ -1,9 +1,10 @@
 require 'support/file'
+require 'processor/w3c'
+require 'processor/form_post'
 
 module YMDP
   module Validator
     class Base
-      # extend YMDP::Config
       extend YMDP::FileSupport
     end
     

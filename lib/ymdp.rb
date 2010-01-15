@@ -18,7 +18,7 @@ Dir["#{dir}/*.rb"].each do |path|
   require File.expand_path(path)
 end
 
-["support", "configuration", "compiler"].each do |directory|
+["support", "configuration"].each do |directory|
   Dir["#{dir}/#{directory}/*.rb"].each do |path|
     require File.expand_path(path)
   end

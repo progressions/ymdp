@@ -1,5 +1,17 @@
 module YMDP
   module FileSupport
+    # Concatenate together the contents of the input_path into the output_file.
+    #
+    def concat_files(input_path, output_file)
+      File.open(output_file, "a") do |output|
+        Dir[input_path].each do |path|
+          File.open(path) do |f|
+            output.puts f.read
+          end
+        end
+      end        
+    end
+    
     def confirm_overwrite(path)
       if File.exists?(path)
         $stdout.puts "File exists: #{File.expand_path(path)}"
@@ -49,6 +61,18 @@ module YMDP
       output += "\n"      
     
       output
+    end
+  end
+end
+
+class F
+  extend YMDP::FileSupport
+  
+  def self.execute(command, params={})
+    if params[:return]
+      `#{command}`
+    else
+      system command
     end
   end
 end

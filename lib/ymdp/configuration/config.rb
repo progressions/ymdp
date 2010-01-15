@@ -2,6 +2,45 @@ require 'serenity'
 
 module YMDP
   module Configuration
+    module Helpers
+      def self.included(klass)
+        klass.send :extend, ClassMethods
+        klass.send :include, InstanceMethods
+      end
+      
+      module ClassMethods
+        # Class Methods to handle global stuff like base path and server settings
+      
+        def self.base_path= base_path
+          @@base_path = base_path
+        end
+      
+        def self.base_path
+          @@base_path
+        end
+      
+        def self.servers= servers
+          @@servers = servers
+        end
+      
+        def self.servers
+          @@servers
+        end
+      end
+      
+      module InstanceMethods      
+        # Instance Methods to access global stuff like base path and server settings
+      
+        def servers
+          send :class_attribute_get, "#@@servers"
+        end
+      
+        def base_path
+          @@base_path
+        end
+      end
+    end
+    
     class Base
       attr_accessor :base
       
