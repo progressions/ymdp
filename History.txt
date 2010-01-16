@@ -1,0 +1,11 @@
+== 0.1.6 2010-01-16
+  * major enhancements
+    * YMDP global settings now assigned through YMDP::Base.configure block
+    * Raise exceptions if vital settings like version and server don't exist
+  * minor enhancements
+    * improved RDoc coverage
+    * improved test coverage
+    * YMDP_ROOT is now replaced by BASE_PATH
+    * renamed YMDP::Base to YMDP::ApplicationView
+    * made new YMDP::Base to handle global settings
+    
