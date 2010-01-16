@@ -1,3 +1,8 @@
+== in Git
+  * minor enhancements
+    * improved RDoc coverage
+    * improved test coverage
+
 == 0.1.6 2010-01-16
   * major enhancements
     * YMDP global settings now assigned through YMDP::Base.configure block
