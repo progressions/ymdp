@@ -125,11 +125,16 @@ module YMDP
     # will find <tt>app/javascripts/shared/sidebar.js</tt> and render its contents into the current
     # view in an inline script block.
     #
-    # === Rendering multiple JavaScript partials
+    # == Rendering a stylesheet partial
     #
-    # Pass an array to <tt>render</tt> to combine multiple JavaScript files into a single
+    # Stylesheets are located at <tt>app/stylesheets</tt> and are named <tt>_filename_.css</tt>
+    #
+    #
+    # === Rendering multiple partials
+    #
+    # Pass an array to <tt>render</tt> to combine multiple files into a single
     # inline block.  This is useful for compression and validation, as it allows a set of 
-    # JavaScript files to be compressed or validated in a single context.
+    # files to be compressed or validated in a single context.
     # 
     #   render :javascript => ['application', 'flash', 'debug']
     #
@@ -139,13 +144,35 @@ module YMDP
     #
     # Pass a <tt>:filename</tt> parameter to set the name of the combined file.  Currently the
     # combined file only exists on disc while it's being compressed and/or validated, but
-    # in the future this may be expanded to save multiple JavaScripts as a single external asset.
+    # in the future this may be expanded to save multiple files as a single external asset.
+    # 
+    #   render :javascript = ['application', 'flash', 'debug'], :filename => 'javascripts'
     #
     # Currently the <tt>:filename</tt> parameter is simply a convenience.
     #
-    # == Rendering a stylesheet partial
+    # Multiple partials of any type can be rendered.
+    # 
+    # For example:
     #
-    # Stylesheets are located at <tt>app/stylesheets</tt> and are named <tt>_filename_.css</tt>
+    #   render :partial => ['header', 'footer', 'sidebar'], :filename => 'html_layouts'
+    #
+    # will find <tt>app/views/_header.html.haml</tt>, <tt>app/views/_footer.html.haml</tt>,
+    # and <tt>app/views/_sidebar.html.haml</tt> and write them to a temporary file called
+    # <tt>tmp/html_layouts</tt> before rendering that file into the current view.
+    #
+    # This feature is intended mainly for JavaScript and CSS.
+    #
+    # For example:
+    #
+    #   render :stylesheet => ['application', 'colors'], :filename => 'styles'
+    #
+    # will render <tt>app/stylesheets/application.css</tt> and <tt>app/stylesheets/colors.css</tt>
+    # as a single temporary file called <tt>tmp/styles</tt> before rendering that file into 
+    # the current view.
+    #
+    # If compression and validation options are turned on, the resulting temporary file will be
+    # compressed and/or validated before being rendered into the current view.  This will result
+    # in a more efficient compression and a more effective validation. 
     #
     def render(params)
       output = []
@@ -153,16 +180,27 @@ module YMDP
       if params[:tags] == false
         tags = false
       end
+      
+      # TODO: Make each of the following blocks its own function.
+      
+      # Render an HTML, Haml or ERB partial.
+      #
       if params[:partial]
         params[:partial].to_a.each do |partial|
           output << render_partial(partial)
         end
       end
+      
+      # Render a JavaScript partial.
+      #
       if params[:javascript]
         output << "<script type='text/javascript'>" if tags
         output << render_javascripts(params[:javascript].to_a, params[:filename])
         output << "</script>" if tags
       end
+      
+      # Render a CSS partial.
+      #
       if params[:stylesheet]
         params[:stylesheet].to_a.each do |stylesheet|
           output << render_stylesheet(stylesheet, tags)
@@ -177,20 +215,9 @@ module YMDP
     #
     def render_partial(filename)
       output = ''
-      path = nil
-      
-      ["views", "views/shared"].each do |dir|
-        basic_path = "#{BASE_PATH}/app/#{dir}/_#{filename}.html"
-        
-        ["", ".haml", ".erb"].each do |extension|
-          if File.exists?(basic_path + extension)
-            path ||= basic_path + extension
-          end
-        end
-      end
+      path = find_partial(filename)
 
       if path
-      
         File.open(path) do |f|
           template = f.read
           if path =~ /haml$/
@@ -204,6 +231,25 @@ module YMDP
       end
       output    
     end
+    
+    # Searches all the possible paths to find a match for this partial name.
+    #
+    def find_partial(filename)
+      path = nil
+      ["views", "views/shared"].each do |dir|
+        
+        # TODO: Refactor this so it doesn't use BASE_PATH
+        basic_path = "#{BASE_PATH}/app/#{dir}/_#{filename}.html"
+        
+        ["", ".haml", ".erb"].each do |extension|
+          if File.exists?(basic_path + extension)
+            path ||= basic_path + extension
+          end
+        end
+      end
+      
+      path
+    end
   
     # Internal use only. Renders a stylesheet partial.
     #
@@ -211,6 +257,7 @@ module YMDP
       unless filename =~ /\.css$/
         filename = "#{filename}.css"
       end
+      # TODO: Refactor this so it doesn't use BASE_PATH
       path = "#{BASE_PATH}/app/stylesheets/#{filename}"
     
       output = ''
@@ -308,5 +355,13 @@ module YMDP
     
       tmp_filename      
     end
+  end
+  
+  class View
+    include YMDP::ApplicationView
+
+    def initialize(assets_directory)
+      @assets_directory = assets_directory
+    end    
   end
 end

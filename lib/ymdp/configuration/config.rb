@@ -110,9 +110,9 @@ module YMDP
       end
       
       def file_not_found(filename)
-        puts
-        puts "Create #{filename} with the following command:\n\n  ./script/config" 
-        puts
+        $stdout.puts
+        $stdout.puts "Create #{filename} with the following command:\n\n  ./script/config" 
+        $stdout.puts
   
         raise "File not found: #{filename}"  
       end      

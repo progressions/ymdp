@@ -3,6 +3,7 @@ def stub_io
   stub_file_io
   stub_file_utils
   stub_yaml
+  stub_growl
 end
 
 def stub_screen_io
@@ -16,6 +17,7 @@ def stub_file_io(unprocessed_file="")
     
   File.stub!(:exists?).and_return(false)
   File.stub!(:open).and_yield(@file) 
+  File.stub!(:read).and_return(unprocessed_file)
 end
 
 def stub_file_utils
@@ -24,6 +26,7 @@ def stub_file_utils
   FileUtils.stub!(:cp_r)
   FileUtils.stub!(:mkdir_p)
   F.stub!(:concat_files)
+  F.stub!(:get_line_from_file).and_return("")
 end
 
 def stub_yaml(output_hash={})
@@ -45,6 +48,12 @@ def stub_timer
   @timer = mock('timer').as_null_object
   @timer.stub!(:time).and_yield
   Timer.stub!(:new).and_return(@timer)
+end
+
+def stub_growl
+  @g = Object.new
+  Growl.stub(:new).and_return(@g)
+  @g.stub(:notify).as_null_object  
 end
 
 def reset_constant(constant, value)

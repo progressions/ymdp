@@ -34,6 +34,12 @@ describe "Compiler" do
     end
   end
   
+  describe "log" do
+    it "should return output formatted with time" do
+      @compiler.log("Hello").should match(/Hello$/)
+    end
+  end
+  
   describe "process" do
     before(:each) do
       YMDP::ApplicationView.stub!(:supported_languages).and_return([])
@@ -51,6 +57,29 @@ describe "Compiler" do
     it "should see if server directory exists" do
       File.should_receive(:exists?).with("#{@base_path}/servers/#{@domain}")
       @compiler.process_all
+    end
+    
+    describe "copy_images" do
+      it "should remove images folder" do
+        FileUtils.should_receive(:rm_rf).with("./app/servers/#{@domain}/assets/images")
+        @compiler.process_all
+      end
+      
+      it "should create images folder" do
+        FileUtils.should_receive(:mkdir_p).with("./app/servers/#{@domain}/assets")
+        @compiler.process_all
+      end
+      
+      it "should copy images from app to server" do
+        FileUtils.should_receive(:cp_r).with("./app/assets/images/", "./app/servers/#{@domain}/assets")
+        @compiler.process_all
+      end
+      
+      it "should log in verbose mode" do
+        @compiler = YMDP::Compiler::Base.new(@domain, @git_hash, :base_path => @base_path, :server => "staging", :verbose => true)
+        $stdout.should_receive(:puts).with(/Moving images/)
+        @compiler.process_all
+      end
     end
 
     describe "translations" do
