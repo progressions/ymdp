@@ -1,6 +1,6 @@
 # Compiles the source code for an individual domain.
 #
-# Usage:
+# ==== Examples
 #
 #   @compiler = YMDP::Compiler::Base.new('staging', 'asdfh23rh2fas', :base_path => ".", :server => {
 #     "server" => "staging", "application_id" => "12345", "assets_id" => "abcdefg_1" })
@@ -10,8 +10,8 @@
 #   @compiler.build
 #
 module YMDP
-  module Compiler
-    class Base
+  module Compiler #:nodoc:
+    class Base 
       attr_accessor :domain, :git_hash, :options, :base_path, :server
   
       # A TemplateCompiler instance covers a single domain, handling all the processing necessary to 
@@ -23,6 +23,9 @@ module YMDP
         @options = options
         @base_path = options[:base_path]
         @server = options[:server]
+        
+        raise ArgumentError.new("domain is required") unless @domain
+        raise ArgumentError.new("server is required") unless @server
         
         raise ArgumentError.new("base_path is required") unless @base_path
       end
@@ -43,7 +46,6 @@ module YMDP
 
       # Do all the processing necessary to convert all the application source code from the given path
       # into usable destination files ready for upload to the server:
-      #
       # - create server directory if necessary,
       # - for each file in the source path, build the file, and
       # - copy the images from the source to the destination directory.
@@ -62,8 +64,8 @@ module YMDP
       end
   
       # Build this file if it's either:
-      #   - a view, but not a partial or layout, or
-      #   - a JavaScript file.
+      # - a view, but not a partial or layout, or
+      # - a JavaScript file.
       #
       def build_file(file)
         params = {
@@ -88,7 +90,7 @@ module YMDP
       #
       def process_all_translations
         $stdout.puts "Processing ./app/assets/yrb/ for #{domain}"
-        YMDP::Base.supported_languages.each do |lang|
+        YMDP::ApplicationView.supported_languages.each do |lang|
           process_each_yrb(lang)
         end
       end
@@ -96,7 +98,7 @@ module YMDP
       # Convert the YRB translation files of a single language for this domain into a single JSON file.
       #
       def process_each_yrb(lang)
-        tmp_file = "#{TMP_DIR}/keys_#{lang}.pres"
+        tmp_file = "#{TMP_PATH}/keys_#{lang}.pres"
     
         # Concatenate together all the YRB ".pres" files for this language into one file in the tmp dir.
         #
@@ -117,8 +119,8 @@ module YMDP
         FileUtils.rm_rf("#{dir}/assets/javascripts")
         FileUtils.rm_rf("#{dir}/assets/stylesheets")
         FileUtils.rm_rf("#{dir}/assets/yrb")
-        FileUtils.rm_rf("#{TMP_DIR}/")
-        FileUtils.mkdir_p(TMP_DIR)
+        FileUtils.rm_rf("#{TMP_PATH}/")
+        FileUtils.mkdir_p(TMP_PATH)
       end
 
       # Format text in a standard way for output to the screen.

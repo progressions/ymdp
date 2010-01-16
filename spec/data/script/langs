@@ -2,12 +2,10 @@
 
 require 'lib/init'
 
-YMDP_ROOT = "."
-
 include ApplicationView::Base
 
 def keys(lang)
-  path = "#{YMDP_ROOT}/servers/my/assets/yrb/keys_#{lang}.json"
+  path = "#{BASE_PATH}/servers/my/assets/yrb/keys_#{lang}.json"
   json = ""
   if File.exists?(path)
     File.open(path, "r") do |f|

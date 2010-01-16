@@ -11,6 +11,9 @@ require 'spec'
 require 'spec/autorun'
 
 require 'stubs'
+require 'default_settings'
+
 
 Spec::Runner.configure do |config|
+
 end

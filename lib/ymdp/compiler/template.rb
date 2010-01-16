@@ -1,36 +1,30 @@
-# Process source files into usable code.
-#
-# Source files can be HTML, Haml, ERB, JavaScript, or CSS files.
-#
-# Files with an extension of ".haml" will be processed with Haml, all others will
-# use ERB.
-#
-# Usage:
-#
-#   YMDP::Compiler::Template::View.new(params).build
-#   YMDP::Compiler::Template::JavaScript.new(params).build
-#
-# See YMDP::Compiler::Template::Base#initialize for details on params.
-#
 module YMDP
-  module Compiler
-    module Template
-      # Compiles a single file in a single domain, processing its Haml or ERB and turning
-      # it into usable destination files in the 'servers' directory.
+  module Compiler #:nodoc:
+    module Template #:nodoc:
+      # Process source files into usable code.
       #
-      class Base
-        # Usage:
-        # 
-        #   @template = YMDP::Compiler::Template::Base.new(params)
-        #
-        # Arguments:
-        #
-        #   - verbose: boolean value, output verbose notices,
-        #   - domain: string, indicates which domain the template is compiling to,
-        #   - file: filename of the template in question,
-        #   - hash: git hash of the latest commit,
-        #   - message: commit message of the latest commit.
-        #
+      # Source files can be HTML, Haml, ERB, JavaScript, or CSS files.
+      #
+      # Files with an extension of ".haml" will be processed with Haml, all others will
+      # use ERB.
+      #
+      # ==== Examples
+      #
+      #   YMDP::Compiler::Template::View.new(params).build
+      #
+      #   YMDP::Compiler::Template::JavaScript.new(params).build
+      # 
+      #   @template = YMDP::Compiler::Template::Base.new(params)
+      #
+      # ==== Options
+      #
+      #   verbose: boolean value, output verbose notices,
+      #   domain: string, indicates which domain the template is compiling to,
+      #   file: filename of the template in question,
+      #   hash: git hash of the latest commit,
+      #   message: commit message of the latest commit.
+      #
+      class Base < YMDP::Base
         attr_accessor :domain, :server, :file, :assets_directory, :hash, :message
         
         def initialize(params)
@@ -41,9 +35,18 @@ module YMDP
           @assets_directory = "/om/assets/#{servers[@domain]['assets_id']}"
           @hash = params[:git_hash]
           @message = params[:message]
-    
+          
+          server_settings = servers[@domain]
+          if server_settings
+            @server = server_settings["server"]
+          else
+            raise StandardError.new("server name is required")
+          end
+          
+          raise StandardError.new("server name is required") unless @server
+          
           set_content_variables
-    
+          
           @view = base_filename(@file.split("/").last)
           Application.current_view = @view
         end
@@ -58,17 +61,19 @@ module YMDP
         # an instance variable, so they will be available inside the template.
         #
         def set_content_variables
-          content = YAML.load_file("#{CONFIG_PATH}/content.yml")
-          content.each do |key, value|
+          content_variables.each do |key, value|
             attribute = "@#{key}"
             instance_variable_set(attribute, value) unless instance_variable_defined?(attribute)
+            class_eval %(
+              attr_accessor :#{key}
+            )
           end
         end
       
         # If the filename begins with a _ it's a partial.
         #
         def partial?
-          @file =~ /#{base_path}\/app\/views\/_/
+          @file =~ /#{paths[:base_path]}\/app\/views\/_/
         end
 
         # Compile this view unless it is a partial.
@@ -103,10 +108,15 @@ module YMDP
         # Produces the destination path of this template, in the servers directory for
         # the given domain.
         #
-        # For example:
+        # ==== Examples
         #
-        #   source: app/views/authorize.html.haml
-        #   destination: servers/staging/views/authorize.html.haml
+        # If the source file is:
+        # 
+        #   app/views/authorize.html.haml
+        #
+        # The destination file will be:
+        #
+        #   servers/staging/views/authorize.html.haml
         #
         def destination_path
           # just the file, with no directory
@@ -119,7 +129,7 @@ module YMDP
           directory = File.dirname(@file)
         
           # replace the app directory with the server directory
-          relative_directory = directory.gsub!("#{base_path}/app", server_path)
+          relative_directory = directory.gsub!("#{paths[:base_path]}/app", server_path)
         
           # make the directory if it doesn't exist
           FileUtils.mkdir_p(relative_directory)
@@ -127,10 +137,7 @@ module YMDP
           "#{relative_directory}/#{filename}"
         end
       
-        # Path to the servers directory for the current domain:
-        #
-        # - "./servers/staging"
-        # - "./servers/alpha"
+        # Path to the servers directory for the current domain.
         #
         def server_path
           "#{servers_path}/#{@domain}"
@@ -160,7 +167,7 @@ module YMDP
         #
         def write_template_with_layout(result)
           @content = result
-          application_layout = "#{base_path}\/app\/views\/layouts\/application.html"
+          application_layout = "#{paths[:base_path]}\/app\/views\/layouts\/application.html"
           haml_layout = application_layout + ".haml"
           erb_layout = application_layout + ".erb"
         
@@ -181,54 +188,20 @@ module YMDP
   
         # Write this processed template to its destination file.
         #
-        # Overwrite in child class to define whether the class uses a template or not.
+        # Overwrite this method in child class to define whether the class 
+        # uses a template or not.
         #
         def write_template(result)
           write_template_with_layout(result)
         end
         
         def servers_path
-          "#{base_path}/servers"
+          "#{paths[:base_path]}/servers"
         end
-
-
-
-
-      
-      # Class Methods to handle global stuff like base path and server settings
-      
-      def self.base_path= base_path
-        @@base_path = base_path
-      end
-      
-      def self.base_path
-        @@base_path
-      end
-      
-      def self.servers= servers
-        @@servers = servers
-      end
-      
-      def self.servers
-        @@servers
-      end
-      
-      # Instance Methods to access global stuff like base path and server settings
-      
-      def servers
-        @@servers
-      end
-      
-      def base_path
-        @@base_path
-      end
-  
-
-        
       end
 
       class View < Base
-        # TODO: Refactor this.  Right now it includes all the YMDP::Base and other helper files
+        # TODO: Refactor this.  Right now it includes all the YMDP::ApplicationView and other helper files
         # into the same namespace where we're processing the templates.  It does this so it can
         # send its 'binding' into the ERB or Haml template and the template will be able to 
         # process methods like "render :partial => 'sidebar'" and so on. 
@@ -243,7 +216,7 @@ module YMDP
         rescue NameError
         end
     
-        include YMDP::Base
+        include YMDP::ApplicationView
         include YMDP::AssetTagHelper
         include YMDP::FormTagHelper
         include YMDP::LinkTagHelper
@@ -322,7 +295,7 @@ module YMDP
         # Base directory for translations for this domain.
         #
         def directory
-          directory = "#{base_path}/servers/#{@domain}/assets/yrb"
+          directory = "#{paths[:base_path]}/servers/#{@domain}/assets/yrb"
           FileUtils.mkdir_p(directory)
           directory
         end

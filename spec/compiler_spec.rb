@@ -17,7 +17,7 @@ describe "Compiler" do
     @git_hash = 'asdfh23rh2fas'
     @base_path = "."
     
-    @compiler = YMDP::Compiler::Base.new(@domain, @git_hash, :base_path => @base_path)
+    @compiler = YMDP::Compiler::Base.new(@domain, @git_hash, :base_path => @base_path, :server => "staging")
   end
     
   describe "instantiation" do
@@ -36,7 +36,7 @@ describe "Compiler" do
   
   describe "process" do
     before(:each) do
-      YMDP::Base.stub!(:supported_languages).and_return([])
+      YMDP::ApplicationView.stub!(:supported_languages).and_return([])
       
       @view_template = mock('view_template').as_null_object
       YMDP::Compiler::Template::View.stub!(:new).and_return(@view_template)
@@ -56,7 +56,7 @@ describe "Compiler" do
     describe "translations" do
       before(:each) do
         @supported_languages = ["en-US", "de-DE"]
-        YMDP::Base.stub!(:supported_languages).and_return(@supported_languages)
+        YMDP::ApplicationView.stub!(:supported_languages).and_return(@supported_languages)
       end
       
       it "should act on the list of supported languages" do

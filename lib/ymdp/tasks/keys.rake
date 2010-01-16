@@ -5,7 +5,7 @@ require 'translator/base'
 @key = ENV["key"] || ""
 @key = @key.upcase
 
-ASSETS_ROOT = "#{YMDP_ROOT}/app/assets"
+ASSETS_ROOT = "#{BASE_PATH}/app/assets"
 YRB_ROOT = "#{ASSETS_ROOT}/yrb"
 
 namespace :keys do
@@ -35,7 +35,7 @@ namespace :keys do
   end
   
   task :combine do
-    system "rm #{TMP_DIR}/*"
+    system "rm #{TMP_PATH}/*"
     each_locale do |path|
       puts path
       filename = path.split("/").last
@@ -45,20 +45,20 @@ namespace :keys do
       end
       
       File.open(path, "r") do |f|
-        File.open("#{TMP_DIR}/keys_#{lang}.pres", "a") do |tmp|
+        File.open("#{TMP_PATH}/keys_#{lang}.pres", "a") do |tmp|
           tmp.write(f.read)
         end
       end
     end
     
     system "rm -rf #{YRB_ROOT}/*"
-    system "cp #{TMP_DIR}/* #{YRB_ROOT}"
+    system "cp #{TMP_PATH}/* #{YRB_ROOT}"
     
-    system "rm #{TMP_DIR}/*"
+    system "rm #{TMP_PATH}/*"
   end
   
   task :destroy do
-    system "rm #{TMP_DIR}/*"
+    system "rm #{TMP_PATH}/*"
     
     raise "Must define a key with 'key='" if @key == ""
     
@@ -72,7 +72,7 @@ namespace :keys do
       line
     end
     
-    system "rm #{TMP_DIR}/*"
+    system "rm #{TMP_PATH}/*"
   end
   
   desc "Translate any new keys into non-US languages"
@@ -81,7 +81,7 @@ namespace :keys do
   end
   
   task :rename do
-    system "rm #{TMP_DIR}/*"
+    system "rm #{TMP_PATH}/*"
     
     @to = ENV["to"] || ""
     @to = @to.upcase
@@ -99,7 +99,7 @@ namespace :keys do
       line
     end
     
-    system "rm #{TMP_DIR}/*"
+    system "rm #{TMP_PATH}/*"
   end
   
   # task :unused do
@@ -169,14 +169,14 @@ def change_keys
     puts path
     filename = path.split("/").last
     File.open(path, "r") do |f|
-      File.open("#{TMP_DIR}/#{filename}", "w") do |tmp|
+      File.open("#{TMP_PATH}/#{filename}", "w") do |tmp|
         f.readlines.each do |line|
           new_line = yield line
           tmp.write new_line
         end
       end
     end
-    system "cp #{TMP_DIR}/#{filename} #{path}"
+    system "cp #{TMP_PATH}/#{filename} #{path}"
   end
 end
 
@@ -189,14 +189,14 @@ def change_keys_with_lang
       lang = $1
     end
     File.open(path, "r") do |f|
-      File.open("#{TMP_DIR}/#{filename}", "w") do |tmp|
+      File.open("#{TMP_PATH}/#{filename}", "w") do |tmp|
         f.readlines.each do |line|
           new_line = yield line, lang, filename
           tmp.write new_line
         end
       end
     end
-    system "cp #{TMP_DIR}/#{filename} #{path}"
+    system "cp #{TMP_PATH}/#{filename} #{path}"
   end
 end
 

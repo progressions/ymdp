@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'rubygems'
-require 'g'
-
-g "Something requires your attention."

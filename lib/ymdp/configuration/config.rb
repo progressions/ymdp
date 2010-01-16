@@ -1,43 +1,85 @@
 require 'serenity'
+require 'yaml'
 
 module YMDP
-  module Configuration
-    module Helpers
-      def self.included(klass)
-        klass.send :extend, ClassMethods
-        klass.send :include, InstanceMethods
+  module Configuration #:nodoc:
+    # Provides an interface to set global configuration variables inside a block.
+    #
+    # Used by the YMDP::Base <tt>configure</tt> method.
+    #
+    # == Examples
+    #
+    # In the following example, the <tt>config</tt> variable inside the block is an
+    # instance of YMDP::Configuration::Setter.
+    #
+    #   YMDP::Base.configure do |config|
+    #     config.username = 'malreynolds'
+    #     config.load_content_variables('content')
+    #   end
+    #
+    # It is then up to YMDP::Base.configure to take the Setter instance and set all the 
+    # appropriate options based on its settings.
+    #
+    class Setter
+      # String value containing the login used to communicate with the Yahoo! Mail Development
+      # Platform to deploy the application.
+      attr_accessor :username
+      
+      # String value containing the password used to communicate with the Yahoo! Mail Development
+      # Platform to deploy the application.
+      attr_accessor :password
+      
+      # String value containing the default_server name. Matches the related entry in the 
+      # <tt>servers</tt> hash to define which server is the default for rake tasks such as 
+      # <tt>deploy</tt>.
+      attr_accessor :default_server
+      
+      # Boolean value which sets whether Growl notifications should be used when compiling 
+      # and deploying the application.
+      attr_accessor :growl
+      
+      # Hash value containing settings which tell the application when to compress CSS and JavaScript.
+      attr_accessor :compress
+      
+      # Hash value containing settings which tell the application when to validate HTML and JavaScript.
+      attr_accessor :validate
+      
+      # Boolean value which sets whether to output verbose messages or not.
+      attr_accessor :verbose
+      
+      # Hash value containing content variables which are made available to the views at build time.
+      attr_accessor :content_variables
+      
+      # Hash value containing application data about the servers, such as their asset and application IDs.
+      attr_accessor :servers
+      
+      # Hash value containing paths used by the application to locate its files. This can be used to
+      # overwrite default settings.
+      attr_accessor :paths
+      
+      def initialize #:nodoc:
+        @paths = {}
+        @content_variables = {}
       end
       
-      module ClassMethods
-        # Class Methods to handle global stuff like base path and server settings
-      
-        def self.base_path= base_path
-          @@base_path = base_path
-        end
-      
-        def self.base_path
-          @@base_path
-        end
-      
-        def self.servers= servers
-          @@servers = servers
-        end
-      
-        def self.servers
-          @@servers
-        end
+      # Adds an entry to the <tt>paths</tt> hash. 
+      #
+      def add_path(name, value)
+        @paths[name] = value
       end
       
-      module InstanceMethods      
-        # Instance Methods to access global stuff like base path and server settings
+      # Adds an entry to the <tt>content_variables</tt> hash.
+      #
+      def add_content_variable(name, value)
+        @content_variables[name] = value
+      end
       
-        def servers
-          send :class_attribute_get, "#@@servers"
-        end
-      
-        def base_path
-          @@base_path
-        end
+      # Loads the <tt>content_variables</tt> hash from a Yaml file.
+      #
+      def load_content_variables(filename)
+        path = "#{CONFIG_PATH}/#{filename}".gsub(/\.yml$/, "")
+        path = "#{path}.yml"
+        @content_variables = YAML.load_file(path)
       end
     end
     

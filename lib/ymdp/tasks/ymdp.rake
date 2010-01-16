@@ -8,7 +8,7 @@ rescue
   CATEGORIES = {} unless defined?(CATEGORIES)
 end
 
-Dir.mkdir(TMP_DIR) rescue Errno::EEXIST
+Dir.mkdir(TMP_PATH) rescue Errno::EEXIST
 
 def set_application_variables(application)
   @application = application
@@ -287,8 +287,8 @@ namespace :validate do
   desc "Validates all HTML"
   task :html do
     puts "\nValidating HTML in #{@application}..."
-    `rm -rf #{TMP_DIR}`
-    Dir.mkdir(TMP_DIR) rescue Errno::EEXIST
+    `rm -rf #{TMP_PATH}`
+    Dir.mkdir(TMP_PATH) rescue Errno::EEXIST
     Dir["./servers/#{@application}/views/*"].each do |filename|
       YMDP::Validator::HTML.validate(filename) if filename =~ /#{@path}/
     end    
@@ -491,7 +491,7 @@ def validated_embedded_js(path)
     Hpricot(f) 
   }
   
-  js_fragment_path = TMP_DIR + "/#{File.basename(path)}_js_fragment"
+  js_fragment_path = TMP_PATH + "/#{File.basename(path)}_js_fragment"
 
   File.open(js_fragment_path,'w') do |f|
     (doc / "script").each { |js| f.puts js.inner_html + "\n\n" }

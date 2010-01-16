@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.1.4"
+  s.version = "0.1.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
-  s.date = %q{2010-01-14}
+  s.date = %q{2010-01-16}
   s.default_executable = %q{ymdp}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
@@ -26,68 +26,11 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "bin/ymdp",
-     "lib/new_application/.base",
-     "lib/new_application/Gemfile",
-     "lib/new_application/Rakefile",
-     "lib/new_application/app/.gitignore",
-     "lib/new_application/app/assets/images/lightbox/lightbox_bg.png",
-     "lib/new_application/app/assets/javascripts/OpenMailIntl.js",
-     "lib/new_application/app/assets/javascripts/controls.js",
-     "lib/new_application/app/assets/javascripts/date.js",
-     "lib/new_application/app/assets/javascripts/dragdrop.js",
-     "lib/new_application/app/assets/javascripts/effects.js",
-     "lib/new_application/app/assets/javascripts/lowpro.js",
-     "lib/new_application/app/assets/javascripts/prototype.js",
-     "lib/new_application/app/assets/javascripts/scriptaculous.js",
-     "lib/new_application/app/assets/yrb/en-US/application_en-US.pres",
-     "lib/new_application/app/helpers/application_helper.rb",
-     "lib/new_application/app/javascripts/application.js",
-     "lib/new_application/app/javascripts/debug.js",
-     "lib/new_application/app/javascripts/flash.js",
-     "lib/new_application/app/javascripts/header.js",
-     "lib/new_application/app/javascripts/help.js",
-     "lib/new_application/app/javascripts/i18n.js",
-     "lib/new_application/app/javascripts/launcher.js",
-     "lib/new_application/app/javascripts/logger.js",
-     "lib/new_application/app/javascripts/tag_helper.js",
-     "lib/new_application/app/stylesheets/application.css",
-     "lib/new_application/app/stylesheets/ie.css",
-     "lib/new_application/app/stylesheets/ie6.css",
-     "lib/new_application/app/stylesheets/ie7.css",
-     "lib/new_application/app/stylesheets/ie8.css",
-     "lib/new_application/app/stylesheets/lightbox.css",
-     "lib/new_application/app/stylesheets/non_ie.css",
-     "lib/new_application/app/views/layouts/application.html.haml",
-     "lib/new_application/app/views/shared/_error.html.haml",
-     "lib/new_application/app/views/shared/_flash.html.haml",
-     "lib/new_application/app/views/shared/_javascripts.html.haml",
-     "lib/new_application/app/views/shared/_loading.html.haml",
-     "lib/new_application/app/views/shared/_stylesheets.html.haml",
-     "lib/new_application/config/categories.yml",
-     "lib/new_application/config/config.yml.example",
-     "lib/new_application/config/constants.rb",
-     "lib/new_application/config/servers.yml.example",
-     "lib/new_application/lib/init.rb",
-     "lib/new_application/lib/tasks/environment.rake",
-     "lib/new_application/lib/tasks/keys.rake",
-     "lib/new_application/lib/tasks/setup.rake",
-     "lib/new_application/lib/tasks/ymdp.rake",
-     "lib/new_application/script/build",
-     "lib/new_application/script/config",
-     "lib/new_application/script/destroy",
-     "lib/new_application/script/generate",
-     "lib/new_application/script/gitrm",
-     "lib/new_application/script/growl",
-     "lib/new_application/script/images",
-     "lib/new_application/script/jslint.js",
-     "lib/new_application/script/langs",
-     "lib/new_application/script/translate",
-     "lib/new_application/script/ymdt",
-     "lib/new_application/script/ymdt.old",
-     "lib/new_application/script/yuicompressor-2.4.2.jar",
-     "lib/new_application/ymdp",
      "lib/ymdp.rb",
+     "lib/ymdp/application.rb",
+     "lib/ymdp/application_view.rb",
      "lib/ymdp/asset_tag_helper.rb",
+     "lib/ymdp/base.rb",
      "lib/ymdp/commands/build.rb",
      "lib/ymdp/commands/generate.rb",
      "lib/ymdp/compiler/base.rb",
@@ -104,7 +47,6 @@ Gem::Specification.new do |s|
      "lib/ymdp/helpers.rb",
      "lib/ymdp/processor/compressor.rb",
      "lib/ymdp/processor/form_post.rb",
-     "lib/ymdp/processor/processor.rb",
      "lib/ymdp/processor/validator.rb",
      "lib/ymdp/processor/w3c.rb",
      "lib/ymdp/support/blank.rb",
@@ -113,7 +55,8 @@ Gem::Specification.new do |s|
      "lib/ymdp/tasks/keys.rake",
      "lib/ymdp/tasks/ymdp.rake",
      "lib/ymdp/translator/base.rb",
-     "lib/ymdp/ymdp.rb",
+     "spec/application_spec.rb",
+     "spec/application_view_spec.rb",
      "spec/compiler_spec.rb",
      "spec/compiler_template_spec.rb",
      "spec/configuration_spec.rb",
@@ -179,12 +122,15 @@ Gem::Specification.new do |s|
      "spec/data/script/ymdt",
      "spec/data/script/ymdt.old",
      "spec/data/script/yuicompressor-2.4.2.jar",
+     "spec/default_settings.rb",
      "spec/domains_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb",
      "spec/stubs.rb",
      "spec/translator_spec.rb",
+     "spec/ymdp_base_spec.rb",
      "spec/ymdp_spec.rb",
+     "test.rb",
      "ymdp.gemspec"
   ]
   s.homepage = %q{http://github.com/progressions/ymdp}
@@ -193,16 +139,20 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Framework for developing applications in the Yahoo! Mail Development Platform}
   s.test_files = [
-    "spec/compiler_spec.rb",
+    "spec/application_spec.rb",
+     "spec/application_view_spec.rb",
+     "spec/compiler_spec.rb",
      "spec/compiler_template_spec.rb",
      "spec/configuration_spec.rb",
      "spec/data/app/helpers/application_helper.rb",
      "spec/data/config/constants.rb",
      "spec/data/lib/init.rb",
+     "spec/default_settings.rb",
      "spec/domains_spec.rb",
      "spec/spec_helper.rb",
      "spec/stubs.rb",
      "spec/translator_spec.rb",
+     "spec/ymdp_base_spec.rb",
      "spec/ymdp_spec.rb"
   ]
 

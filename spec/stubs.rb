@@ -1,3 +1,9 @@
+def stub_io
+  stub_screen_io
+  stub_file_io
+  stub_file_utils
+  stub_yaml
+end
 
 def stub_screen_io
   $stdout.stub!(:puts)
@@ -39,4 +45,9 @@ def stub_timer
   @timer = mock('timer').as_null_object
   @timer.stub!(:time).and_yield
   Timer.stub!(:new).and_return(@timer)
+end
+
+def reset_constant(constant, value)
+  Object.send(:remove_const, constant)
+  Object.const_set(constant, value)
 end

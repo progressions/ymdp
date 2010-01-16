@@ -1,8 +1,0 @@
-#error{:style => "display: none;"}
-  %h2#error_1 We're sorry, but something went wrong when we tried to contact the server.
-  %p#error_2 We've been notified about this issue and we'll take a look at it shortly.
-  
-  %p
-    = button("Retry", :id => "retry", :onclick => "YAHOO.launcher.relaunchAuthorize(); return false;", :class => "t")
-      
-  %p#error_details{:style => "display: none;"}

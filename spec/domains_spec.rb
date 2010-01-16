@@ -5,32 +5,13 @@ require 'compiler/domains'
 describe "Domains" do
   before(:each) do
     stub_git_helper
-    
-    @servers = {
-      "staging" => {
-        "server" => "staging",
-        "application_id" => "12345",
-        "assets_id" => "abcdefg_1"
-      },
-      
-      "production" => {
-        "server" => "www",
-        "application_id" => "678910",
-        "assets_id" => "hijklmno_1"
-      }
-    }
-    @servers.stub!(:servers).and_return(@servers)
+    stub_yrb_configuration
     
     @options = {
       :commit => true,
       :branch => "master",
       :message => "Commit message"
-    }
-    @base_path = "."
-    
-    YMDP::Compiler::Domains.base_path = @base_path
-    YMDP::Compiler::Domains.servers = @servers
-    
+    }   
     @domains = YMDP::Compiler::Domains.new(@options)
   end
   
@@ -52,7 +33,7 @@ describe "Domains" do
     end
     
     it "should set base_path" do
-      @domains.base_path.should == @base_path
+      @domains.paths[:base_path].should == @base_path
     end
     
     it "should set domains" do

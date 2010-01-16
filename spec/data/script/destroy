@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-YMDP_ROOT = "."
-APP_DIR = "#{YMDP_ROOT}/app"
+BASE_PATH = "."
+APP_DIR = "#{BASE_PATH}/app"
 ASSETS_DIR = "#{APP_DIR}/assets"
 VIEWS_DIR = "#{APP_DIR}/views"
 JAVASCRIPTS_DIR = "#{APP_DIR}/javascripts"

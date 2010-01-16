@@ -15,6 +15,7 @@ config:
     js_assets: true
   validate:
     html: 
+      doctype: HTML 4.0 Transitional
       build: true
       deploy: true
     embedded_js:

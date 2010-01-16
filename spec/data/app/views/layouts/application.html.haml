@@ -6,6 +6,8 @@
       = "'#{@view}' view for #{@domain}: #{@server}"
       = "built at #{Time.now}"
       = "commit #{@hash}, '#{@message}'"
+      
+    - raise "No server" unless @server
 
     %title= "#{@view} view for #{@domain}: #{@server}"
 

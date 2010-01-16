@@ -14,7 +14,7 @@ module YMDP
   module Compiler
     # Covers all the domains and the actions that are taken on all domains at once.
     #
-    class Domains
+    class Domains < YMDP::Base
       attr_accessor :git, :git_hash, :message, :domains, :options
   
       def initialize(options=nil)
@@ -26,35 +26,7 @@ module YMDP
 
         commit if @options[:commit]
       end
-      
-      # Class Methods to handle global stuff like base path and server settings
-      
-      def self.base_path= base_path
-        @@base_path = base_path
-      end
-      
-      def self.base_path
-        @@base_path
-      end
-      
-      def self.servers= servers
-        @@servers = servers
-      end
-      
-      def self.servers
-        @@servers
-      end
-      
-      # Instance Methods to access global stuff like base path and server settings
-      
-      def servers
-        @@servers
-      end
-      
-      def base_path
-        @@base_path
-      end
-  
+        
       # Compile the source code for all domains into their usable destination files.
       #
       def compile
@@ -83,6 +55,8 @@ module YMDP
       #
       def process_domains
         domains.each do |domain|
+          params = options
+          params[:server] = servers[domain]["server"]
           compiler = YMDP::Compiler::Base.new(domain, git_hash, options)
           
           compiler.process_all
@@ -92,11 +66,11 @@ module YMDP
       # Perform a block, starting with a clean 'tmp' directory and ending with one.
       #
       def clean_tmp_dir
-        system "rm -rf #{TMP_DIR}"
-        system "mkdir #{TMP_DIR}"
+        system "rm -rf #{TMP_PATH}"
+        system "mkdir #{TMP_PATH}"
         yield
-        system "rm -rf #{TMP_DIR}"
-        system "mkdir #{TMP_DIR}"
+        system "rm -rf #{TMP_PATH}"
+        system "mkdir #{TMP_PATH}"
       end
     end
   end

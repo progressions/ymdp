@@ -1,9 +1,0 @@
-production:
-  server: www
-  application_id: 
-  assets_id: 
-
-development:
-  server: staging
-  application_id: 3icpjckq3ic9k
-  assets_id: 6ap3470p30oj4_1
