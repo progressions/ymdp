@@ -11,27 +11,41 @@ module YMDP
     class HTML < Base
       def self.validate(path)
         html_display_path = display_path(path)
+        log_path = "#{TMP_PATH}/#{File.basename(path)}_errors.html"
 
+        log_path = validation_errors(path)
+        if log_path
+          g("HTML validation errors found")
+          F.execute "open #{log_path}"
+          raise "Invalid HTML"
+        else
+          $stdout.puts "   #{html_display_path}  validating . . . OK"
+        end
+      end
+      
+      def self.validation_errors(path)
+        html_display_path = display_path(path)
         doctype = CONFIG["doctype"] || "HTML 4.0 Transitional"
 
-        resp = post_file_to_w3c_validator(path, doctype)
+        resp = W3CPoster.post_file_to_w3c_validator(path, doctype)
         html = resp.read_body
         if html.include? "[Valid]"
-          $stdout.puts "   #{html_display_path}  validating . . . OK"
-        else 
+          false
+        else
           log_path = "#{TMP_PATH}/#{File.basename(path)}_errors.html"
           $stdout.puts "   #{html_display_path} is not valid HTML, writing to #{display_path(log_path)}"
           $stdout.puts
           $stdout.puts "     To view errors:"
           $stdout.puts "     open #{display_path(log_path)}"
           $stdout.puts
-          File.open(log_path,'w') { |f| f.puts html }
-          $stdout.puts "     Viewing errors..."
-  
-          g("HTML validation errors found")
-          system "open #{log_path}"
-          raise "Invalid HTML"
-        end
+          
+          File.open(log_path,'w') do |f|
+             f.puts html
+           end
+           
+          $stdout.puts "     Viewing errors..."    
+          log_path
+        end  
       end
     end
     
@@ -79,7 +93,7 @@ JSLINT
             f.puts output
           end
 
-          results = `java org.mozilla.javascript.tools.shell.Main ./script/jslint.js #{js_fragment_path}`
+          results = F.execute("java org.mozilla.javascript.tools.shell.Main ./script/jslint.js #{js_fragment_path}", :return => true)
 
           if results =~ /jslint: No problems found/
             $stdout.puts "OK"
@@ -94,7 +108,7 @@ JSLINT
                 $stdout.puts error
               end
             end
-            message = "Javascript Errors embedded in #{display}"
+            message = "JavaScript Errors embedded in #{display}"
             g(message)
             raise message
           end
@@ -103,7 +117,7 @@ JSLINT
     end
     
     class JSON < JavaScript
-      def pre_process(output)
+      def self.pre_process(output)
         output
       end
       

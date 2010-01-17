@@ -82,7 +82,7 @@ describe "Compressor" do
         end
         
         it "should show the source code" do
-          F.should_receive(:get_line_from_file).and_return("")
+          F.should_receive(:get_line_from_file).with("file.js", 12).and_return("")
           lambda {
             YMDP::Compressor::Base.compress("file.js", "type" => "js")
           }.should raise_error(/JavaScript errors/)

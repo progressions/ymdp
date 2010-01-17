@@ -17,6 +17,7 @@ def stub_file_io(unprocessed_file="")
   @file.stub!(:write)
   @file.stub!(:puts)
   
+  File.stub!(:new).and_return(@file)
   File.stub!(:exists?).and_return(false)
   File.stub!(:open).and_yield(@file) 
   File.stub!(:read).and_return(unprocessed_file)
@@ -32,6 +33,7 @@ def stub_file_utils
   F.stub!(:get_line_from_file).and_return("")
   F.stub!(:save_to_file)
   F.stub!(:save_to_tmp_file)
+  F.stub!(:execute).and_return("")
 end
 
 def stub_yaml(output_hash={})
