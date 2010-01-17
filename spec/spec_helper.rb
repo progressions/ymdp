@@ -6,6 +6,8 @@ CONFIG_PATH = "#{BASE_PATH}/config"
 SERVERS_PATH = "#{BASE_PATH}/servers"
 TMP_PATH = "#{BASE_PATH}/tmp"
 
+YMDP_ENV = "test"
+
 require 'ymdp'
 require 'g'
 require 'active_support'

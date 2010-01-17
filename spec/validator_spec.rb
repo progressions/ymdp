@@ -4,6 +4,7 @@ require 'processor/w3c'
 describe "Validator" do
   before(:each) do
     stub_io
+    stub_config
   end
   
   describe "HTML" do

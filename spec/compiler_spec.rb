@@ -43,13 +43,13 @@ describe "Compiler" do
   describe "process" do
     before(:each) do
       YMDP::ApplicationView.stub!(:supported_languages).and_return([])
-      
-      @view_template = mock('view_template').as_null_object
-      YMDP::Compiler::Template::View.stub!(:new).and_return(@view_template)
-      @js_template = mock('js_template').as_null_object
-      YMDP::Compiler::Template::JavaScript.stub!(:new).and_return(@js_template)
-      @yrb_template = mock('yrb_template').as_null_object
-      YMDP::Compiler::Template::YRB.stub!(:new).and_return(@yrb_template)
+
+      # @view_template = mock('view_template').as_null_object
+      # YMDP::Compiler::Template::View.stub!(:new).and_return(@view_template)
+      # @js_template = mock('js_template').as_null_object
+      # YMDP::Compiler::Template::JavaScript.stub!(:new).and_return(@js_template)
+      # @yrb_template = mock('yrb_template').as_null_object
+      # YMDP::Compiler::Template::YRB.stub!(:new).and_return(@yrb_template)
       
       Dir.stub!(:[]).and_return([])
     end
@@ -84,6 +84,10 @@ describe "Compiler" do
 
     describe "translations" do
       before(:each) do
+
+        @yrb_template = mock('yrb_template').as_null_object
+        YMDP::Compiler::Template::YRB.stub!(:new).and_return(@yrb_template)
+        
         @supported_languages = ["en-US", "de-DE"]
         YMDP::ApplicationView.stub!(:supported_languages).and_return(@supported_languages)
       end
@@ -131,6 +135,9 @@ describe "Compiler" do
         before(:each) do
           @files = ["./app/views/view.html.haml"]
           Dir.stub!(:[]).with("./app/views/**/*").and_return(@files)
+
+          @view_template = mock('view_template').as_null_object
+          YMDP::Compiler::Template::View.stub!(:new).and_return(@view_template)
         end
     
         it "should run on all views in the path" do
@@ -154,6 +161,9 @@ describe "Compiler" do
         before(:each) do
           @files = ["./app/views/view.html.erb"]
           Dir.stub!(:[]).with("./app/views/**/*").and_return(@files)
+
+          @view_template = mock('view_template').as_null_object
+          YMDP::Compiler::Template::View.stub!(:new).and_return(@view_template)
         end
     
         it "should run on all views in the path" do
@@ -175,6 +185,9 @@ describe "Compiler" do
     end
     
     it "should run on all views in the path" do
+      @js_template = mock('js_template').as_null_object
+      YMDP::Compiler::Template::JavaScript.stub!(:new).and_return(@js_template)
+
       files = ["./app/assets/javascripts/view.js"]
       Dir.should_receive(:[]).with("./app/assets/**/*").and_return(files)
       @compiler.process_all

@@ -31,19 +31,19 @@ module YMDP
           @verbose = params[:verbose]
           @domain = params[:domain]
           
-          @file = params[:file]
-          @assets_directory = "/om/assets/#{servers[@domain]['assets_id']}"
-          @hash = params[:git_hash]
-          @message = params[:message]
-          
           server_settings = servers[@domain]
           if server_settings
             @server = server_settings["server"]
           else
-            raise StandardError.new("server name is required")
+            raise StandardError.new("Server settings are required.")
           end
           
-          raise StandardError.new("server name is required") unless @server
+          raise StandardError.new("Server name does not exist in server settings.") unless @server
+          
+          @file = params[:file]
+          @assets_directory = "/om/assets/#{servers[@domain]['assets_id']}"
+          @hash = params[:git_hash]
+          @message = params[:message]
           
           set_content_variables
           
@@ -73,12 +73,13 @@ module YMDP
         # If the filename begins with a _ it's a partial.
         #
         def partial?
-          @file =~ /#{paths[:base_path]}\/app\/views\/_/
+          File.basename(@file) =~ /^_/
         end
 
         # Compile this view unless it is a partial.
         #
         def build
+          # puts "Base build"
           unless partial?
             write_template(processed_template)
           end
@@ -87,16 +88,19 @@ module YMDP
         # Returns the compiled template code after its Haml or ERB has been processed.
         #
         def processed_template
+          # "Base processed_template"
           result = ""
-          File.open(@file) do |f|
-            template = f.read
-            if @file =~ /\.haml$/
-              result = process_haml(template, @file)
-            else
-              result = process_template(template)
-            end
+          template = File.read(@file)
+          if @file =~ /\.haml$/
+            result = process_haml(template, @file)
+          else
+            result = process_template(template)
           end
           result
+        end
+        
+        def base_filename(filename)
+          raise "Define in child"
         end
       
         # Implemented in child classes, this defines what must be done to process a template.
@@ -153,11 +157,15 @@ module YMDP
         #
         def write_template_without_layout(result)
           path = destination_path
-    
+          
+          # puts "\n\n\nBase write_template_without_layout: #{result}, #{path}"
+          
           File.open(path, "w") do |f|
             f.write(result)
           end
           verbose "Finished writing #{path}.\n"
+          
+          result
         end
   
         # Writes the input string to the destination file, passing it through the
@@ -166,21 +174,16 @@ module YMDP
         # The application layout can be either Haml or ERB.
         #
         def write_template_with_layout(result)
+          # puts "Base write_template_with_layout"
           @content = result
+          layout = result
+          
           application_layout = "#{paths[:base_path]}\/app\/views\/layouts\/application.html"
           haml_layout = application_layout + ".haml"
-          erb_layout = application_layout + ".erb"
         
           if File.exists?(haml_layout)
-            layout = File.open(haml_layout) do |f|
-              template = f.read
-              process_haml(template, haml_layout)
-            end
-          elsif File.exists?(erb_layout)
-            layout = File.open(erb_layout) do |f|
-              template = f.read
-              process_template(erb_layout)
-            end
+            template = File.read(haml_layout)
+            layout = process_haml(template, haml_layout)
           end
         
           write_template_without_layout(layout)
@@ -192,6 +195,7 @@ module YMDP
         # uses a template or not.
         #
         def write_template(result)
+          # puts "Base write_template"
           write_template_with_layout(result)
         end
         
@@ -211,10 +215,7 @@ module YMDP
         # 
         include ActionView::Helpers::TagHelper
   
-        begin
-          include ApplicationHelper
-        rescue NameError
-        end
+        include ApplicationHelper if defined?(ApplicationHelper)
     
         include YMDP::ApplicationView
         include YMDP::AssetTagHelper
@@ -242,12 +243,14 @@ module YMDP
         # Process this template with ERB.
         #
         def process_template(template)
+          # puts "View process_template"
           ERB.new(template, 0, "%<>").result(binding)
         end
   
         # Process this template with Haml.
         #
         def process_haml(template, filename=nil)
+          # puts "View process_haml"
           options = {}
           if filename
             options[:filename] = filename
@@ -260,8 +263,11 @@ module YMDP
         # Validate the resulting HTML file if that option is turned on.
         #
         def write_template(result)
-          write_template_with_layout(result)
+          # puts "View write_template"
+          result = super(result)
           YMDP::Validator::HTML.validate(destination_path) if CONFIG.validate_html?
+          
+          result
         end
       end
 
@@ -382,14 +388,14 @@ module YMDP
               key, value = key_and_value_from_line(line)
               unless key.blank?
                 if @hash.has_key?(key)
-                  puts
-                  puts "Duplicate value in #{destination_path}"
-                  puts "  #{key}=#{@hash[key]}"
-                  puts "  #{key}=#{value}"
-                  puts
+                  $stdout.puts
+                  $stdout.puts "Duplicate value in #{destination_path}"
+                  $stdout.puts "  #{key}=#{@hash[key]}"
+                  $stdout.puts "  #{key}=#{value}"
+                  $stdout.puts
                   if @hash[key] == value
-                    puts "  Values are the same but duplicate values still should not exist!"
-                    puts
+                    $stdout.puts "  Values are the same but duplicate values still should not exist!"
+                    $stdout.puts
                   end
                   raise "Duplicate key error"
                 end
@@ -403,7 +409,7 @@ module YMDP
         # Write JSON file to its destination.
         #
         def write_template(result)
-          puts destination_path if CONFIG.verbose?
+          $stdout.puts destination_path if CONFIG.verbose?
           write_template_without_layout(result)
         end
       end
