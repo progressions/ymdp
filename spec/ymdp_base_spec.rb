@@ -1,6 +1,10 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe YMDP::Base do
+  before(:each) do
+    @base_path = File.expand_path("./")
+  end
+  
   describe "instantiation" do
     it "should instantiate" do
       @ymdp = YMDP::Base.new
@@ -82,6 +86,20 @@ describe YMDP::Base do
       @ymdp.validate.should == @validate
     end
     
+    it "should set base_path" do
+      YMDP::Base.configure do |config|
+        config.add_path(:base_path, @base_path)
+      end
+      @ymdp.base_path.should == @base_path
+    end
+    
+    it "should set class base_path" do
+      YMDP::Base.configure do |config|
+        config.add_path(:base_path, @base_path)
+      end
+      YMDP::Base.base_path.should == @base_path
+    end
+    
     describe "content variables" do
       describe "add" do
         it "should add a content_variable" do
@@ -124,6 +142,22 @@ describe YMDP::Base do
     
         it "should set sprint name in content variables" do
           @ymdp.sprint_name.should == "Gorgonzola"
+        end
+      end
+      
+      describe "display_path" do
+        it "should strip base_path from the display" do
+          YMDP::Base.configure do |config|
+            config.add_path(:base_path, @base_path)
+          end
+          @ymdp.display_path("#{@base_path}/file")
+        end
+        
+        it "class method should strip base_path from the display" do
+          YMDP::Base.configure do |config|
+            config.add_path(:base_path, @base_path)
+          end
+          YMDP::Base.display_path("#{@base_path}/file")
         end
       end
     end
