@@ -110,5 +110,11 @@ JSLINT
       def self.jslint_settings
       end
     end
+    
+    class Stylesheet < Base
+      def self.validate(filename)
+        true
+      end
+    end
   end
 end

@@ -27,6 +27,8 @@ def stub_file_utils
   FileUtils.stub!(:mkdir_p)
   F.stub!(:concat_files)
   F.stub!(:get_line_from_file).and_return("")
+  F.stub!(:save_to_file)
+  F.stub!(:save_to_tmp_file)
 end
 
 def stub_yaml(output_hash={})

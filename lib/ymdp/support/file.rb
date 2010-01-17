@@ -40,13 +40,30 @@ module YMDP
       path.gsub(BASE_PATH, "")
     end
     
-    # Saves the <tt>output</tt> string to the <tt>destination_path</tt> given
+    # Saves the <tt>output</tt> string to the <tt>destination_path</tt> given.
+    #
+    # Returns <tt>true</tt> if the destination file was newly created, <tt>false</tt> if
+    # it already existed.
     #
     def save_to_file(output, destination_path)
-      unless File.exists?(destination_path)      
+      if File.exists?(destination_path)      
+        false
+      else
         File.open(destination_path, "w") do |w|
           w.write(output)
         end
+        true
+      end
+    end
+    
+    # Use the saved file if it already exists.
+    #
+    def save_to_tmp_file(output, tmp_filename)
+      if File.exists?(tmp_filename)
+        nil
+      else
+        F.save_to_file(output, tmp_filename)
+        tmp_filename
       end
     end
   

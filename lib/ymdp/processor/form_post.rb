@@ -3,11 +3,7 @@
 require 'rubygems'
 require 'mime/types'
 require 'net/http'
-begin
-  require 'CGI'
-rescue StandardError => e
-  puts e.message
-end
+require 'CGI' unless defined?(CGI)
  
 class FormField
   attr_accessor :name, :value

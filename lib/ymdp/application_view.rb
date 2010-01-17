@@ -176,55 +176,45 @@ module YMDP
     #
     def render(params)
       output = []
-      tags = true
-      if params[:tags] == false
-        tags = false
+      
+      unless params.has_key?(:tags)
+        params[:tags] = true
       end
+        
+      output << render_html_partial(params)
+      output << render_javascript_partial(params)
+      output << render_stylesheet_partial(params)
       
-      # TODO: Make each of the following blocks its own function.
-      
-      # Render an HTML, Haml or ERB partial.
-      #
+      output.flatten.join("\n")
+    end
+  
+    private
+    
+    # Renders an HTML, Haml or ERB partial.
+    #    
+    def render_html_partial(params)
+      output = []
+
       if params[:partial]
         params[:partial].to_a.each do |partial|
           output << render_partial(partial)
         end
       end
-      
-      # Render a JavaScript partial.
-      #
-      if params[:javascript]
-        output << "<script type='text/javascript'>" if tags
-        output << render_javascripts(params[:javascript].to_a, params[:filename])
-        output << "</script>" if tags
-      end
-      
-      # Render a CSS partial.
-      #
-      if params[:stylesheet]
-        params[:stylesheet].to_a.each do |stylesheet|
-          output << render_stylesheet(stylesheet, tags)
-        end
-      end
-      output.join("\n")
+      output     
     end
-  
-    private
 
-    # Internal use only. Renders an HTML partial.
+    # Renders an HTML partial.
     #
     def render_partial(filename)
       output = ''
       path = find_partial(filename)
 
-      if path
-        File.open(path) do |f|
-          template = f.read
-          if path =~ /haml$/
-            output = process_haml(template, path)
-          else
-            output = process_template(template)
-          end
+      if path && File.exists?(path)
+        template = File.read(path)
+        if path =~ /haml$/
+          output = process_haml(template, path)
+        else
+          output = process_template(template)
         end
       else
         raise "Could not find partial: #{filename}"
@@ -250,110 +240,103 @@ module YMDP
       
       path
     end
-  
-    # Internal use only. Renders a stylesheet partial.
-    #
-    def render_stylesheet(filename, tags=false)
-      unless filename =~ /\.css$/
-        filename = "#{filename}.css"
-      end
-      # TODO: Refactor this so it doesn't use BASE_PATH
-      path = "#{BASE_PATH}/app/stylesheets/#{filename}"
     
-      output = ''
-      if File.exists?(path)
-        tmp_filename = save_processed_template(path)
-        if CONFIG.compress_css?
-          output = YMDP::Compressor::Stylesheet.compress(tmp_filename)
-        else
-          File.open(path) do |f|
-            template = f.read
-            output = process_template(template)          
-          end
+    def render_javascript_partial(params)
+      output = []
+      # Render a JavaScript partial.
+      #
+      if params[:javascript]
+        content = render_javascripts(params[:javascript].to_a, params[:filename])
+        unless content.blank?
+          output << "<script type='text/javascript'>" if params[:tags]
+          output << content
+          output << "</script>" if params[:tags]
         end
-    
-        if tags
-          "<style type='text/css'>\n" + output + "\n</style>"
-        else
-          output
-        end
-      else
-        ""
       end
+      output
     end
     
-    # Internal use only. Renders a JavaScript partial.
+    # Renders a JavaScript partial.
     #
     def render_javascripts(filenames, combined_filename=nil)
-      output = []
-      
-      # concatenate all javascript files into one long string
-      #
-      filenames.each do |filename|
-        output << render_without_compression(filename, false)
-      end
-      output = output.join("\n")
-      
       filenames_str = combined_filename || filenames.join()
+      
+      filenames.map! do |filename|
+        filename.gsub!(/\.js$/, "")
+        "#{BASE_PATH}/app/javascripts/#{filename}.js"
+      end
+      
+      output = combine_files(filenames)
       tmp_filename = "./tmp/#{filenames_str}.js"
       
-      # use the saved file if it already exists
-      unless File.exists?(tmp_filename)
-        save_to_file(output, tmp_filename)
-        validate_filename = tmp_filename
-      end
-        
-      # return compressed javascript or else don't
-      output = YMDP::Compressor::JavaScript.compress(tmp_filename) || output
+      validate = F.save_to_tmp_file(output, tmp_filename)
+
+      output = YMDP::Compressor::JavaScript.compress(tmp_filename) if CONFIG.compress_embedded_js?
       
-      YMDP::Validator::JavaScript.validate(validate_filename) if validate_filename
+      YMDP::Validator::JavaScript.validate(tmp_filename) if validate && CONFIG.validate_embedded_js?
       
       output
     end
     
-    # Internal use only. Renders together a set of JavaScript files without 
-    # compression, so they can be compressed as a single block.
+    # Render a CSS partial.
     #
-    def render_without_compression(filename, tags=true)
-      unless filename =~ /\.js$/
-        filename = "#{filename}.js"
-      end
-      path = "#{BASE_PATH}/app/javascripts/#{filename}"
-  
-      output = ''
-    
-      if File.exists?(path)
-        File.open(path) do |f|
-          template = f.read
-          output = process_template(template)
+    def render_stylesheet_partial(params)
+      output = []
+      if params[:stylesheet]
+        content = render_stylesheets(params[:stylesheet].to_a, params[:filename])
+        unless content.blank?
+          output << "<style type='text/css'>" if params[:tags]
+          output << content
+          output << "</style>" if params[:tags]
         end
-
-        if tags
-          "<script type='text/javascript'>\n" + output + "\n</script>"
-        else
-          output
-        end
-      else
-        ""
       end
+      output      
     end
     
-    # Internal use only. Processes the template (with HAML or ERB) and saves it to the tmp folder
+    # Renders a JavaScript partial.
     #
-    def save_processed_template(path)
-      filename = path.split("/").last
-      tmp_filename = "#{TMP_PATH}/#{filename}"
-
-      unless File.exists?(tmp_filename)      
-        File.open(path) do |f|
-          template = f.read
-          output = process_template(template)
-
-          save_to_file(output, tmp_filename)
-        end
+    def render_stylesheets(filenames, combined_filename=nil)
+      filenames_str = combined_filename || filenames.join()
+      tmp_filename = "./tmp/#{filenames_str}.css"
+      
+      filenames.map! do |filename|
+        filename.gsub!(/\.css$/, "")
+        "#{BASE_PATH}/app/stylesheets/#{filename}.css"
       end
+      
+      output = combine_files(filenames)
+      
+      validate = F.save_to_tmp_file(output, tmp_filename)
+
+      output = YMDP::Compressor::Stylesheet.compress(tmp_filename) if CONFIG.compress_css?
+      
+      # YMDP::Validator::Stylesheet.validate(tmp_filename) if validate && CONFIG.validate_embedded_css?
+      
+      output
+    end
     
-      tmp_filename      
+    # Concatenates all javascript files into one long string.
+    #
+    def combine_files(filenames)
+      output = []
+      filenames.each do |filename|
+        output << render_without_compression(filename, false)
+      end
+      output.join("\n")
+    end
+    
+    # Renders together a set of JavaScript files without 
+    # compression, so they can be compressed as a single block.
+    #
+    def render_without_compression(path, tags=true)
+      output = ""
+    
+      if File.exists?(path)        
+        template = File.read(path)
+        output = process_template(template)
+      end
+      
+      output
     end
   end
   
