@@ -8,6 +8,12 @@ describe YMDP::Base do
     end
   end
   
+  describe "class methods" do
+    it "should display path" do
+      
+    end
+  end
+  
   describe "configuration" do
     before(:each) do
       @ymdp = YMDP::Base.new

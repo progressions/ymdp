@@ -14,10 +14,13 @@ end
 def stub_file_io(unprocessed_file="")
   @file ||= mock('file').as_null_object
   @file.stub!(:read).and_return(unprocessed_file)
-    
+  @file.stub!(:write)
+  @file.stub!(:puts)
+  
   File.stub!(:exists?).and_return(false)
   File.stub!(:open).and_yield(@file) 
   File.stub!(:read).and_return(unprocessed_file)
+  File.stub!(:readlines).and_return(["first\n", "second\n"])
 end
 
 def stub_file_utils

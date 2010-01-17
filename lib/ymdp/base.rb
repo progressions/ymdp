@@ -78,9 +78,30 @@ module YMDP
     #
     def paths
       self.class.paths
-    end   
+    end
+    
+    def self.base_path
+      paths[:base_path]
+    end
+    
+    def base_path
+      self.class.base_path
+    end
     
     private
+    
+    
+    # Parses out the <tt>base_path</tt> setting from a path to display it in a
+    # less verbose way.
+    #
+    def self.display_path(path)
+      path = File.expand_path(path)
+      path.gsub(base_path, "")
+    end
+    
+    def display_path(path)
+      self.class.display_path(path)
+    end
     
     # This probably isn't actually a good place to have this, because
     # the 'content variables' are only intended to be relevant inside

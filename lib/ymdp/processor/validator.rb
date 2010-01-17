@@ -1,11 +1,11 @@
+require 'ymdp/base'
 require 'support/file'
 require 'processor/w3c'
 require 'processor/form_post'
 
 module YMDP
   module Validator
-    class Base
-      extend YMDP::FileSupport
+    class Base < YMDP::Base
     end
     
     class HTML < Base
@@ -89,7 +89,7 @@ JSLINT
               if result =~ /line (\d+) character (\d+): (.*)/
                 line_number = $1.to_i
                 error = "Error at #{fragment_display_path} line #{line_number-jslint_settings_count} character #{$2}: #{$3}"
-                error += get_line_from_file(js_fragment_path, line_number)
+                error += F.get_line_from_file(js_fragment_path, line_number)
           
                 $stdout.puts error
               end

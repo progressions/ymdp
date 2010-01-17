@@ -4,8 +4,8 @@ require 'timer'
 require 'compiler/template'
 
 module YMDP
-  module Yaml
-    module Support
+  module Yaml #:nodoc:
+    module Support #:nodoc:
       FILENAME_REGEXP = /(.*)_(..-..)\.yml$/
       
       def language_path(lang)
@@ -31,8 +31,8 @@ module YMDP
     end
   end
   
-  module YRB
-    module Support
+  module YRB #:nodoc:
+    module Support #:nodoc:
       FILENAME_REGEXP = /(.*)_(..-..)\.pres$/
       
       def language_path(lang)
@@ -58,8 +58,8 @@ module YMDP
     end
   end
   
-  module Translator
-    module Support
+  module Translator #:nodoc:
+    module Support #:nodoc:
       # Mapping of the way Yahoo! Mail represents country codes with the way Google Translate does.
       #
       # The key is the Yahoo! Mail representation, and the value is the code Google Translate would expect.
@@ -91,9 +91,7 @@ module YMDP
     # Finds English language translation keys which have not been translated 
     # and translates them through Google Translate.
     #
-    class Base
-      include YMDP::FileSupport
-      extend YMDP::FileSupport
+    class Base < YMDP::Base
       include YMDP::Translator::Support
 
       def self.original_translations

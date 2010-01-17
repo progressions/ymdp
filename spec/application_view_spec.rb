@@ -219,28 +219,28 @@ describe "ApplicationView" do
         
         it "should validate with config true" do
           @config.stub!(:validate_embedded_js?).and_return(true)
-          F.should_receive(:save_to_tmp_file).with(anything, "./tmp/application.js").and_return(true)
+          F.should_receive(:save_to_file).with(anything, "./tmp/application.js").and_return(true)
           YMDP::Validator::JavaScript.should_receive(:validate)
           @view.render(:javascript => 'application')
         end
         
         it "should not validate with config false" do
           @config.stub!(:validate_embedded_js?).and_return(true)
-          F.should_receive(:save_to_tmp_file).with(anything, "./tmp/application.js").and_return(false)
+          F.should_receive(:save_to_file).with(anything, "./tmp/application.js").and_return(false)
           YMDP::Validator::JavaScript.should_not_receive(:validate)
           @view.render(:javascript => 'application')
         end
         
         it "should not validate if file exists and config true" do
           @config.stub!(:validate_embedded_js?).and_return(false)
-          F.should_receive(:save_to_tmp_file).with(anything, "./tmp/application.js").and_return(true)
+          F.should_receive(:save_to_file).with(anything, "./tmp/application.js").and_return(true)
           YMDP::Validator::JavaScript.should_not_receive(:validate)
           @view.render(:javascript => 'application')
         end
         
         it "should not validate if file exists and config false" do
           @config.stub!(:validate_embedded_js?).and_return(false)
-          F.should_receive(:save_to_tmp_file).with(anything, "./tmp/application.js").and_return(true)
+          F.should_receive(:save_to_file).with(anything, "./tmp/application.js").and_return(true)
           YMDP::Validator::JavaScript.should_not_receive(:validate)
           @view.render(:javascript => 'application')
         end
@@ -272,7 +272,7 @@ describe "ApplicationView" do
         end
         
         it "should render multiple partials to a filename" do
-          F.should_receive(:save_to_tmp_file).with(anything, "./tmp/javascripts.js")
+          F.should_receive(:save_to_file).with(anything, "./tmp/javascripts.js")
           @view.render(:javascript => ['application', 'sidebar'], :filename => 'javascripts')
         end
       end
@@ -357,7 +357,7 @@ describe "ApplicationView" do
         end
         
         it "should render multiple partials to a filename" do
-          F.should_receive(:save_to_tmp_file).with(anything, "./tmp/stylesheets.css")
+          F.should_receive(:save_to_file).with(anything, "./tmp/stylesheets.css")
           @view.render(:stylesheet => ['application', 'sidebar'], :filename => 'stylesheets')
         end
       end

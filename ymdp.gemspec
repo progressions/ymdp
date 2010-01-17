@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.1.6"
+  s.version = "0.1.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
-  s.date = %q{2010-01-16}
+  s.date = %q{2010-01-17}
   s.default_executable = %q{ymdp}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
      ".gitignore",
+     "History.txt",
      "LICENSE",
      "README.rdoc",
      "Rakefile",
@@ -49,7 +50,6 @@ Gem::Specification.new do |s|
      "lib/ymdp/processor/form_post.rb",
      "lib/ymdp/processor/validator.rb",
      "lib/ymdp/processor/w3c.rb",
-     "lib/ymdp/support/blank.rb",
      "lib/ymdp/support/file.rb",
      "lib/ymdp/tag_helper.rb",
      "lib/ymdp/tasks/keys.rake",
@@ -59,6 +59,7 @@ Gem::Specification.new do |s|
      "spec/application_view_spec.rb",
      "spec/compiler_spec.rb",
      "spec/compiler_template_spec.rb",
+     "spec/compressor_spec.rb",
      "spec/configuration_spec.rb",
      "spec/data/Rakefile",
      "spec/data/VERSION",
@@ -124,6 +125,7 @@ Gem::Specification.new do |s|
      "spec/data/script/yuicompressor-2.4.2.jar",
      "spec/default_settings.rb",
      "spec/domains_spec.rb",
+     "spec/file_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb",
      "spec/stubs.rb",
@@ -143,12 +145,14 @@ Gem::Specification.new do |s|
      "spec/application_view_spec.rb",
      "spec/compiler_spec.rb",
      "spec/compiler_template_spec.rb",
+     "spec/compressor_spec.rb",
      "spec/configuration_spec.rb",
      "spec/data/app/helpers/application_helper.rb",
      "spec/data/config/constants.rb",
      "spec/data/lib/init.rb",
      "spec/default_settings.rb",
      "spec/domains_spec.rb",
+     "spec/file_spec.rb",
      "spec/spec_helper.rb",
      "spec/stubs.rb",
      "spec/translator_spec.rb",

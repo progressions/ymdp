@@ -7,6 +7,8 @@ SERVERS_PATH = "#{BASE_PATH}/servers"
 TMP_PATH = "#{BASE_PATH}/tmp"
 
 require 'ymdp'
+require 'g'
+require 'active_support'
 require 'spec'
 require 'spec/autorun'
 

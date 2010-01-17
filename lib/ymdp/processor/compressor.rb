@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'ymdp/base'
+require 'active_support'
 require 'support/file'
 
 module YMDP
@@ -29,14 +32,14 @@ module YMDP
     #
     # TODO: Get some stringify_keys! action going so you can send in symbols or strings.
     #
-    class Base
-      extend YMDP::FileSupport
-  
+    class Base < YMDP::Base
       def self.compress(path, options={})
+        options.stringify_keys!
         compressed_display_path = display_path(path)
         compressed_path = "#{path}.min"
       
         options["type"] ||= "js"
+        options["type"] = options["type"].to_s
         
         # if the compressed_file exists, don't create it again
         #

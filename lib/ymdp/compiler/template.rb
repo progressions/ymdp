@@ -277,7 +277,7 @@ module YMDP
         def write_template(result)
           filename = @file.split("/").last
           tmp_filename = "./tmp/#{filename}"
-          save_to_file(result, tmp_filename)
+          F.save_to_file(result, tmp_filename)
           result = YMDP::Compressor::JavaScript.compress(tmp_filename) if CONFIG.compress_embedded_js?
           write_template_without_layout(result)
         end

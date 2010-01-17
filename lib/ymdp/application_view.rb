@@ -6,7 +6,6 @@ module YMDP
   # is HTML, JavaScript or CSS.
   #
   module ApplicationView
-    include YMDP::FileSupport
     include YMDP::Compressor
     
     extend self
@@ -269,7 +268,7 @@ module YMDP
       output = combine_files(filenames)
       tmp_filename = "./tmp/#{filenames_str}.js"
       
-      validate = F.save_to_tmp_file(output, tmp_filename)
+      validate = F.save_to_file(output, tmp_filename)
 
       output = YMDP::Compressor::JavaScript.compress(tmp_filename) if CONFIG.compress_embedded_js?
       
@@ -306,7 +305,7 @@ module YMDP
       
       output = combine_files(filenames)
       
-      validate = F.save_to_tmp_file(output, tmp_filename)
+      validate = F.save_to_file(output, tmp_filename)
 
       output = YMDP::Compressor::Stylesheet.compress(tmp_filename) if CONFIG.compress_css?
       
