@@ -9,7 +9,7 @@ module YMDP
       FILENAME_REGEXP = /(.*)_(..-..)\.yml$/
       
       def language_path(lang)
-        "#{BASE_PATH}/app/assets/yrb/#{lang}"
+        "#{base_path}/app/assets/yrb/#{lang}"
       end
 
       def base_filename(path)
@@ -36,7 +36,7 @@ module YMDP
       FILENAME_REGEXP = /(.*)_(..-..)\.pres$/
       
       def language_path(lang)
-        "#{BASE_PATH}/app/assets/yrb/#{lang}"
+        "#{base_path}/app/assets/yrb/#{lang}"
       end
 
       def base_filename(path)
@@ -87,7 +87,6 @@ module YMDP
       }
     end
     
-    #
     # Finds English language translation keys which have not been translated 
     # and translates them through Google Translate.
     #
@@ -106,10 +105,14 @@ module YMDP
         raise "Define in child"
       end
       
+      def self.language_path(lang)
+        raise "Define in child"
+      end
+      
       def self.translate
         Timer.new(:title => "YMDP").time do
           original_translations.each do |path|
-            puts "Processing #{display_path(path)}"
+            $stdout.puts "Processing #{display_path(path)}"
             template.new(path).copy
           end
         end
@@ -125,14 +128,12 @@ module YMDP
         @filename = base_filename(path)
       end
       
-      def copy
-        copy_lines_to_all_locales
+      def language(path)
+        raise "Define in child"
       end
       
-      def non_english_locales
-        @non_english_locales ||= LOCALES.select do |lang, code|
-          lang !~ /^en/
-        end
+      def copy
+        copy_lines_to_all_locales
       end
       
       def non_us_locales
@@ -154,9 +155,9 @@ module YMDP
       
       def write_content(destination, content)
         unless content.blank?
-          puts "Writing to #{display_path(destination)}"
-          puts content
-          puts
+          $stdout.puts "Writing to #{display_path(destination)}"
+          $stdout.puts content
+          $stdout.puts
           File.open(destination, "a") do |f|
             f.puts
             f.puts new_translation_message
@@ -183,11 +184,11 @@ module YMDP
       
       def each_line
         output = []
-        File.open(path, "r") do |f|
-          f.readlines.each do |line|
-            new_line = yield line
-            output << new_line
-          end
+        @lines ||= File.readlines(path)
+        
+        @lines.each do |line|
+          new_line = yield line
+          output << new_line
         end
         output.flatten.join("\n")
       end
@@ -200,10 +201,6 @@ module YMDP
           end
         end
         @all_keys
-      end
-      
-      def self.all_source_files
-        raise "Define in child"
       end
       
       def parse_template(p)
@@ -223,9 +220,13 @@ module YMDP
         end
       end
       
+      def key_is_new?(k, lang)
+        k && !all_keys(lang).has_key?(k)
+      end
+      
       def translate_new_key(line, lang)
         k, v = key_and_value_from_line(line)
-        if k && !all_keys(lang).has_key?(k)
+        if key_is_new?(k, lang)
           format(k, translate(v, lang))
         else
           nil
@@ -240,9 +241,11 @@ module YMDP
       end
       
       def pre_process(value, lang)
-        while value =~ /(\{\{[^\{]*\}\})/
+        vars = []
+        index = 0
+        while value =~ /(\{\d+\})/
           vars << $1
-          value.sub!(/(\{\{[^\{]*\}\})/, "[#{index}]")
+          value.sub!(/(\{\d+\})/, "[#{index}]")
           index += 1
         end
         value
@@ -274,7 +277,7 @@ module YMDP
   
         while value =~ /\[(\d)\]/
           index = $1.to_i
-          value.sub!(/\[#{index}\]/, vars[index])
+          value.sub!(/\[#{index}\]/, "{#{index}}")
         end
     
         value.gsub!(/\((0)\)/, "{0}")
@@ -299,7 +302,7 @@ module YMDP
     end
     
     # Usage: 
-    #   YMDP::Translator::Yaml.new().translate
+    #   YMDP::Translator::Yaml.new().copy
     #
     class Yaml < Base
       include YMDP::Yaml::Support
@@ -339,7 +342,7 @@ module YMDP
     end
     
     # Usage: 
-    #   YMDP::Translator::YRB.new().translate
+    #   YMDP::Translator::YRB.new().copy
     #
     class YRB < Base
       include YMDP::YRB::Support
@@ -358,7 +361,7 @@ module YMDP
       end
       
       def parse_template(p)
-        YMDP::Template::YRB.new(:file => p, :domain => "staging").to_hash
+        YMDP::Compiler::Template::YRB.new(:file => p, :domain => "staging").to_hash
       end
       
       def format(key, value)

@@ -63,7 +63,7 @@ end
 
 def stub_git_helper
   @git_helper = mock('git_helper').as_null_object
-  GitHelper.stub!(:new).and_return(@git_helper)
+  YMDP::GitHelper.stub!(:new).and_return(@git_helper)
 end
 
 def stub_timer

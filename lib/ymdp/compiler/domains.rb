@@ -46,7 +46,7 @@ module YMDP
       # Commit to git and store the hash of the commit.
       #
       def commit
-        @git = GitHelper.new
+        @git = YMDP::GitHelper.new
         @git.do_commit(@message)
         @git_hash = git.get_hash(options[:branch])    
       end
