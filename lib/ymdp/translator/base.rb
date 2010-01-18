@@ -188,7 +188,7 @@ module YMDP
         
         @lines.each do |line|
           new_line = yield line
-          output << new_line
+          output << new_line unless line.blank?
         end
         output.flatten.join("\n")
       end

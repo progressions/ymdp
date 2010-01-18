@@ -3,6 +3,8 @@
 # <%= @view.capitalize %> view resource file
 #
 
+<%= @view.upcase %>=<%= @view.capitalize %>
+
 <%= @view.upcase %>_HEADING=<%= @view.capitalize %>
 
-<%= @view.upcase %>_SUBHEAD=
+<%= @view.upcase %>_SUBHEAD= 
