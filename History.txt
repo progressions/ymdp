@@ -1,6 +1,6 @@
 == in Git
   * minor enhancements
-    
+    * eliminate extra newlines in translations
 
 == 0.1.7 2010-01-17
   * minor enhancements
