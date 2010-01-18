@@ -1,7 +1,12 @@
 == in Git
   * minor enhancements
+    
+
+== 0.1.7 2010-01-17
+  * minor enhancements
+    * Refactored ApplicationView and the F file support class
     * improved RDoc coverage
-    * improved test coverage
+    * improved test coverage to 89%
 
 == 0.1.6 2010-01-16
   * major enhancements
