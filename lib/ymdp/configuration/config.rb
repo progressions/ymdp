@@ -77,7 +77,7 @@ module YMDP
       # Loads the <tt>content_variables</tt> hash from a Yaml file.
       #
       def load_content_variables(filename)
-        path = "#{CONFIG_PATH}/#{filename}".gsub(/\.yml$/, "")
+        path = "#{BASE_PATH}/config/#{filename}".gsub(/\.yml$/, "")
         path = "#{path}.yml"
         @content_variables = YAML.load_file(path)
       end
@@ -120,7 +120,7 @@ module YMDP
     
     class Servers < Base
       def initialize
-        super("#{CONFIG_PATH}/servers.yml", "servers")
+        super("#{BASE_PATH}/config/servers.yml", "servers")
       end
       
       def servers
@@ -130,7 +130,7 @@ module YMDP
     
     class Config < Base
       def initialize
-        super("#{CONFIG_PATH}/config.yml", "config")
+        super("#{BASE_PATH}/config/config.yml", "config")
       end
       
       def username

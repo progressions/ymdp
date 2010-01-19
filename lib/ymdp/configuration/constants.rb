@@ -1,8 +1,6 @@
 CONFIG = YMDP::Configuration::Config.new unless defined?(CONFIG)
 SERVERS = YMDP::Configuration::Servers.new unless defined?(SERVERS)
 
-@content_variables = YAML.load_file("#{CONFIG_PATH}/content.yml")
-
 YMDP::Base.configure do |config|
   config.username = CONFIG["username"]
   config.password = CONFIG["password"]
@@ -15,5 +13,5 @@ YMDP::Base.configure do |config|
   config.add_path(:base_path, BASE_PATH)
   config.servers = SERVERS
   
-  config.content_variables = @content_variables
+  config.load_content_variables("config.yml")
 end

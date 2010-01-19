@@ -61,17 +61,17 @@ describe "Compiler" do
     
     describe "copy_images" do
       it "should remove images folder" do
-        FileUtils.should_receive(:rm_rf).with("./app/servers/#{@domain}/assets/images")
+        FileUtils.should_receive(:rm_rf).with(Dir.glob("./servers/#{@domain}/assets/images/*"))
         @compiler.process_all
       end
       
       it "should create images folder" do
-        FileUtils.should_receive(:mkdir_p).with("./app/servers/#{@domain}/assets")
+        FileUtils.should_receive(:mkdir_p).with("./servers/#{@domain}/assets")
         @compiler.process_all
       end
       
       it "should copy images from app to server" do
-        FileUtils.should_receive(:cp_r).with("./app/assets/images/", "./app/servers/#{@domain}/assets")
+        FileUtils.should_receive(:cp_r).with("./app/assets/images/", "./servers/#{@domain}/assets")
         @compiler.process_all
       end
       

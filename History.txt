@@ -1,17 +1,18 @@
 == in Git
   * minor enhancements
     * eliminate extra newlines in translations
+    * fixed incorrect paths in compiler
 
 == 0.1.7 2010-01-17
   * minor enhancements
-    * Refactored ApplicationView and the F file support class
+    * refactored ApplicationView and the F file support class
     * improved RDoc coverage
     * improved test coverage to 89%
 
 == 0.1.6 2010-01-16
   * major enhancements
     * YMDP global settings now assigned through YMDP::Base.configure block
-    * Raise exceptions if vital settings like version and server don't exist
+    * raise exceptions if vital settings like version and server don't exist
   * minor enhancements
     * improved RDoc coverage
     * improved test coverage

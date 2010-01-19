@@ -115,11 +115,11 @@ module YMDP
       #
       def clean_domain
         dir = "#{servers_path}/#{domain}"
-        FileUtils.rm_rf("#{dir}/views")
-        FileUtils.rm_rf("#{dir}/assets/javascripts")
-        FileUtils.rm_rf("#{dir}/assets/stylesheets")
-        FileUtils.rm_rf("#{dir}/assets/yrb")
-        FileUtils.rm_rf("#{TMP_PATH}/")
+        FileUtils.rm_rf(Dir.glob("#{dir}/views/*"))
+        FileUtils.rm_rf(Dir.glob("#{dir}/assets/javascripts/*"))
+        FileUtils.rm_rf(Dir.glob("#{dir}/assets/stylesheets/*"))
+        FileUtils.rm_rf(Dir.glob("#{dir}/assets/yrb/*"))
+        FileUtils.rm_rf(Dir.glob("#{TMP_PATH}/*"))
         FileUtils.mkdir_p(TMP_PATH)
       end
 
@@ -161,7 +161,7 @@ module YMDP
         if options[:verbose]
           $stdout.puts log("Moving images into #{servers_path}/#{domain}/assets/images...")
         end
-        FileUtils.rm_rf("#{servers_path}/#{domain}/assets/images")
+        FileUtils.rm_rf(Dir.glob("#{servers_path}/#{domain}/assets/images/*"))
         FileUtils.mkdir_p("#{servers_path}/#{domain}/assets")
         FileUtils.cp_r("#{images_path}/", "#{servers_path}/#{domain}/assets")
       end
@@ -188,6 +188,10 @@ module YMDP
         "#{base_path}/app"
       end
       
+      def servers_path
+        "#{base_path}/servers"
+      end
+      
       def assets_path
         "#{app_path}/assets"
       end
@@ -198,10 +202,6 @@ module YMDP
       
       def images_path
         "#{assets_path}/images"
-      end
-      
-      def servers_path
-        "#{app_path}/servers"
       end
     end
   end
