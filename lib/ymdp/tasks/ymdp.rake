@@ -162,20 +162,20 @@ end
 desc "Deploys application to YMDP servers"
 task :deploy do
   time("Deployed #{@application}: #{@path}") do
-    deploy(@application, @path)
+    deploy(@application, @path, :sync => @sync)
   end
 end
 
 desc "Deploys application to YMDP servers, matching a path"
 task :deploy_path do
   time("Deployed #{@application}: #{@path}") do
-    deploy_path(@application, @path)
+    deploy_path(@application, @path, :sync => @sync)
   end
 end
 
 task :deploy_yrb do
   time("Deployed #{@application}: #{@path}") do
-    deploy_yrb(@application, @path, {:lang => @lang, :view => @view})
+    deploy_yrb(@application, @path, {:lang => @lang, :view => @view, :sync => @sync})
   end
 end
 
@@ -501,19 +501,21 @@ def validated_embedded_js(path)
   system "rm #{js_fragment_path}"
 end
 
-def deploy(application, path)
+def deploy(application, path, options={})
   puts "\nDeploying #{application}: #{path}"
+  sync = options[:sync]
 
   Rake::Task["validate:html"].invoke if CONFIG.validate_html?
   Rake::Task["validate:embedded_js"].invoke if CONFIG.validate_embedded_js?
   Rake::Task["validate:#{application}:javascripts"].invoke if CONFIG.validate_js_assets?
   Rake::Task["validate:#{application}:json"].invoke if CONFIG.validate_json_assets?
 
-  ymdt.put(:application => application, :path => path)
+  ymdt.put(:application => application, :path => path, :sync => sync)
 end
 
-def deploy_path(application, path)
+def deploy_path(application, path, options={})
   puts "\nDeploying #{application}: #{path}"
+  sync = options[:sync]
 
   Rake::Task["validate:html"].invoke if CONFIG.validate_html?
   Rake::Task["validate:embedded_js"].invoke if CONFIG.validate_embedded_js?
@@ -535,7 +537,7 @@ def deploy_path(application, path)
   
       if file =~ Regexp.new(path)
         puts file
-        ymdt.put(:application => application, :path => new_path)
+        ymdt.put(:application => application, :path => new_path, :sync => sync)
       end
     end
   end
@@ -544,12 +546,13 @@ end
 def deploy_yrb(application, path, options={})
   lang = options[:lang]
   view = options[:view]
+  sync = options[:sync]
   
   if lang
     new_path = "#{path}/keys_#{lang}.json"
-    deploy_path(application, new_path)
+    deploy_path(application, new_path, sync)
   else
-    deploy_path(application, path)
+    deploy_path(application, path, sync)
   end
 end
 
