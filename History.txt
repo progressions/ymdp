@@ -1,6 +1,6 @@
-== in Git
+== 0.1.8 2010-01-20
   * minor enhancements
-    * load JSLint settings from config/jslint_settings.js
+    * load JSLint settings from config/jslint.js
   * bug fixes
     * eliminate extra newlines in translations
     * fixed incorrect paths in compiler

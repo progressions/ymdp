@@ -3,7 +3,7 @@ SERVERS = YMDP::Configuration::Servers.new unless defined?(SERVERS)
 
 @content_variables = YAML.load_file("#{BASE_PATH}/config/content.yml")
 
-@jslint_settings = File.read("#{BASE_PATH}/config/jslint_settings.js") if File.exists?("#{BASE_PATH}/config/jslint_settings.js")
+@jslint_settings = File.read("#{BASE_PATH}/config/jslint_settings.js") if File.exists?("#{BASE_PATH}/config/jslint.js")
 
 YMDP::Base.configure do |config|
   config.username = CONFIG["username"]
