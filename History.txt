@@ -1,3 +1,7 @@
+== 0.1.8.1 2010-01-20
+  * bug fixes
+    * fix typo in constants.rb
+    
 == 0.1.8 2010-01-20
   * minor enhancements
     * load JSLint settings from config/jslint.js
