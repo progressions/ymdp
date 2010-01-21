@@ -1,5 +1,6 @@
 == in Git
   * minor enhancements
+    * load JSLint settings from config/jslint_settings.js
   * bug fixes
     * eliminate extra newlines in translations
     * fixed incorrect paths in compiler

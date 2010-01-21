@@ -72,6 +72,25 @@ describe "Validator" do
   end
   
   describe "JavaScript" do
+    describe "jslint" do
+      before(:each) do
+        @jslint_settings = "/* These are JSLint settings %/"
+        F.stub!(:execute).with(/java/, :return => true).and_return("jslint: No problems found")  
+      end
+      
+      it "should set jslint settings" do
+        YMDP::Validator::JavaScript.configure do |config|
+          config.jslint_settings = @jslint_settings
+        end
+        YMDP::Validator::JavaScript.jslint_settings.should == @jslint_settings
+      end
+      
+      it "should put jslint settings in the file" do
+        @file.should_receive(:puts).with(@jslint_settings)
+        YMDP::Validator::JavaScript.validate("path")
+      end
+    end
+    
     describe "valid" do
       before(:each) do
         F.stub!(:execute).with(/java/, :return => true).and_return("jslint: No problems found")

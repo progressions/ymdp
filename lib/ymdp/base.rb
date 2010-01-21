@@ -39,17 +39,22 @@ module YMDP
       
       yield setter
       
-      @@paths = setter.paths
-      @@servers = setter.servers
+      @@paths = setter.paths if setter.paths.try(:any?)
+      @@servers = setter.servers if setter.servers.try(:any?)
+      
+      @@content_variables ||= {}
       
       setter.instance_variables.each do |key|
-        unless ["@servers", "@paths"].include?(key)
+        unless ["@servers", "@paths", "@content_variables"].include?(key)
           value = setter.instance_variable_get(key)
           create_accessor(key, value)
         end
       end
       
-      create_accessors_from_content_variables(setter.content_variables)
+      if setter.content_variables.any?
+        content_variables = @@content_variables.merge(setter.content_variables)
+        create_accessor("content_variables", content_variables)
+      end
     end
     
     # Returns the server definition hash as a class variable, making it available to
@@ -103,16 +108,6 @@ module YMDP
     
     private
     
-    # This probably isn't actually a good place to have this, because
-    # the 'content variables' are only intended to be relevant inside
-    # of a view template.
-    #
-    def self.create_accessors_from_content_variables(content_variables)
-      content_variables.each do |key, value|
-        create_accessor(key, value)
-      end
-    end
-    
     # Creates class- and instance-level accessors for the key and value.
     #
     def self.create_accessor(key, value)
@@ -126,6 +121,7 @@ module YMDP
             attr_accessor :#{key}
           end
         )
+        
         self.send("#{key}=".to_sym, value)
       
         eval %(

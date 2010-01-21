@@ -57,6 +57,11 @@ module YMDP
       # overwrite default settings.
       attr_accessor :paths
       
+      # Configuration options for JSLint JavaScript validator. Should be maintained in
+      # <tt>jslint_settings.yml</tt>.
+      #
+      attr_accessor :jslint_settings
+      
       def initialize #:nodoc:
         @paths = {}
         @content_variables = {}
@@ -77,7 +82,7 @@ module YMDP
       # Loads the <tt>content_variables</tt> hash from a Yaml file.
       #
       def load_content_variables(filename)
-        path = "#{BASE_PATH}/config/#{filename}".gsub(/\.yml$/, "")
+        path = "#{CONFIG_PATH}/#{filename}".gsub(/\.yml$/, "")
         path = "#{path}.yml"
         @content_variables = YAML.load_file(path)
       end
@@ -103,6 +108,10 @@ module YMDP
         @config.get(base, *args)
       end
       
+      def any?
+        options.any?
+      end
+      
       def each
         options.each do |name, values|
           yield name, values
@@ -120,7 +129,7 @@ module YMDP
     
     class Servers < Base
       def initialize
-        super("#{BASE_PATH}/config/servers.yml", "servers")
+        super("#{CONFIG_PATH}/servers.yml", "servers")
       end
       
       def servers
@@ -130,7 +139,7 @@ module YMDP
     
     class Config < Base
       def initialize
-        super("#{BASE_PATH}/config/config.yml", "config")
+        super("#{CONFIG_PATH}/config.yml", "config")
       end
       
       def username

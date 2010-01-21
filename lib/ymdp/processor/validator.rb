@@ -11,7 +11,6 @@ module YMDP
     class HTML < Base
       def self.validate(path)
         html_display_path = display_path(path)
-        log_path = "#{TMP_PATH}/#{File.basename(path)}_errors.html"
 
         log_path = validation_errors(path)
         if log_path
@@ -59,10 +58,7 @@ module YMDP
       end
       
       def self.jslint_settings
-<<-JSLINT
-/*jslint bitwise: true, browser: true, evil: true, eqeqeq: true, immed: true, newcap: true, onevar: false, plusplus: true, regexp: true, undef: true, sub: true */
-/*global YAHOO, openmail, OpenMailIntl, _gat, unescape, $, $$, $A, $H, $R, $w, $div, Event, Effect, Behavior, Try, PeriodicalExecuter, Element, identify, Sortable, window, I18n, Identity, Logger, OIB, Tags, ABTesting, Flash, Debug */
-JSLINT
+        YMDP::Base.jslint_settings
       end
       
       def self.jslint_settings_count

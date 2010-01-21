@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 require 'compiler/base'
 require 'compiler/template'
 
-YMDP_ENV = "build"
+YMDP_ENV = "build" unless defined?(YMDP_ENV)
 
 describe "Compiler" do
   before(:each) do

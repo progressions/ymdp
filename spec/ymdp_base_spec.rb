@@ -106,7 +106,7 @@ describe YMDP::Base do
           YMDP::Base.configure do |config|
             config.add_content_variable(:funky, "Real funky")
           end
-          @ymdp.funky.should == "Real funky"
+          @ymdp.content_variables.should == {:funky => "Real funky"}
         end
       end
       
@@ -122,7 +122,7 @@ describe YMDP::Base do
           YMDP::Base.configure do |config|
             config.load_content_variables "content"
           end
-          @ymdp.version.should == "1.1"
+          @ymdp.content_variables["version"].should == "1.1"
         end
       end
       
@@ -137,11 +137,11 @@ describe YMDP::Base do
         end
     
         it "should set sprint name in content variables" do
-          @ymdp.version.should == "1.2"
+          @ymdp.content_variables["version"] == "1.2"
         end
     
         it "should set sprint name in content variables" do
-          @ymdp.sprint_name.should == "Gorgonzola"
+          @ymdp.content_variables["sprint_name"].should == "Gorgonzola"
         end
       end
       
