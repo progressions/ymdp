@@ -4,7 +4,7 @@ require 'rubygems'
 require 'mime/types'
 require 'net/http'
 begin
-  require 'CGI'
+  require 'cgi'
 rescue StandardError => e
   # puts e.message
 end

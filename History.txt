@@ -1,5 +1,6 @@
 == in Git
-  
+  * bug fixes
+    * fixed filename in form_post.rb
 
 == 0.1.10 2010-01-22
   * minor enhancements
