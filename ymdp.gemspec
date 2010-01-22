@@ -5,15 +5,13 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.1.8.1"
+  s.version = "0.1.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
-  s.date = %q{2010-01-21}
-  s.default_executable = %q{ymdp}
+  s.date = %q{2010-01-22}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
-  s.executables = ["ymdp"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -27,7 +25,6 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
-     "bin/ymdp",
      "lib/ymdp.rb",
      "lib/ymdp/application.rb",
      "lib/ymdp/application_view.rb",
@@ -54,7 +51,6 @@ Gem::Specification.new do |s|
      "lib/ymdp/tag_helper.rb",
      "lib/ymdp/tasks/keys.rake",
      "lib/ymdp/tasks/ymdp.rake",
-     "lib/ymdp/translator/base.rb",
      "spec/application_spec.rb",
      "spec/application_view_spec.rb",
      "spec/compiler_spec.rb",
@@ -130,7 +126,6 @@ Gem::Specification.new do |s|
      "spec/spec.opts",
      "spec/spec_helper.rb",
      "spec/stubs.rb",
-     "spec/translator_spec.rb",
      "spec/validator_spec.rb",
      "spec/ymdp_base_spec.rb",
      "spec/ymdp_spec.rb",
@@ -158,7 +153,6 @@ Gem::Specification.new do |s|
      "spec/git_helper_spec.rb",
      "spec/spec_helper.rb",
      "spec/stubs.rb",
-     "spec/translator_spec.rb",
      "spec/validator_spec.rb",
      "spec/ymdp_base_spec.rb",
      "spec/ymdp_spec.rb"
@@ -183,6 +177,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<serenity>, [">= 0"])
       s.add_runtime_dependency(%q<ymdp_generator>, [">= 0"])
       s.add_runtime_dependency(%q<ymdt>, [">= 0"])
+      s.add_runtime_dependency(%q<yrb>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 1.2.6"])
       s.add_dependency(%q<haml>, [">= 0"])
@@ -198,6 +193,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<serenity>, [">= 0"])
       s.add_dependency(%q<ymdp_generator>, [">= 0"])
       s.add_dependency(%q<ymdt>, [">= 0"])
+      s.add_dependency(%q<yrb>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 1.2.6"])
@@ -214,6 +210,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<serenity>, [">= 0"])
     s.add_dependency(%q<ymdp_generator>, [">= 0"])
     s.add_dependency(%q<ymdt>, [">= 0"])
+    s.add_dependency(%q<yrb>, [">= 0"])
   end
 end
 
