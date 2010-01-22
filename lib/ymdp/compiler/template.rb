@@ -1,3 +1,5 @@
+require 'yrb'
+
 module YMDP
   module Compiler #:nodoc:
     module Template #:nodoc:
@@ -294,7 +296,7 @@ module YMDP
       # Convert them to a hash and write the hash to a JSON file.
       #
       # Each language can have as many YRB translation files (with an extension of ".pres")
-      # as necessary.  The files are concatenated together and translated into a single JSON file
+      # as necessary.  The files are concatenated together and converted into a single JSON file
       # for each language.
       #
       class YRB < Base
@@ -322,7 +324,13 @@ module YMDP
         # Turn it back into a hash.
         #
         def to_hash
-          JSON.parse(to_json)
+          yrb
+        end
+        
+        # Parse YRB file
+        #
+        def yrb
+          ::YRB.load_file(@file)
         end
   
         # Convert the hash to Yaml if you should want to do that.
@@ -340,7 +348,7 @@ module YMDP
         # case, the JSON file.
         #
         def processed_template
-          super.to_json
+          yrb.to_json
         end
   
         # Validate the JSON file.
@@ -361,49 +369,6 @@ module YMDP
         #
         def convert_filename(filename)
           "#{base_filename(filename)}.json"
-        end
-      
-        # Is this line a valid comment in YRB?
-        def comment?(line)
-          line =~ /^[\s]*#/
-        end
-      
-        # Is this line valid YRB syntax?
-        #
-        def key_and_value_from_line(line)
-          if line =~ /^([^\=]+)=(.+)/
-            return $1, $2.strip
-          else
-            return nil, nil
-          end
-        end
-  
-        # Parse YRB and add it to a hash.  Raise an error if the key already exists in the hash.
-        #
-        def process_template(template)
-          @hash = {}
-          lines = template.split("\n")
-          lines.each do |line|
-            unless comment?(line)
-              key, value = key_and_value_from_line(line)
-              unless key.blank?
-                if @hash.has_key?(key)
-                  $stdout.puts
-                  $stdout.puts "Duplicate value in #{destination_path}"
-                  $stdout.puts "  #{key}=#{@hash[key]}"
-                  $stdout.puts "  #{key}=#{value}"
-                  $stdout.puts
-                  if @hash[key] == value
-                    $stdout.puts "  Values are the same but duplicate values still should not exist!"
-                    $stdout.puts
-                  end
-                  raise "Duplicate key error"
-                end
-                @hash[key] = value
-              end
-            end
-          end
-          @hash
         end
   
         # Write JSON file to its destination.

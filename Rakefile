@@ -24,6 +24,7 @@ begin
     gem.add_runtime_dependency "serenity", ">= 0"
     gem.add_runtime_dependency "ymdp_generator", ">= 0"
     gem.add_runtime_dependency "ymdt", ">= 0"
+    gem.add_runtime_dependency "yrb", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -46,7 +47,12 @@ Spec::Rake::SpecTask.new(:rcov) do |spec|
   spec.rcov = true
 end
 
-task :spec => :check_dependencies
+task :bundle do
+  require 'vendor/gems/environment'
+  Bundler.require_env
+end
+
+task :spec => [:bundle, :check_dependencies]
 
 task :default => :spec
 

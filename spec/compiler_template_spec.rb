@@ -63,7 +63,7 @@ describe "Template" do
         File.stub!(:read).with("filename.pres").and_return("KEY=value\nKEY=value\n")
         lambda {
           @js_template.build
-        }.should raise_error("Duplicate key error")
+        }.should raise_error(/Duplicate key error/)
       end
       
       describe "methods" do

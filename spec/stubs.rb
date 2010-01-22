@@ -3,6 +3,7 @@ def stub_io
   stub_file_io
   stub_file_utils
   stub_yaml
+  stub_yrb
   stub_growl
 end
 
@@ -38,6 +39,10 @@ end
 
 def stub_yaml(output_hash={})
   YAML.stub!(:load_file).and_return(output_hash)
+end
+
+def stub_yrb(output_hash={})
+  YRB.stub!(:load_file).and_return(output_hash)
 end
 
 def stub_erb(processed_file="")

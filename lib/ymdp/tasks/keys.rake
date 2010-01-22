@@ -1,7 +1,5 @@
 require 'lib/init'
 
-require 'translator/base'
-
 @key = ENV["key"] || ""
 @key = @key.upcase
 
@@ -77,7 +75,9 @@ namespace :keys do
   
   desc "Translate any new keys into non-US languages"
   task :translate do
-    YMDP::Translator::YRB.translate
+    Dir["#{BASE_PATH}/app/assets/yrb/en-US/*.pres"].each do |path|
+      Idiom::Base.translate(:source => path)
+    end
   end
   
   task :rename do
