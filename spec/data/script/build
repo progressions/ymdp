@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'lib/init'
-
-YMDP_ENV = "build"
-
-require 'compiler/template_compiler'
-
-TemplateCompiler.compile

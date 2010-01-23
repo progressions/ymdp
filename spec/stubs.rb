@@ -84,7 +84,10 @@ def stub_growl
 end
 
 def reset_constant(constant, value)
-  Object.send(:remove_const, constant)
+  begin
+    Object.send(:remove_const, constant)
+  rescue
+  end
   Object.const_set(constant, value)
 end
 

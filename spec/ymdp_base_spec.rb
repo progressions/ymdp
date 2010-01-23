@@ -3,6 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe YMDP::Base do
   before(:each) do
     @base_path = File.expand_path("./")
+    
+    # clear configuration
+    YMDP::Base.class_eval "@@configuration = nil"
   end
   
   describe "instantiation" do
@@ -27,35 +30,35 @@ describe YMDP::Base do
       YMDP::Base.configure do |config|
         config.username = "mal"
       end
-      @ymdp.username.should == "mal"
+      @ymdp.configuration.username.should == "mal"
     end
     
     it "should set password" do
       YMDP::Base.configure do |config|
         config.password = "password"
       end
-      @ymdp.password.should == "password"
+      @ymdp.configuration.password.should == "password"
     end
     
     it "should set default_server" do
       YMDP::Base.configure do |config|
         config.default_server = "staging"
       end
-      @ymdp.default_server.should == "staging"
+      @ymdp.configuration.default_server.should == "staging"
     end
         
     it "should set growl" do
       YMDP::Base.configure do |config|
         config.growl = true
       end
-      @ymdp.growl.should be_true
+      @ymdp.configuration.growl.should be_true
     end
     
     it "should set verbose" do
       YMDP::Base.configure do |config|
         config.verbose = true
       end
-      @ymdp.verbose.should be_true
+      @ymdp.configuration.verbose.should be_true
     end
     
     it "should set compress" do
@@ -66,7 +69,7 @@ describe YMDP::Base do
       YMDP::Base.configure do |config|
         config.compress = @compress
       end
-      @ymdp.compress.should == @compress
+      @ymdp.configuration.compress.should == @compress
     end
     
     it "should set validate" do
@@ -83,7 +86,7 @@ describe YMDP::Base do
       YMDP::Base.configure do |config|
         config.validate = @validate
       end
-      @ymdp.validate.should == @validate
+      @ymdp.configuration.validate.should == @validate
     end
     
     it "should set base_path" do

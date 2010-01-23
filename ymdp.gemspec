@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.1.10"
+  s.version = "0.1.11"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
-  s.date = %q{2010-01-22}
+  s.date = %q{2010-01-23}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
   s.extra_rdoc_files = [
@@ -58,68 +58,6 @@ Gem::Specification.new do |s|
      "spec/compiler_template_spec.rb",
      "spec/compressor_spec.rb",
      "spec/configuration_spec.rb",
-     "spec/data/Rakefile",
-     "spec/data/VERSION",
-     "spec/data/app/.gitignore",
-     "spec/data/app/assets/images/lightbox/lightbox_bg.png",
-     "spec/data/app/assets/javascripts/OpenMailIntl.js",
-     "spec/data/app/assets/javascripts/controls.js",
-     "spec/data/app/assets/javascripts/date.js",
-     "spec/data/app/assets/javascripts/dragdrop.js",
-     "spec/data/app/assets/javascripts/effects.js",
-     "spec/data/app/assets/javascripts/lowpro.js",
-     "spec/data/app/assets/javascripts/prototype.js",
-     "spec/data/app/assets/javascripts/scriptaculous.js",
-     "spec/data/app/assets/yrb/en-US/application_en-US.pres",
-     "spec/data/app/helpers/application_helper.rb",
-     "spec/data/app/javascripts/application.js",
-     "spec/data/app/javascripts/debug.js",
-     "spec/data/app/javascripts/flash.js",
-     "spec/data/app/javascripts/header.js",
-     "spec/data/app/javascripts/help.js",
-     "spec/data/app/javascripts/i18n.js",
-     "spec/data/app/javascripts/launcher.js",
-     "spec/data/app/javascripts/logger.js",
-     "spec/data/app/javascripts/tag_helper.js",
-     "spec/data/app/stylesheets/application.css",
-     "spec/data/app/stylesheets/ie.css",
-     "spec/data/app/stylesheets/ie6.css",
-     "spec/data/app/stylesheets/ie7.css",
-     "spec/data/app/stylesheets/ie8.css",
-     "spec/data/app/stylesheets/lightbox.css",
-     "spec/data/app/stylesheets/non_ie.css",
-     "spec/data/app/views/layouts/application.html.haml",
-     "spec/data/app/views/page.html.haml",
-     "spec/data/app/views/shared/_error.html.haml",
-     "spec/data/app/views/shared/_flash.html.haml",
-     "spec/data/app/views/shared/_javascripts.html.haml",
-     "spec/data/app/views/shared/_loading.html.haml",
-     "spec/data/app/views/shared/_stylesheets.html.haml",
-     "spec/data/config/categories.yml",
-     "spec/data/config/config.yml",
-     "spec/data/config/config.yml.example",
-     "spec/data/config/constants.rb",
-     "spec/data/config/content.yml",
-     "spec/data/config/servers.yml",
-     "spec/data/config/servers.yml.example",
-     "spec/data/lib/init.rb",
-     "spec/data/lib/tasks/environment.rake",
-     "spec/data/lib/tasks/keys.rake",
-     "spec/data/lib/tasks/setup.rake",
-     "spec/data/lib/tasks/ymdp.rake",
-     "spec/data/script/build",
-     "spec/data/script/config",
-     "spec/data/script/destroy",
-     "spec/data/script/generate",
-     "spec/data/script/gitrm",
-     "spec/data/script/growl",
-     "spec/data/script/images",
-     "spec/data/script/jslint.js",
-     "spec/data/script/langs",
-     "spec/data/script/translate",
-     "spec/data/script/ymdt",
-     "spec/data/script/ymdt.old",
-     "spec/data/script/yuicompressor-2.4.2.jar",
      "spec/default_settings.rb",
      "spec/domains_spec.rb",
      "spec/file_spec.rb",
@@ -130,7 +68,6 @@ Gem::Specification.new do |s|
      "spec/validator_spec.rb",
      "spec/ymdp_base_spec.rb",
      "spec/ymdp_spec.rb",
-     "test.rb",
      "ymdp.gemspec"
   ]
   s.homepage = %q{http://github.com/progressions/ymdp}
@@ -145,9 +82,6 @@ Gem::Specification.new do |s|
      "spec/compiler_template_spec.rb",
      "spec/compressor_spec.rb",
      "spec/configuration_spec.rb",
-     "spec/data/app/helpers/application_helper.rb",
-     "spec/data/config/constants.rb",
-     "spec/data/lib/init.rb",
      "spec/default_settings.rb",
      "spec/domains_spec.rb",
      "spec/file_spec.rb",

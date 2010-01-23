@@ -1,5 +1,5 @@
 
-def stub_yrb_configuration
+def stub_ymdp_configuration
   @content_variables = {
     "version" => 1,
     "sprint_name" => "Firefly" 

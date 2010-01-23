@@ -1,6 +1,9 @@
-== in Git
+== 0.1.11 (in Git)
+  * minor enhancements
+    * changed implementation of configuration object
   * bug fixes
     * fixed filename in form_post.rb
+    * removed unneeded data folder from /spec
 
 == 0.1.10 2010-01-22
   * minor enhancements

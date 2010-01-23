@@ -16,7 +16,7 @@ describe "Template" do
     @git_hash = "asjkhfasjkfhjk"
     @message = "This is a commit message."
     
-    stub_yrb_configuration
+    stub_ymdp_configuration
     
     stub_config
   end

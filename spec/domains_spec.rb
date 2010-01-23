@@ -5,7 +5,7 @@ require 'compiler/domains'
 describe "Domains" do
   before(:each) do
     stub_git_helper
-    stub_yrb_configuration
+    stub_ymdp_configuration
     
     @options = {
       :commit => true,

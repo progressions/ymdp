@@ -58,7 +58,7 @@ module YMDP
       end
       
       def self.jslint_settings
-        YMDP::Base.jslint_settings
+        configuration.jslint_settings
       end
       
       def self.jslint_settings_count

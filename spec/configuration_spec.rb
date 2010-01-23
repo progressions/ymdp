@@ -4,6 +4,9 @@ describe "Configuration" do
   before(:each) do
     stub_screen_io
     reset_constant(:YMDP_ENV, "test")
+    
+    File.stub!(:exists?).with(/servers.yml/).and_return(true)
+    File.stub!(:exists?).with(/config.yml/).and_return(true)
   end
   
   describe "Config" do

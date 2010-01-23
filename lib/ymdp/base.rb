@@ -31,62 +31,59 @@ module YMDP
   # These options are still evolving.
   #
   class Base
+    def self.configuration
+      @@configuration ||= YMDP::Configuration::Setter.new
+    end
+    
+    def self.content_variables
+      configuration.content_variables
+    end
+    
+    def content_variables
+      configuration.content_variables
+    end
+    
+    def configuration
+      @@configuration
+    end
+    
     # Configures global YMDP settings. Sends a YMDP::Configuration::Setter instance to
     # the block, which is used to define global settings.
     #
     def self.configure
-      setter = YMDP::Configuration::Setter.new
-      
-      yield setter
-      
-      @@paths = setter.paths if setter.paths.try(:any?)
-      @@servers = setter.servers if setter.servers.try(:any?)
-      
-      @@content_variables ||= {}
-      
-      setter.instance_variables.each do |key|
-        unless ["@servers", "@paths", "@content_variables"].include?(key)
-          value = setter.instance_variable_get(key)
-          create_accessor(key, value)
-        end
-      end
-      
-      if setter.content_variables.any?
-        content_variables = @@content_variables.merge(setter.content_variables)
-        create_accessor("content_variables", content_variables)
-      end
+      yield configuration
     end
     
     # Returns the server definition hash as a class variable, making it available to
     # any class derived from YMDP::Base.
     #
     def self.servers
-      @@servers
+      configuration.servers
     end
     
     # Returns the paths definition hash as a class variable, making it available to
     # any class derived from YMDP::Base.
     #   
     def self.paths
-      @@paths
+      configuration.paths
     end
     
     # Returns the server definition hash as an instance variable, making it available to
     # instances of any class derived from YMDP::Base.
     #
     def servers
-      self.class.servers
+      configuration.servers
     end
     
     # Returns the paths definition hash as an instance variable, making it available to 
     # instances of any class derived from YMDP::Base.
     #
     def paths
-      self.class.paths
+      configuration.paths
     end
     
     def self.base_path
-      paths[:base_path]
+      configuration.paths[:base_path]
     end
     
     def base_path

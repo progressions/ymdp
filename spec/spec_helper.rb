@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
+YMDP_TEST = true unless defined?(YMDP_TEST)
 
 BASE_PATH = File.dirname(__FILE__) + "/data"
 CONFIG_PATH = "#{BASE_PATH}/config"

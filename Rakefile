@@ -48,6 +48,7 @@ Spec::Rake::SpecTask.new(:rcov) do |spec|
 end
 
 task :bundle do
+  YMDP_TEST = true
   require 'vendor/gems/environment'
   Bundler.require_env
 end
