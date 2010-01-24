@@ -10,7 +10,7 @@ module YMDP
       # Files with an extension of ".haml" will be processed with Haml, all others will
       # use ERB.
       #
-      # ==== Examples
+      # === Examples
       #
       #   YMDP::Compiler::Template::View.new(params).build
       #
@@ -18,13 +18,13 @@ module YMDP
       # 
       #   @template = YMDP::Compiler::Template::Base.new(params)
       #
-      # ==== Options
+      # === Options
       #
-      #   verbose: boolean value, output verbose notices,
-      #   domain: string, indicates which domain the template is compiling to,
-      #   file: filename of the template in question,
-      #   hash: git hash of the latest commit,
-      #   message: commit message of the latest commit.
+      #   verbose::     boolean value, output verbose notices,
+      #   domain::      string, indicates which domain the template is compiling to,
+      #   file::        filename of the template in question,
+      #   hash::        git hash of the latest commit,
+      #   message::     commit message of the latest commit.
       #
       class Base < YMDP::Base
         attr_accessor :domain, :server, :file, :assets_directory, :hash, :message
@@ -59,7 +59,7 @@ module YMDP
           @verbose
         end
   
-        # Parses the file 'content.yml' and adds each of its keys to the environment as
+        # Parsed from the file 'content.yml' each of its keys is added to the environment as
         # an instance variable, so they will be available inside the template.
         #
         def set_content_variables
@@ -72,7 +72,7 @@ module YMDP
           end
         end
       
-        # If the filename begins with a _ it's a partial.
+        # If the filename begins with a <tt>_</tt> it's a partial.
         #
         def partial?
           File.basename(@file) =~ /^_/
@@ -114,7 +114,7 @@ module YMDP
         # Produces the destination path of this template, in the servers directory for
         # the given domain.
         #
-        # ==== Examples
+        # === Examples
         #
         # If the source file is:
         # 

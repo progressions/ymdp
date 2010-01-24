@@ -108,10 +108,6 @@ module YMDP
         @config.get(base, *args)
       end
       
-      def any?
-        options.any?
-      end
-      
       def each
         options.each do |name, values|
           yield name, values

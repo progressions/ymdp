@@ -35,10 +35,6 @@ module YMDP
       @@configuration ||= YMDP::Configuration::Setter.new
     end
     
-    def self.content_variables
-      configuration.content_variables
-    end
-    
     def content_variables
       configuration.content_variables
     end
@@ -52,20 +48,6 @@ module YMDP
     #
     def self.configure
       yield configuration
-    end
-    
-    # Returns the server definition hash as a class variable, making it available to
-    # any class derived from YMDP::Base.
-    #
-    def self.servers
-      configuration.servers
-    end
-    
-    # Returns the paths definition hash as a class variable, making it available to
-    # any class derived from YMDP::Base.
-    #   
-    def self.paths
-      configuration.paths
     end
     
     # Returns the server definition hash as an instance variable, making it available to
@@ -101,33 +83,5 @@ module YMDP
     def display_path(path)
       self.class.display_path(path)
     end
-    
-    
-    private
-    
-    # Creates class- and instance-level accessors for the key and value.
-    #
-    def self.create_accessor(key, value)
-      if key
-        value_str = "\"#{value}\""
-      
-        key = key.to_s.gsub("@", "")
-      
-        class_eval %(
-          class << self
-            attr_accessor :#{key}
-          end
-        )
-        
-        self.send("#{key}=".to_sym, value)
-      
-        eval %(
-          def #{key}
-            #{self}.#{key}
-          end
-        )
-      end
-    end
   end
 end
-
