@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-require 'application'
+require 'view/application'
 
 describe Application do
   describe "set current view" do

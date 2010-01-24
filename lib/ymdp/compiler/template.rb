@@ -1,6 +1,6 @@
 require 'yrb'
-require 'application_view'
-require 'application'
+require 'view/application_view'
+require 'view/application'
 
 module YMDP
   module Compiler #:nodoc:
