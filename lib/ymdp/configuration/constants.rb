@@ -2,7 +2,7 @@ unless defined?(YMDP_TEST)
   CONFIG = YMDP::Configuration::Config.new unless defined?(CONFIG)
   SERVERS = YMDP::Configuration::Servers.new unless defined?(SERVERS)
 
-  @content_variables = YAML.load_file("#{BASE_PATH}/config/content.yml")
+  @content_variables = YAML.load_file("#{BASE_PATH}/config/content.yml") if File.exists?("#{BASE_PATH}/config/content.yml")
 
   @jslint_settings = File.read("#{BASE_PATH}/config/jslint.js") if File.exists?("#{BASE_PATH}/config/jslint.js")
 
@@ -10,6 +10,7 @@ unless defined?(YMDP_TEST)
     config.username = CONFIG["username"]
     config.password = CONFIG["password"]
     config.default_server = CONFIG["default_server"]
+    config.host = CONFIG["host"]
     config.growl = CONFIG["growl"]
     config.verbose = CONFIG["verbose"]
     config.compress = CONFIG["compress"]

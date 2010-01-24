@@ -1,4 +1,6 @@
 require 'yrb'
+require 'application_view'
+require 'application'
 
 module YMDP
   module Compiler #:nodoc:
@@ -27,11 +29,12 @@ module YMDP
       #   message::     commit message of the latest commit.
       #
       class Base < YMDP::Base
-        attr_accessor :domain, :server, :file, :assets_directory, :hash, :message
+        attr_accessor :domain, :server, :file, :assets_directory, :hash, :message, :host
         
         def initialize(params)
           @verbose = params[:verbose]
           @domain = params[:domain]
+          @host = params[:host]
           
           server_settings = servers[@domain]
           if server_settings
@@ -63,7 +66,7 @@ module YMDP
         # an instance variable, so they will be available inside the template.
         #
         def set_content_variables
-          content_variables.each do |key, value|
+          content_variables.to_a.each do |key, value|
             attribute = "@#{key}"
             instance_variable_set(attribute, value) unless instance_variable_defined?(attribute)
             class_eval %(
@@ -185,7 +188,9 @@ module YMDP
         
           if File.exists?(haml_layout)
             template = File.read(haml_layout)
-            layout = process_haml(template, haml_layout)
+            layout = process_haml(template, haml_layout) do
+              @content
+            end
           end
         
           write_template_without_layout(layout)
@@ -257,7 +262,9 @@ module YMDP
           if filename
             options[:filename] = filename
           end
-          Haml::Engine.new(template, options).render(self)
+          Haml::Engine.new(template, options).render(self) do
+            yield
+          end
         end
   
         # Write this template with the application layout applied.

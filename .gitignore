@@ -23,3 +23,4 @@ pkg
 vendor/bin/*
 vendor/gems/*
 !vendor/gems/cache/
+features/data/servers

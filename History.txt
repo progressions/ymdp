@@ -1,6 +1,9 @@
 == 0.1.11 (in Git)
   * minor enhancements
     * changed implementation of configuration object
+    * exposed "host" attribute within templates
+    * send content into template with <tt>yield</tt> instead of instance variable
+    * Cucumber tests
   * bug fixes
     * fixed filename in form_post.rb
     * removed unneeded data folder from /spec

@@ -1,0 +1,10 @@
+servers:
+  production:
+    server: www
+    application_id: abcdefg
+    assets_id: hijklmnop_1
+
+  development:
+    server: staging
+    application_id: aeiouefgj
+    assets_id: jklmnopqrs_1

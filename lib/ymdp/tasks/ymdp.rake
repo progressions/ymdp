@@ -1,7 +1,5 @@
 require 'ymdt'
 
-# include YMDP::Config
-
 begin
   CATEGORIES = YAML.load_file("./config/categories.yml")["categories"] unless defined?(CATEGORIES)
 rescue

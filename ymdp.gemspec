@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
-  s.date = %q{2010-01-23}
+  s.date = %q{2010-01-24}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
   s.extra_rdoc_files = [
@@ -26,6 +26,16 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "features/data/app/assets/yrb/en-US/keys_en-US.pres",
+     "features/data/app/views/layouts/application.html.haml",
+     "features/data/app/views/page.html.haml",
+     "features/data/config/config.yml",
+     "features/data/config/content.yml",
+     "features/data/config/jslint.js",
+     "features/data/config/servers.yml",
+     "features/step_definitions/ymdp_steps.rb",
+     "features/support/env.rb",
+     "features/ymdp.feature",
      "lib/ymdp.rb",
      "lib/ymdp/application.rb",
      "lib/ymdp/application_view.rb",

@@ -1,0 +1,29 @@
+config:
+  username: username
+  password: password
+  default_server: staging
+  production_server: my
+  host: mysite.com
+  doctype: HTML 4.0 Transitional
+  growl: true
+  
+  verbose: false
+  compress:
+    obfuscate: true
+    css: true
+    embedded_js: true
+    js_assets: true
+  validate:
+    html: 
+      build: true
+      deploy: false
+    embedded_js:
+      build: true
+      deploy: false
+    js_assets:
+      build: false
+      deploy: false
+    json_assets:
+      build: false
+      deploy: false
+        

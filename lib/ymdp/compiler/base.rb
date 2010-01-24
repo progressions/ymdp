@@ -12,21 +12,22 @@
 module YMDP
   module Compiler #:nodoc:
     class Base 
-      attr_accessor :domain, :git_hash, :options, :base_path, :server
+      attr_accessor :domain, :git_hash, :options, :base_path, :server, :host
   
       # A TemplateCompiler instance covers a single domain, handling all the processing necessary to 
       # convert the application source code into usable destination files ready for upload.
       #
       def initialize(domain, git_hash, options={})
+        # raise options.inspect
         @domain = domain
         @git_hash = git_hash
         @options = options
         @base_path = options[:base_path]
         @server = options[:server]
+        @host = options[:host]
         
         raise ArgumentError.new("domain is required") unless @domain
         raise ArgumentError.new("server is required") unless @server
-        
         raise ArgumentError.new("base_path is required") unless @base_path
       end
       
@@ -46,9 +47,9 @@ module YMDP
 
       # Do all the processing necessary to convert all the application source code from the given path
       # into usable destination files ready for upload to the server:
-      # - create server directory if necessary,
-      # - for each file in the source path, build the file, and
-      # - copy the images from the source to the destination directory.
+      # * create server directory if necessary,
+      # * for each file in the source path, build the file, and
+      # * copy the images from the source to the destination directory.
       #
       def process_path(path)
         $stdout.puts "Processing #{path} for #{domain}"
@@ -64,8 +65,8 @@ module YMDP
       end
   
       # Build this file if it's either:
-      # - a view, but not a partial or layout, or
-      # - a JavaScript file.
+      # * a view, but not a partial or layout, or
+      # * a JavaScript file.
       #
       def build_file(file)
         params = {
@@ -75,7 +76,8 @@ module YMDP
           :message => options[:message], 
           :verbose => options[:verbose], 
           :base_path => base_path,
-          :server => server
+          :server => server,
+          :host => host
         }
         if build?(file)
           if file =~ /(\.haml|\.erb)$/

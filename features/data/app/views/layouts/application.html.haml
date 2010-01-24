@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    /
+      = "Sprint #{@version} #{@sprint_name}"
+      = "'#{@view}' view for #{@domain}: #{@server}.#{@host}"
+      = "built at #{Time.now}"
+      = "commit #{@hash}, '#{@message}'"
+      
+    %title= "#{@view} view for #{@domain}: #{@server}.#{@host}"
+
+  %body{:class => @view}
+
+    #content
+      = yield
+    
+/
+  = "Sprint #{@version} #{@sprint_name}"
+  = "'#{@view}' view for #{@domain}: #{@server}.#{@host}"
+  = "built at #{Time.now}"
+  = "commit #{@hash}, '#{@message}'"

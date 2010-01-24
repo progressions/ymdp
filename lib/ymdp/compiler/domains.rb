@@ -56,8 +56,9 @@ module YMDP
       def process_domains
         domains.each do |domain|
           params = options
+          params[:host] = configuration.host
           params[:server] = servers[domain]["server"]
-          compiler = YMDP::Compiler::Base.new(domain, git_hash, options)
+          compiler = YMDP::Compiler::Base.new(domain, git_hash, params)
           
           compiler.process_all
         end

@@ -11,15 +11,9 @@ require 'rubygems'
 require 'erb'
 require 'set'
 
-require File.expand_path("#{dir}/tag_helper")
-require File.expand_path("#{dir}/asset_tag_helper")
-
-Dir["#{dir}/*.rb"].each do |path|
-  require File.expand_path(path)
-end
-
-["support", "configuration"].each do |directory|
-  Dir["#{dir}/#{directory}/*.rb"].each do |path|
-    require File.expand_path(path)
-  end
-end
+require 'base'
+require 'processor/validator'
+require 'tag_helper'
+require 'asset_tag_helper'
+require 'support/file'
+require 'configuration/config'

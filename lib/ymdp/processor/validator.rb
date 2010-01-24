@@ -1,7 +1,7 @@
 require 'ymdp/base'
-require 'support/file'
-require 'processor/w3c'
-require 'processor/form_post'
+require 'ymdp/support/file'
+require 'ymdp/processor/w3c'
+require 'ymdp/processor/form_post'
 
 module YMDP
   module Validator

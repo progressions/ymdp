@@ -34,6 +34,9 @@ module YMDP
       # <tt>deploy</tt>.
       attr_accessor :default_server
       
+      # Host name for the website backend of this application.
+      attr_accessor :host
+      
       # Boolean value which sets whether Growl notifications should be used when compiling 
       # and deploying the application.
       attr_accessor :growl
