@@ -19,5 +19,6 @@ gem "ymdp_generator"
 gem "ymdt"
 gem "yrb"
 gem "idiom"
+gem "w3c_validators"
 
 bin_path "vendor/bin"

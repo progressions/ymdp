@@ -1,10 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-require 'processor/w3c'
+require 'validator/w3c'
 
 describe "Validator" do
   before(:each) do
     stub_io
     stub_config
+    File.stub!(:exists?).with(/jslint.js/).and_return(true)
   end
   
   describe "HTML" do
@@ -74,6 +75,7 @@ describe "Validator" do
   describe "JavaScript" do
     describe "jslint" do
       before(:each) do
+        File.stub!(:exists?).with(/jslint.js/).and_return(true)
         @jslint_settings = "/* These are JSLint settings %/"
         F.stub!(:execute).with(/java/, :return => true).and_return("jslint: No problems found")  
       end

@@ -14,6 +14,8 @@
     #content
       = yield
     
+    = render :javascript => 'application'
+    
 /
   = "Sprint #{@version} #{@sprint_name}"
   = "'#{@view}' view for #{@domain}: #{@server}.#{@host}"

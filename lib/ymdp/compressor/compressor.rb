@@ -65,9 +65,14 @@ module YMDP
           #
           options_string = options.map {|k,v| "--#{k} #{v}"}.join(" ")
       
+          
           # call the compressor
           #
-          command = "java -jar ./script/yuicompressor-2.4.2.jar #{options_string} #{path} -o #{compressed_path} 2>&1"
+          
+          compressor_path = File.expand_path("lib/ymdp/compressor/yuicompressor-2.4.2.jar")
+          raise "#{compressor_path} does not exist" unless File.exists?(compressor_path)
+          
+          command = "java -jar #{compressor_path} #{options_string} #{path} -o #{compressed_path} 2>&1"
           result = F.execute(command, :return => true)
         
           result.split("\n").each do |line|

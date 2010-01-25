@@ -1,7 +1,7 @@
 require 'ymdp/base'
 require 'ymdp/support/file'
-require 'ymdp/processor/w3c'
-require 'ymdp/processor/form_post'
+require 'ymdp/validator/w3c'
+require 'ymdp/validator/form_post'
 
 module YMDP
   module Validator
@@ -89,7 +89,9 @@ module YMDP
             f.puts output
           end
 
-          results = F.execute("java org.mozilla.javascript.tools.shell.Main ./script/jslint.js #{js_fragment_path}", :return => true)
+          jslint_path = File.expand_path("lib/ymdp/validator/jslint.js")
+          raise "#{jslint_path} does not exist" unless File.exists?(jslint_path)
+          results = F.execute("java org.mozilla.javascript.tools.shell.Main #{jslint_path} #{js_fragment_path}", :return => true)
 
           if results =~ /jslint: No problems found/
             $stdout.puts "OK"

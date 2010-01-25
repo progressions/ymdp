@@ -1,5 +1,5 @@
-require 'processor/compressor'
-require 'processor/validator'
+require 'compressor/compressor'
+require 'validator/validator'
 
 module YMDP
   # Contains all the functions which are available from inside a view file, whether that view
@@ -266,7 +266,7 @@ module YMDP
       end
       
       output = combine_files(filenames)
-      tmp_filename = "./tmp/#{filenames_str}.js"
+      tmp_filename = "#{TMP_PATH}/#{filenames_str}.js"
       
       validate = F.save_to_file(output, tmp_filename)
 

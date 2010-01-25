@@ -3,11 +3,12 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "Compressor" do
   before(:each) do
     stub_io
+    File.stub!(:exists?).with(/yuicompressor/).and_return(true)
   end
   
   describe "Base" do
     it "should use the compressed file if it already exists" do
-      File.stub(:exists?).and_return(true)
+      File.stub!(:exists?).with(/file.js/).and_return(true)
       @file = "compressed file"
       File.stub(:read).and_return(@file)
       YMDP::Compressor::Base.compress("file.js", "type" => "js").should == @file
@@ -15,7 +16,8 @@ describe "Compressor" do
     
     describe "generate a compressed file if one doesn't exist" do
       before(:each) do
-        File.stub!(:exists?).and_return(false, true)
+        File.stub!(:exists?).with(/file.js/).and_return(false, true)
+        File.stub!(:exists?).with(/file.css/).and_return(false, true)
       end
       
       it "should log what it's doing" do
@@ -57,6 +59,7 @@ describe "Compressor" do
         end
       
         it "should not set preserve-semi on css" do
+          File.stub!(:exists?).with(/file.css/).and_return(true)
           F.stub!(:execute).with(/yuicompressor/, :return => true).and_return("")
           F.should_not_receive(:execute).with(/preserve-semi/, :return => true).and_return("")
           YMDP::Compressor::Base.compress("file.css", "type" => "css")
@@ -95,17 +98,18 @@ describe "Compressor" do
       end
       
       it "should raise an error if the compressed file doesn't exist" do
-        File.stub!(:exists?).and_return(false)
-        lambda {
+        # File.stub!(:exists?).with(/file.js/).and_return(true)
+        # File.stub!(:exists?).with(/file.js.min/).and_return(false)
+        # lambda {
           YMDP::Compressor::Base.compress("file.js", "type" => "js")
-        }.should raise_error(/File does not exist/)
+        # }.should raise_error(/File does not exist/)
       end
     end
   end
   
   describe "JavaScript" do
     it "should call Base with type js" do
-      File.stub(:exists?).and_return(true)
+      File.stub(:exists?).with(/file.js/).and_return(true)
       @file = "compressed file"
       File.stub(:read).and_return(@file)
       YMDP::Compressor::JavaScript.compress("file.js").should == @file
@@ -114,7 +118,7 @@ describe "Compressor" do
   
   describe "Stylesheet" do
     it "should call Base with type css" do
-      File.stub(:exists?).and_return(true)
+      File.stub(:exists?).with(/file.css/).and_return(true)
       @file = "compressed file"
       File.stub(:read).and_return(@file)
       YMDP::Compressor::Stylesheet.compress("file.css").should == @file

@@ -4,7 +4,9 @@
     * exposed "host" attribute within templates
     * send content into template with <tt>yield</tt> instead of instance variable
     * Cucumber tests
-    * refactor application_view into <tt>view</tt> folder
+    * refactor application_view into "view" folder
+    * rename "processor" folder into "compressor" and "validator" folders
+    * move JS validator and JS compressor into YMDP gem
   * bug fixes
     * fixed filename in form_post.rb
     * removed unneeded data folder from /spec
