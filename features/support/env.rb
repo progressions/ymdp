@@ -17,6 +17,9 @@ Before do
     SERVERS_PATH = File.expand_path("./features/data/servers")
     TMP_PATH = File.expand_path("./features/data/tmp")
   end
+  
+  @exception = nil
+  @files = []
 
   $rspec_mocks ||= Spec::Mocks::Space.new  
   
@@ -28,4 +31,10 @@ Before do
   
   @ymdt = "ymdt"
   YMDT::Base.stub!(:new).and_return(@ymdt)
+end
+
+After do
+  @files.each do |file|
+    system "rm #{file}"
+  end
 end

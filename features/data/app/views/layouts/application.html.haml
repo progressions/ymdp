@@ -8,6 +8,8 @@
       = "commit #{@hash}, '#{@message}'"
       
     %title= "#{@view} view for #{@domain}: #{@server}.#{@host}"
+    
+    = render :stylesheet => 'application'
 
   %body{:class => @view}
 

@@ -27,21 +27,26 @@ And %r{I should see "([^\"]*)" in "([^\"]*)"} do |content, path|
   File.read("#{BASE_PATH}/#{path}").should =~ /#{content}/
 end
 
-Given %r{the view "([^\"]*)" exists with "([^\"]*)"} do |filename, content|
+Given %r{the file "([^\"]*)" exists with "([^\"]*)"} do |filename, content|
   content.gsub!("\\n", "\n")
-  File.open("#{BASE_PATH}/app/views/#{filename}.html.haml", "w") do |f|
+  File.open("#{BASE_PATH}/#{filename}", "w") do |f|
     content.split("\n").each do |line|
       f.puts line
     end
   end
+  @files << "#{BASE_PATH}/#{filename}"
 end
 
 Then /^an exception should have been raised with the message "([^\"]*)"$/ do |message|
   @exception.should == message
 end
 
-And %r{I remove the view "([^\"]*)"} do |filename|
-  system "rm #{BASE_PATH}/app/views/#{filename}.html.haml"
+Then %r{no exceptions should have been raised} do
+  @exception.should be_nil
+end
+
+And %r{I remove the file "([^\"]*)"} do |filename|
+  system "rm #{BASE_PATH}/#{filename}"
 end
 
 When %r{I deploy the application} do

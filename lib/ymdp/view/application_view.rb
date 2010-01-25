@@ -296,7 +296,7 @@ module YMDP
     #
     def render_stylesheets(filenames, combined_filename=nil)
       filenames_str = combined_filename || filenames.join()
-      tmp_filename = "./tmp/#{filenames_str}.css"
+      tmp_filename = "#{TMP_PATH}/#{filenames_str}.css"
       
       filenames.map! do |filename|
         filename.gsub!(/\.css$/, "")

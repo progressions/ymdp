@@ -357,7 +357,7 @@ describe "ApplicationView" do
         end
         
         it "should render multiple partials to a filename" do
-          F.should_receive(:save_to_file).with(anything, "./tmp/stylesheets.css")
+          F.should_receive(:save_to_file).with(anything, /tmp\/stylesheets.css/)
           @view.render(:stylesheet => ['application', 'sidebar'], :filename => 'stylesheets')
         end
       end
