@@ -1,3 +1,7 @@
+== 0.1.12 (in Git)
+  * bug fixes
+    * config.yml settings for compression and validation work again
+
 == 0.1.11 2010-01-25
   * minor enhancements
     * changed implementation of configuration object

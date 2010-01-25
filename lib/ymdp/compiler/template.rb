@@ -275,8 +275,8 @@ module YMDP
         #
         def write_template(result)
           result = super(result)
-          
-          if CONFIG.validate_html? && !YMDP::Validator::HTML.validate(destination_path)
+        
+          if configuration.validate["html"]["build"] && !YMDP::Validator::HTML.validate(destination_path)
             raise "HTML Validation Errors"
           end
           
@@ -297,7 +297,7 @@ module YMDP
           filename = @file.split("/").last
           tmp_filename = "#{TMP_PATH}/#{filename}"
           F.save_to_file(result, tmp_filename)
-          result = YMDP::Compressor::JavaScript.compress(tmp_filename) if CONFIG.compress_embedded_js?
+          result = YMDP::Compressor::JavaScript.compress(tmp_filename) if configuration.compress["embedded_js"]
           write_template_without_layout(result)
         end
       end

@@ -7,7 +7,7 @@ Feature: Configuration
     Then my "username" setting should be "username"
     And my "password" setting should be "password"
     
-  @wip
+  
   Scenario: Ensure the commit message is in the view
     Given I compile the application with the message "this is my commit message"
     Then I should see "this is my commit message" in "servers/production/views/page"

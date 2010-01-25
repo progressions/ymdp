@@ -1,4 +1,3 @@
-
 def stub_ymdp_configuration
   @content_variables = {
     "version" => 1,

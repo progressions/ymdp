@@ -307,7 +307,7 @@ module YMDP
       
       validate = F.save_to_file(output, tmp_filename)
 
-      output = YMDP::Compressor::Stylesheet.compress(tmp_filename) if CONFIG.compress_css?
+      output = YMDP::Compressor::Stylesheet.compress(tmp_filename) if configuration.compress["css"]
       
       # YMDP::Validator::Stylesheet.validate(tmp_filename) if validate && CONFIG.validate_embedded_css?
       
@@ -344,6 +344,6 @@ module YMDP
 
     def initialize(assets_directory)
       @assets_directory = assets_directory
-    end    
+    end  
   end
 end

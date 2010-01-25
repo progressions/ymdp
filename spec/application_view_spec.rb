@@ -3,7 +3,15 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "ApplicationView" do
   before(:each) do
     @assets_directory = "/om/assets/abcdefg_1"
+
+    @compress = {"obfuscate"=>true, "js_assets"=>true, "css"=>true, "embedded_js"=>true}
+    @validate = {"html"=>{"doctype"=>"HTML 4.0 Transitional", "build"=>true, "deploy"=>true}, "js_assets"=>{"build"=>false, "deploy"=>false}, "json_assets"=>{"build"=>false, "deploy"=>false}, "embedded_js"=>{"build"=>true, "deploy"=>true}}    
+    
     @view = YMDP::View.new(@assets_directory)
+    @configuration = mock('configuration')
+    @configuration.stub!(:compress).and_return(@compress)
+    @configuration.stub!(:validate).and_return(@validate)
+    @view.stub!(:configuration).and_return(@configuration)
     stub_io
   end
   
@@ -300,7 +308,8 @@ describe "ApplicationView" do
         @compressed_template = "compressed template"
         @processed_script = "<style type='text/css'>\n#{@processed_template}\n</style>"
         @compressed_script = "<style type='text/css'>\n#{@compressed_template}\n</style>"
-        YMDP::Compressor::Stylesheet.stub!(:compress).and_return(@compressed_template)
+        YMDP::Compressor::Stylesheet.stub!(:compress).with("").and_return("")
+        YMDP::Compressor::Stylesheet.stub!(:compress).with(/.css/).and_return(@compressed_template)
         YMDP::Validator::Stylesheet.stub!(:validate).and_return(true)
       end
       
@@ -311,12 +320,11 @@ describe "ApplicationView" do
         end
         
         it "should render a compressed partial" do
-          @config.stub!(:compress_css?).and_return(true)
           @view.render(:stylesheet => 'application').should == @compressed_script
         end
         
         it "should render an uncompressed partial" do
-          @config.stub!(:compress_css?).and_return(false)
+          @view.send(:configuration).compress["css"] = false
           @view.render(:stylesheet => 'application').should == @processed_script
         end
         
@@ -326,7 +334,7 @@ describe "ApplicationView" do
         end
         
         it "should render uncompressed without tags" do
-          @config.stub!(:compress_css?).and_return(false)
+          @view.send(:configuration).compress["css"] = false
           @view.render(:stylesheet => 'application', :tags => false).should == @processed_template
         end
       end
@@ -344,6 +352,8 @@ describe "ApplicationView" do
           
           File.stub!(:open).with(/application.css$/, anything).and_yield(@application_file)
           File.stub!(:open).with(/sidebar.css$/, anything).and_yield(@sidebar_file)
+          
+          YMDP::Compressor::Stylesheet.stub!(:compress).with(/applicationsidebar.css/).and_return("application\nsidebar")
           
           @view.stub!(:process_template).and_return("application", "sidebar")
         end
@@ -371,9 +381,10 @@ describe "ApplicationView" do
       
       it "should return blank string if partial can't be found" do
         File.stub!(:exists?).and_return(false)
-        lambda {
+        YMDP::Compressor::Stylesheet.should_receive(:compress).with(/application.css/).and_return("")
+        # lambda {
           @view.render(:stylesheet => 'application').should == ""
-        }.should_not raise_error
+        # }.should_not raise_error
       end
     end
 

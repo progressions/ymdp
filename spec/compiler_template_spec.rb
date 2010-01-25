@@ -106,6 +106,7 @@ describe "Template" do
       }
       
       @js_template = YMDP::Compiler::Template::JavaScript.new(@params)
+      
     end
     
     it "should instantiate" do
@@ -113,6 +114,8 @@ describe "Template" do
     end
     
     it "should build" do
+      @js_template.configuration.compress["embedded_js"] = false
+      
       File.stub!(:read).with("filename.js").and_return("unprocessed")
       
       # process the contents of filename.html.erb through ERB
@@ -120,14 +123,14 @@ describe "Template" do
       @erb = mock('erb', :result => "processed template output")
       ERB.should_receive(:new).with("unprocessed", anything, anything).and_return(@erb)
       
+      YMDP::Compressor::JavaScript.stub!(:compress).and_return("compressed template output")
+      
       F.stub!(:save_to_file).with("processed template output")
       
       @js_template.build.should == "processed template output"
     end
     
     it "should compress" do
-      @config.stub!(:compress_embedded_js?).and_return(true)
-      
       # process the contents of filename.html.erb through ERB
       #
       @erb = mock('erb', :result => "processed template output")
@@ -210,7 +213,7 @@ describe "Template" do
         @processed_haml = "processed haml"
         stub_haml_class
         
-        YMDP::Validator::HTML.stub!(:validate)
+        YMDP::Validator::HTML.stub!(:validate).and_return(true)
       end
       
       it "should not build if it's a partial" do
