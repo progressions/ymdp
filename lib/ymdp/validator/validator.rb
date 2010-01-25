@@ -1,7 +1,7 @@
 require 'ymdp/base'
 require 'ymdp/support/file'
-require 'ymdp/validator/w3c'
-require 'ymdp/validator/form_post'
+require 'w3c_validators'
+
 
 module YMDP
   module Validator
@@ -9,42 +9,32 @@ module YMDP
     end
     
     class HTML < Base
-      def self.validate(path)
-        html_display_path = display_path(path)
-
-        log_path = validation_errors(path)
-        if log_path
-          g("HTML validation errors found")
-          F.execute "open #{log_path}"
-          raise "Invalid HTML"
-        else
-          $stdout.puts "   #{html_display_path}  validating . . . OK"
+      class << self
+        def validator
+          @validator ||= W3CValidators::MarkupValidator.new
         end
-      end
-      
-      def self.validation_errors(path)
-        html_display_path = display_path(path)
-        doctype = CONFIG["doctype"] || "HTML 4.0 Transitional"
+        
+        def validate(path)
+          $stdout.print "   #{path}  validating . . . "
+          doctype = configuration.validate["html"]["doctype"]
+          validator.set_doctype!(doctype)
 
-        resp = W3CPoster.post_file_to_w3c_validator(path, doctype)
-        html = resp.read_body
-        if html.include? "[Valid]"
-          false
-        else
-          log_path = "#{TMP_PATH}/#{File.basename(path)}_errors.html"
-          $stdout.puts "   #{html_display_path} is not valid HTML, writing to #{display_path(log_path)}"
-          $stdout.puts
-          $stdout.puts "     To view errors:"
-          $stdout.puts "     open #{display_path(log_path)}"
-          $stdout.puts
+          results = validator.validate_file(path)
           
-          File.open(log_path,'w') do |f|
-             f.puts html
-           end
-           
-          $stdout.puts "     Viewing errors..."    
-          log_path
-        end  
+          valid = results.errors.length <= 0
+          
+          if valid
+            $stdout.puts "OK"
+          else
+            $stdout.puts "validation errors"
+            results.errors.each do |err|
+              $stdout.puts
+              $stdout.puts err.to_s
+            end
+          end
+          
+          valid
+        end
       end
     end
     
@@ -89,7 +79,7 @@ module YMDP
             f.puts output
           end
 
-          jslint_path = File.expand_path("lib/ymdp/validator/jslint.js")
+          jslint_path = File.expand_path("#{File.dirname(__FILE__)}/jslint.js")
           raise "#{jslint_path} does not exist" unless File.exists?(jslint_path)
           results = F.execute("java org.mozilla.javascript.tools.shell.Main #{jslint_path} #{js_fragment_path}", :return => true)
 

@@ -7,6 +7,7 @@
     * refactor application_view into "view" folder
     * rename "processor" folder into "compressor" and "validator" folders
     * move JS validator and JS compressor into YMDP gem
+    * replace HTML validator with w3c_validator gem
   * bug fixes
     * fixed filename in form_post.rb
     * removed unneeded data folder from /spec

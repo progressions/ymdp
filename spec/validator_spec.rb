@@ -1,21 +1,39 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-require 'validator/w3c'
+
+require 'validator/validator'
 
 describe "Validator" do
   before(:each) do
     stub_io
     stub_config
+    stub_ymdp_configuration
     File.stub!(:exists?).with(/jslint.js/).and_return(true)
   end
   
   describe "HTML" do
     before(:each) do
-      @resp = mock('resp', :read_body => "[Valid]")
-      W3CPoster.stub!(:post_file_to_w3c_validator).and_return(@resp)
+      class ResultsMock
+        def errors
+          []
+        end
+      end
+      
+      class ValidatorMock
+        def validate_file(path)
+          ResultsMock.new
+        end
+        
+        def set_doctype!(doctype)
+          
+        end
+      end
+      
+      @validator = ValidatorMock.new
+      W3CValidators::MarkupValidator.stub!(:new).and_return(@validator)
     end
     
     it "should call validator" do
-      W3CPoster.should_receive(:post_file_to_w3c_validator).and_return(@resp)
+      W3CValidators::MarkupValidator.should_receive(:new).and_return(@validator)
       YMDP::Validator::HTML.validate("path")
     end
     
@@ -26,48 +44,33 @@ describe "Validator" do
     
     describe "errors" do
       before(:each) do
-        @resp.stub!(:read_body => "Not Valid")
+        class ResultsMock
+          def errors
+            ["HTML Error 1", "HTML Error 2"]
+          end
+        end
+      
+        class ValidatorMock
+          def validate_file(path)
+            ResultsMock.new
+          end
+        
+          def set_doctype!(doctype)
+          
+          end
+        end
+      
+        @validator = ValidatorMock.new
+        W3CValidators::MarkupValidator.stub!(:new).and_return(@validator)
+      end
+      
+      it "should be false" do
+        YMDP::Validator::HTML.validate("path").should be_false
       end
       
       it "should output a message" do
-        $stdout.should_receive(:puts).with(/not valid HTML/)
-        lambda {
-          YMDP::Validator::HTML.validate("path")
-        }.should raise_error("Invalid HTML")
-      end
-      
-      it "should open the error file" do
-        File.should_receive(:open).with(/path_errors/, "w").and_return(@file)
-        lambda {
-          YMDP::Validator::HTML.validate("path")
-        }.should raise_error("Invalid HTML")
-      end
-      
-      it "should write to the error file" do
-        @file.should_receive(:puts).with("Not Valid")
-        lambda {
-          YMDP::Validator::HTML.validate("path")
-        }.should raise_error("Invalid HTML")
-      end
-      
-      it "should growl a message" do
-        @g.should_receive(:notify).with(anything, anything, /HTML validation errors/, anything, anything)
-        lambda {
-          YMDP::Validator::HTML.validate("path")
-        }.should raise_error("Invalid HTML")
-      end
-      
-      it "should open the error file" do
-        F.should_receive(:execute).with(/open/)
-        lambda {
-          YMDP::Validator::HTML.validate("path")
-        }.should raise_error("Invalid HTML")
-      end
-      
-      it "should raise an error" do
-        lambda {
-          YMDP::Validator::HTML.validate("path")
-        }.should raise_error("Invalid HTML")
+        $stdout.should_receive(:puts).with("validation errors")
+        YMDP::Validator::HTML.validate("path")
       end
     end
   end

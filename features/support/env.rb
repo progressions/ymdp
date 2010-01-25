@@ -22,6 +22,10 @@ Before do
   
   stub_growl
   
+  @git_helper = 'git_helper'
+  @git_helper.stub(:commit).as_null_object
+  YMDP::GitHelper.stub!(:new).and_return(@git_helper)
+  
   @ymdt = "ymdt"
   YMDT::Base.stub!(:new).and_return(@ymdt)
 end

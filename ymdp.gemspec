@@ -27,6 +27,8 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "features/data/app/assets/yrb/en-US/keys_en-US.pres",
+     "features/data/app/javascripts/application.js",
+     "features/data/app/stylesheets/application.css",
      "features/data/app/views/layouts/application.html.haml",
      "features/data/app/views/page.html.haml",
      "features/data/config/config.yml",
@@ -45,19 +47,19 @@ Gem::Specification.new do |s|
      "lib/ymdp/compiler/git_helper.rb",
      "lib/ymdp/compiler/options.rb",
      "lib/ymdp/compiler/template.rb",
+     "lib/ymdp/compressor/compressor.rb",
+     "lib/ymdp/compressor/yuicompressor-2.4.2.jar",
      "lib/ymdp/configuration/config.rb",
      "lib/ymdp/configuration/constants.rb",
      "lib/ymdp/generator/templates/javascript.js",
      "lib/ymdp/generator/templates/stylesheet.css",
      "lib/ymdp/generator/templates/translation.pres",
      "lib/ymdp/generator/templates/view.html.haml",
-     "lib/ymdp/processor/compressor.rb",
-     "lib/ymdp/processor/form_post.rb",
-     "lib/ymdp/processor/validator.rb",
-     "lib/ymdp/processor/w3c.rb",
      "lib/ymdp/support/file.rb",
      "lib/ymdp/tasks/keys.rake",
      "lib/ymdp/tasks/ymdp.rake",
+     "lib/ymdp/validator/jslint.js",
+     "lib/ymdp/validator/validator.rb",
      "lib/ymdp/view/application.rb",
      "lib/ymdp/view/application_view.rb",
      "lib/ymdp/view/asset_tag_helper.rb",
@@ -123,6 +125,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<ymdp_generator>, [">= 0"])
       s.add_runtime_dependency(%q<ymdt>, [">= 0"])
       s.add_runtime_dependency(%q<yrb>, [">= 0"])
+      s.add_runtime_dependency(%q<w3c_validators>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 1.2.6"])
       s.add_dependency(%q<haml>, [">= 0"])
@@ -139,6 +142,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<ymdp_generator>, [">= 0"])
       s.add_dependency(%q<ymdt>, [">= 0"])
       s.add_dependency(%q<yrb>, [">= 0"])
+      s.add_dependency(%q<w3c_validators>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 1.2.6"])
@@ -156,6 +160,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<ymdp_generator>, [">= 0"])
     s.add_dependency(%q<ymdt>, [">= 0"])
     s.add_dependency(%q<yrb>, [">= 0"])
+    s.add_dependency(%q<w3c_validators>, [">= 0"])
   end
 end
 

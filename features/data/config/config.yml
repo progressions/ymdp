@@ -4,7 +4,6 @@ config:
   default_server: staging
   production_server: my
   host: mysite.com
-  doctype: HTML 4.0 Transitional
   growl: true
   
   verbose: false
@@ -15,6 +14,7 @@ config:
     js_assets: true
   validate:
     html: 
+      doctype: HTML 4.0 Transitional
       build: true
       deploy: false
     embedded_js:

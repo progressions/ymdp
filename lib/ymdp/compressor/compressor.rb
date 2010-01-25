@@ -69,7 +69,7 @@ module YMDP
           # call the compressor
           #
           
-          compressor_path = File.expand_path("lib/ymdp/compressor/yuicompressor-2.4.2.jar")
+          compressor_path = File.expand_path("#{File.dirname(__FILE__)}/yuicompressor-2.4.2.jar")
           raise "#{compressor_path} does not exist" unless File.exists?(compressor_path)
           
           command = "java -jar #{compressor_path} #{options_string} #{path} -o #{compressed_path} 2>&1"

@@ -230,7 +230,7 @@ describe "Template" do
         # process the contents of filename.html.haml through Haml::Engine
         #
         @haml = mock('haml', :render => "processed_template output")
-        Haml::Engine.stub!(:new).with("unprocessed", :filename=>"filename.html.haml").and_return(@haml)
+        Haml::Engine.stub!(:new).with("unprocessed", :doctype => :html4, :filename=>"filename.html.haml").and_return(@haml)
         
         @view_template.build.should == "processed_template output"
       end
@@ -266,7 +266,7 @@ describe "Template" do
           # process the contents of application.html.haml through Haml::Engine
           #
           @layout_haml = mock('layout_haml', :render => "processed layout")
-          Haml::Engine.stub!(:new).with("unprocessed layout", :filename=>"./base_path//app/views/layouts/application.html.haml").and_return(@layout_haml)
+          Haml::Engine.stub!(:new).with("unprocessed layout", :doctype => :html4, :filename=>"./base_path//app/views/layouts/application.html.haml").and_return(@layout_haml)
           
           # read the contents of filename.html.haml
           #
@@ -275,7 +275,7 @@ describe "Template" do
           # process the contents of filename.html.haml through Haml::Engine
           #
           @haml = mock('haml', :render => "processed template output")
-          Haml::Engine.stub!(:new).with("unprocessed", :filename=>"filename.html.haml").and_return(@haml)
+          Haml::Engine.stub!(:new).with("unprocessed", :doctype => :html4, :filename=>"filename.html.haml").and_return(@haml)
           
           @view_template.build.should == "processed layout"        
         end

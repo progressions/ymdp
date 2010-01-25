@@ -258,11 +258,13 @@ module YMDP
         #
         def process_haml(template, filename=nil)
           # puts "View process_haml"
-          options = {}
+          options = {
+            :doctype => :html4
+          }
           if filename
             options[:filename] = filename
           end
-          Haml::Engine.new(template, options).render(self) do
+          ::Haml::Engine.new(template, options).render(self) do
             yield
           end
         end
@@ -272,9 +274,11 @@ module YMDP
         # Validate the resulting HTML file if that option is turned on.
         #
         def write_template(result)
-          # puts "View write_template"
           result = super(result)
-          YMDP::Validator::HTML.validate(destination_path) if CONFIG.validate_html?
+          
+          if CONFIG.validate_html? && !YMDP::Validator::HTML.validate(destination_path)
+            raise "HTML Validation Errors"
+          end
           
           result
         end
