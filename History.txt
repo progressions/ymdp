@@ -1,4 +1,4 @@
-== 0.1.11 (in Git)
+== 0.1.11 2010-01-25
   * minor enhancements
     * changed implementation of configuration object
     * exposed "host" attribute within templates
