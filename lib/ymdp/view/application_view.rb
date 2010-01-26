@@ -1,5 +1,5 @@
 require 'compressor/compressor'
-require 'validator/validator'
+require 'epic'
 
 module YMDP
   # Contains all the functions which are available from inside a view file, whether that view
@@ -272,9 +272,13 @@ module YMDP
 
       output = YMDP::Compressor::JavaScript.compress(tmp_filename) if CONFIG.compress_embedded_js?
       
-      YMDP::Validator::JavaScript.validate(tmp_filename) if validate && CONFIG.validate_embedded_js?
+      js_validator.validate(tmp_filename) if validate && CONFIG.validate_embedded_js?
       
       output
+    end
+    
+    def js_validator
+      @js_validator ||= Epic::Validator::JavaScript.new
     end
     
     # Render a CSS partial.
@@ -308,8 +312,6 @@ module YMDP
       validate = F.save_to_file(output, tmp_filename)
 
       output = YMDP::Compressor::Stylesheet.compress(tmp_filename) if configuration.compress["css"]
-      
-      # YMDP::Validator::Stylesheet.validate(tmp_filename) if validate && CONFIG.validate_embedded_css?
       
       output
     end

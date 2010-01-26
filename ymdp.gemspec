@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.1.11"
+  s.version = "0.1.12"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
@@ -58,8 +58,6 @@ Gem::Specification.new do |s|
      "lib/ymdp/support/file.rb",
      "lib/ymdp/tasks/keys.rake",
      "lib/ymdp/tasks/ymdp.rake",
-     "lib/ymdp/validator/jslint.js",
-     "lib/ymdp/validator/validator.rb",
      "lib/ymdp/view/application.rb",
      "lib/ymdp/view/application_view.rb",
      "lib/ymdp/view/asset_tag_helper.rb",
@@ -77,7 +75,6 @@ Gem::Specification.new do |s|
      "spec/spec.opts",
      "spec/spec_helper.rb",
      "spec/stubs.rb",
-     "spec/validator_spec.rb",
      "spec/ymdp_base_spec.rb",
      "spec/ymdp_spec.rb",
      "ymdp.gemspec"
@@ -100,7 +97,6 @@ Gem::Specification.new do |s|
      "spec/git_helper_spec.rb",
      "spec/spec_helper.rb",
      "spec/stubs.rb",
-     "spec/validator_spec.rb",
      "spec/ymdp_base_spec.rb",
      "spec/ymdp_spec.rb"
   ]
@@ -111,6 +107,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 1.2.6"])
+      s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_runtime_dependency(%q<haml>, [">= 0"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_runtime_dependency(%q<hpricot>, [">= 0"])
@@ -125,9 +122,10 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<ymdp_generator>, [">= 0"])
       s.add_runtime_dependency(%q<ymdt>, [">= 0"])
       s.add_runtime_dependency(%q<yrb>, [">= 0"])
-      s.add_runtime_dependency(%q<w3c_validators>, [">= 0"])
+      s.add_runtime_dependency(%q<epic>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 1.2.6"])
+      s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<haml>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<hpricot>, [">= 0"])
@@ -142,10 +140,11 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<ymdp_generator>, [">= 0"])
       s.add_dependency(%q<ymdt>, [">= 0"])
       s.add_dependency(%q<yrb>, [">= 0"])
-      s.add_dependency(%q<w3c_validators>, [">= 0"])
+      s.add_dependency(%q<epic>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 1.2.6"])
+    s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<haml>, [">= 0"])
     s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<hpricot>, [">= 0"])
@@ -160,7 +159,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<ymdp_generator>, [">= 0"])
     s.add_dependency(%q<ymdt>, [">= 0"])
     s.add_dependency(%q<yrb>, [">= 0"])
-    s.add_dependency(%q<w3c_validators>, [">= 0"])
+    s.add_dependency(%q<epic>, [">= 0"])
   end
 end
 

@@ -83,7 +83,8 @@ describe "Template" do
         end
         
         it "should validate" do
-          YMDP::Validator::JSON.should_receive(:validate)
+          @json_validator = mock('json_validator', :validate => true)
+          Epic::Validator::JSON.should_receive(:new).and_return(@json_validator)
           @js_template.validate
         end
       end
@@ -213,7 +214,8 @@ describe "Template" do
         @processed_haml = "processed haml"
         stub_haml_class
         
-        YMDP::Validator::HTML.stub!(:validate).and_return(true)
+        @html_validator = mock('html_validator', :validate => true)
+        Epic::Validator::HTML.stub!(:new).and_return(@html_validator)
       end
       
       it "should not build if it's a partial" do

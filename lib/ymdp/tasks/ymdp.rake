@@ -1,4 +1,5 @@
 require 'ymdt'
+require 'epic'
 
 begin
   CATEGORIES = YAML.load_file("./config/categories.yml")["categories"] unless defined?(CATEGORIES)
@@ -268,7 +269,7 @@ namespace :validate do
   task :javascripts do
     puts "\nValidating external JavaScript assets in #{@application}..."
     Dir["#{BASE_PATH}/servers/#{@application}/assets/javascripts/*.js"].each do |path|
-      YMDP::Validator::JavaScript.validate(path)
+      Epic::Validator::JavaScript.validate(path)
     end
   end
 
@@ -278,7 +279,7 @@ namespace :validate do
     Dir["./servers/#{@application}/assets/yrb/*json"].each do |json|
       filename = json.split("/").last
       path = "#{BASE_PATH}/servers/#{@application}/assets/yrb/#{filename}"
-      YMDP::Validator::JSON.validate(path)
+      Epic::Validator::JSON.validate(path)
     end    
   end
 
@@ -288,7 +289,7 @@ namespace :validate do
     `rm -rf #{TMP_PATH}`
     Dir.mkdir(TMP_PATH) rescue Errno::EEXIST
     Dir["./servers/#{@application}/views/*"].each do |filename|
-      YMDP::Validator::HTML.validate(filename) if filename =~ /#{@path}/
+      Epic::Validator::HTML.validate(filename) if filename =~ /#{@path}/
     end    
   end
 
@@ -495,7 +496,7 @@ def validated_embedded_js(path)
     (doc / "script").each { |js| f.puts js.inner_html + "\n\n" }
   end
 
-  YMDP::Validator::JavaScript.validate(js_fragment_path)
+  Epic::Validator::JavaScript.validate(js_fragment_path)
   system "rm #{js_fragment_path}"
 end
 

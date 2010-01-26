@@ -49,7 +49,7 @@ Feature: Configuration
     And I compile the application with the message "this should validate"
     Then no exceptions should have been raised
     
-
+  @wip
   Scenario: Build application with invalid JavaScript
     Given the file "app/javascripts/invalid.js" exists with "A = function() { alert('hello'); }"
     And the file "app/views/invalid.html.haml" exists with "= render :javascript => 'invalid'"

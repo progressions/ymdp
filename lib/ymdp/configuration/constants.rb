@@ -22,7 +22,10 @@ unless defined?(YMDP_TEST)
     config.content_variables = @content_variables
   end
 
-  YMDP::Validator::JavaScript.configure do |config|
+  Epic::Validator::Base.configure do |config|
+    config.base_path = BASE_PATH
+    config.tmp_path = TMP_PATH
+    config.doctype = CONFIG["validate"]["html"]["doctype"]
     config.jslint_settings = @jslint_settings
   end
 end

@@ -196,7 +196,9 @@ describe "ApplicationView" do
         @processed_script = "<script type='text/javascript'>\n#{@processed_template}\n</script>"
         @compressed_script = "<script type='text/javascript'>\n#{@compressed_template}\n</script>"
         YMDP::Compressor::JavaScript.stub!(:compress).and_return(@compressed_template)
-        YMDP::Validator::JavaScript.stub!(:validate)
+
+        @js_validator = mock('js_validator', :validate => true)
+        Epic::Validator::JavaScript.stub!(:new).and_return(@js_validator)
       end
       
       describe "single" do
@@ -228,28 +230,27 @@ describe "ApplicationView" do
         it "should validate with config true" do
           @config.stub!(:validate_embedded_js?).and_return(true)
           F.should_receive(:save_to_file).with(anything, /\/tmp\/application.js/).and_return(true)
-          YMDP::Validator::JavaScript.should_receive(:validate)
           @view.render(:javascript => 'application')
         end
         
         it "should not validate with config false" do
           @config.stub!(:validate_embedded_js?).and_return(true)
           F.should_receive(:save_to_file).with(anything, /\/tmp\/application.js/).and_return(false)
-          YMDP::Validator::JavaScript.should_not_receive(:validate)
+          Epic::Validator::JavaScript.should_not_receive(:validate)
           @view.render(:javascript => 'application')
         end
         
         it "should not validate if file exists and config true" do
           @config.stub!(:validate_embedded_js?).and_return(false)
           F.should_receive(:save_to_file).with(anything, /\/tmp\/application.js/).and_return(true)
-          YMDP::Validator::JavaScript.should_not_receive(:validate)
+          Epic::Validator::JavaScript.should_not_receive(:validate)
           @view.render(:javascript => 'application')
         end
         
         it "should not validate if file exists and config false" do
           @config.stub!(:validate_embedded_js?).and_return(false)
           F.should_receive(:save_to_file).with(anything, /\/tmp\/application.js/).and_return(true)
-          YMDP::Validator::JavaScript.should_not_receive(:validate)
+          Epic::Validator::JavaScript.should_not_receive(:validate)
           @view.render(:javascript => 'application')
         end
       end
@@ -310,7 +311,7 @@ describe "ApplicationView" do
         @compressed_script = "<style type='text/css'>\n#{@compressed_template}\n</style>"
         YMDP::Compressor::Stylesheet.stub!(:compress).with("").and_return("")
         YMDP::Compressor::Stylesheet.stub!(:compress).with(/.css/).and_return(@compressed_template)
-        YMDP::Validator::Stylesheet.stub!(:validate).and_return(true)
+        Epic::Validator::Stylesheet.stub!(:validate).and_return(true)
       end
       
       describe "single" do

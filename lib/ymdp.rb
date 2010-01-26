@@ -13,7 +13,6 @@ require 'erb'
 require 'set'
 
 require 'base'
-require 'validator/validator'
 require 'view/tag_helper'
 require 'view/asset_tag_helper'
 require 'support/file'

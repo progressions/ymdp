@@ -276,11 +276,15 @@ module YMDP
         def write_template(result)
           result = super(result)
         
-          if configuration.validate["html"]["build"] && !YMDP::Validator::HTML.validate(destination_path)
+          if configuration.validate["html"]["build"] && !validator.validate(destination_path)
             raise "HTML Validation Errors"
           end
           
           result
+        end
+        
+        def validator
+          @validator ||= Epic::Validator::HTML.new
         end
       end
 
@@ -365,7 +369,7 @@ module YMDP
         # Validate the JSON file.
         #
         def validate
-          YMDP::Validator::JSON.validate(destination_path)
+          Epic::Validator::JSON.new.validate(destination_path)
         end
   
         private

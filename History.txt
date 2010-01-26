@@ -1,4 +1,6 @@
 == 0.1.12 (in Git)
+  * major enhancements
+    * extracted validator into <tt>epic</tt> gem
   * bug fixes
     * config.yml settings for compression and validation work again
 
