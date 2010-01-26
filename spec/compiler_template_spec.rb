@@ -124,7 +124,7 @@ describe "Template" do
       @erb = mock('erb', :result => "processed template output")
       ERB.should_receive(:new).with("unprocessed", anything, anything).and_return(@erb)
       
-      YMDP::Compressor::JavaScript.stub!(:compress).and_return("compressed template output")
+      Epic::Compressor::JavaScript.stub!(:compress).and_return("compressed template output")
       
       F.stub!(:save_to_file).with("processed template output")
       
@@ -137,7 +137,7 @@ describe "Template" do
       @erb = mock('erb', :result => "processed template output")
       ERB.should_receive(:new).with("unprocessed", anything, anything).and_return(@erb)      
       
-      YMDP::Compressor::JavaScript.stub!(:compress).and_return("compressed template")
+      Epic::Compressor::JavaScript.stub!(:compress).and_return("compressed template")
       File.stub!(:read).with("filename.js").and_return("unprocessed")
       
       F.stub!(:save_to_file)

@@ -1,4 +1,4 @@
-require 'support/file'
+require 'f'
 require 'grit'
 include Grit
 

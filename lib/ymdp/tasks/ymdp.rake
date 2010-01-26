@@ -114,8 +114,6 @@ desc "Some more help"
 task :help do
   docs = <<-DOCS
       
-#{please_install_rhino}
-
 FOR HELP:
 
   To list reference for all tasks:
@@ -269,7 +267,7 @@ namespace :validate do
   task :javascripts do
     puts "\nValidating external JavaScript assets in #{@application}..."
     Dir["#{BASE_PATH}/servers/#{@application}/assets/javascripts/*.js"].each do |path|
-      Epic::Validator::JavaScript.validate(path)
+      Epic::Validator::JavaScript.new.validate(path)
     end
   end
 
@@ -279,7 +277,7 @@ namespace :validate do
     Dir["./servers/#{@application}/assets/yrb/*json"].each do |json|
       filename = json.split("/").last
       path = "#{BASE_PATH}/servers/#{@application}/assets/yrb/#{filename}"
-      Epic::Validator::JSON.validate(path)
+      Epic::Validator::JSON.new.validate(path)
     end    
   end
 
@@ -289,7 +287,7 @@ namespace :validate do
     `rm -rf #{TMP_PATH}`
     Dir.mkdir(TMP_PATH) rescue Errno::EEXIST
     Dir["./servers/#{@application}/views/*"].each do |filename|
-      Epic::Validator::HTML.validate(filename) if filename =~ /#{@path}/
+      Epic::Validator::HTML.new.validate(filename) if filename =~ /#{@path}/
     end    
   end
 
@@ -496,7 +494,7 @@ def validated_embedded_js(path)
     (doc / "script").each { |js| f.puts js.inner_html + "\n\n" }
   end
 
-  Epic::Validator::JavaScript.validate(js_fragment_path)
+  Epic::Validator::JavaScript.new.validate(js_fragment_path)
   system "rm #{js_fragment_path}"
 end
 
@@ -658,19 +656,4 @@ def create_directory_from_application(application, path="")
     application_id = SERVERS[application]["application_id"]
     ymdt.get(:application => application, :path => path, :application_id => application_id)
   end  
-end
-
-def please_install_rhino
-  output = <<-DOC
-NOTE: 
-
-You must have Rhino installed in your classpath to validate javascripts, which is required to deploy.  Download Rhino from:
-  
-  http://www.mozilla.org/rhino/download.html
-
-To put Rhino into your Java classpath, run:
-  
-  mkdir -p ~/Library/Java/Extensions/
-  cp rhino****/js.jar ~/Library/Java/Extensions/
-DOC
 end

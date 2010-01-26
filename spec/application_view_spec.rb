@@ -195,7 +195,7 @@ describe "ApplicationView" do
         @compressed_template = "compressed template"
         @processed_script = "<script type='text/javascript'>\n#{@processed_template}\n</script>"
         @compressed_script = "<script type='text/javascript'>\n#{@compressed_template}\n</script>"
-        YMDP::Compressor::JavaScript.stub!(:compress).and_return(@compressed_template)
+        Epic::Compressor::JavaScript.stub!(:compress).and_return(@compressed_template)
 
         @js_validator = mock('js_validator', :validate => true)
         Epic::Validator::JavaScript.stub!(:new).and_return(@js_validator)
@@ -309,8 +309,8 @@ describe "ApplicationView" do
         @compressed_template = "compressed template"
         @processed_script = "<style type='text/css'>\n#{@processed_template}\n</style>"
         @compressed_script = "<style type='text/css'>\n#{@compressed_template}\n</style>"
-        YMDP::Compressor::Stylesheet.stub!(:compress).with("").and_return("")
-        YMDP::Compressor::Stylesheet.stub!(:compress).with(/.css/).and_return(@compressed_template)
+        Epic::Compressor::Stylesheet.stub!(:compress).with("").and_return("")
+        Epic::Compressor::Stylesheet.stub!(:compress).with(/.css/).and_return(@compressed_template)
         Epic::Validator::Stylesheet.stub!(:validate).and_return(true)
       end
       
@@ -354,7 +354,7 @@ describe "ApplicationView" do
           File.stub!(:open).with(/application.css$/, anything).and_yield(@application_file)
           File.stub!(:open).with(/sidebar.css$/, anything).and_yield(@sidebar_file)
           
-          YMDP::Compressor::Stylesheet.stub!(:compress).with(/applicationsidebar.css/).and_return("application\nsidebar")
+          Epic::Compressor::Stylesheet.stub!(:compress).with(/applicationsidebar.css/).and_return("application\nsidebar")
           
           @view.stub!(:process_template).and_return("application", "sidebar")
         end
@@ -382,7 +382,7 @@ describe "ApplicationView" do
       
       it "should return blank string if partial can't be found" do
         File.stub!(:exists?).and_return(false)
-        YMDP::Compressor::Stylesheet.should_receive(:compress).with(/application.css/).and_return("")
+        Epic::Compressor::Stylesheet.should_receive(:compress).with(/application.css/).and_return("")
         # lambda {
           @view.render(:stylesheet => 'application').should == ""
         # }.should_not raise_error

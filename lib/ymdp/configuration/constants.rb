@@ -22,7 +22,7 @@ unless defined?(YMDP_TEST)
     config.content_variables = @content_variables
   end
 
-  Epic::Validator::Base.configure do |config|
+  Epic::Base.configure do |config|
     config.base_path = BASE_PATH
     config.tmp_path = TMP_PATH
     config.doctype = CONFIG["validate"]["html"]["doctype"]

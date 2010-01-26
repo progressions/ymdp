@@ -1,4 +1,3 @@
-require 'compressor/compressor'
 require 'epic'
 
 module YMDP
@@ -6,7 +5,6 @@ module YMDP
   # is HTML, JavaScript or CSS.
   #
   module ApplicationView
-    include YMDP::Compressor
     
     extend self
     
@@ -270,7 +268,7 @@ module YMDP
       
       validate = F.save_to_file(output, tmp_filename)
 
-      output = YMDP::Compressor::JavaScript.compress(tmp_filename) if CONFIG.compress_embedded_js?
+      output = Epic::Compressor::JavaScript.compress(tmp_filename) if CONFIG.compress_embedded_js?
       
       js_validator.validate(tmp_filename) if validate && CONFIG.validate_embedded_js?
       
@@ -311,7 +309,7 @@ module YMDP
       
       validate = F.save_to_file(output, tmp_filename)
 
-      output = YMDP::Compressor::Stylesheet.compress(tmp_filename) if configuration.compress["css"]
+      output = Epic::Compressor::Stylesheet.compress(tmp_filename) if configuration.compress["css"]
       
       output
     end
