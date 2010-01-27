@@ -268,9 +268,11 @@ module YMDP
       
       validate = F.save_to_file(output, tmp_filename)
 
-      output = Epic::Compressor::JavaScript.compress(tmp_filename) if CONFIG.compress_embedded_js?
+      output = Epic::Compressor::JavaScript.compress(tmp_filename) if configuration.compress["embedded_js"]
       
-      js_validator.validate(tmp_filename) if validate && CONFIG.validate_embedded_js?
+      if validate && configuration.validate["embedded_js"]["build"] && !js_validator.validate(tmp_filename)
+        raise "JavaScript Errors embedded in #{display_path(tmp_filename)}"
+      end
       
       output
     end

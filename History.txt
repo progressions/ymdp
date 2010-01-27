@@ -2,6 +2,8 @@
   * major enhancements
     * extracted compressor into <tt>epic</tt> gem
     * extracted validator into <tt>epic</tt> gem
+  * minor enhancements
+    * raise validation errors inside <tt>application_view</tt> rather than in <tt>epic</tt>
   * bug fixes
     * config.yml settings for compression and validation work again
 

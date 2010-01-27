@@ -7,7 +7,7 @@ YMDP_ENV = "build" unless defined?(YMDP_ENV)
 
 describe "Compiler" do
   before(:each) do
-    Object.send(:remove_const, :CONFIG)
+    Object.send(:remove_const, :CONFIG) if defined?(CONFIG)
     CONFIG = mock('config').as_null_object
     stub_screen_io
     stub_file_io

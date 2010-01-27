@@ -1,5 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
+require 'view/application_view'
+
 describe "ApplicationView" do
   before(:each) do
     @assets_directory = "/om/assets/abcdefg_1"
@@ -188,10 +190,6 @@ describe "ApplicationView" do
     
     describe ":javascript" do
       before(:each) do
-        
-        @config = mock('config', :compress_embedded_js? => false, :validate_embedded_js? => false)
-        reset_constant(:CONFIG, @config)
-    
         @compressed_template = "compressed template"
         @processed_script = "<script type='text/javascript'>\n#{@processed_template}\n</script>"
         @compressed_script = "<script type='text/javascript'>\n#{@compressed_template}\n</script>"
@@ -199,6 +197,9 @@ describe "ApplicationView" do
 
         @js_validator = mock('js_validator', :validate => true)
         Epic::Validator::JavaScript.stub!(:new).and_return(@js_validator)
+        
+        @compress["embedded_js"] = true
+        @validate["embedded_js"]["build"] = true
       end
       
       describe "single" do
@@ -208,47 +209,43 @@ describe "ApplicationView" do
         end
         
         it "should render a compressed partial" do
-          @config.stub!(:compress_embedded_js?).and_return(true)
           @view.render(:javascript => 'application').should == @compressed_script
         end
         
         it "should render an uncompressed partial" do
-          @config.stub!(:compress_embedded_js?).and_return(false)
+          @compress["embedded_js"] = false
           @view.render(:javascript => 'application').should == @processed_script
         end
         
         it "should render compressed without tags" do
-          @config.stub!(:compress_embedded_js?).and_return(true)
           @view.render(:javascript => 'application', :tags => false).should == @compressed_template
         end
         
         it "should render uncompressed without tags" do
-          @config.stub!(:compress_embedded_js?).and_return(false)
+          @compress["embedded_js"] = false
           @view.render(:javascript => 'application', :tags => false).should == @processed_template
         end
         
         it "should validate with config true" do
-          @config.stub!(:validate_embedded_js?).and_return(true)
           F.should_receive(:save_to_file).with(anything, /\/tmp\/application.js/).and_return(true)
           @view.render(:javascript => 'application')
         end
         
         it "should not validate with config false" do
-          @config.stub!(:validate_embedded_js?).and_return(true)
           F.should_receive(:save_to_file).with(anything, /\/tmp\/application.js/).and_return(false)
           Epic::Validator::JavaScript.should_not_receive(:validate)
           @view.render(:javascript => 'application')
         end
         
         it "should not validate if file exists and config true" do
-          @config.stub!(:validate_embedded_js?).and_return(false)
+          @validate["embedded_js"]["build"] = false
           F.should_receive(:save_to_file).with(anything, /\/tmp\/application.js/).and_return(true)
           Epic::Validator::JavaScript.should_not_receive(:validate)
           @view.render(:javascript => 'application')
         end
         
         it "should not validate if file exists and config false" do
-          @config.stub!(:validate_embedded_js?).and_return(false)
+          @validate["embedded_js"]["build"] = false
           F.should_receive(:save_to_file).with(anything, /\/tmp\/application.js/).and_return(true)
           Epic::Validator::JavaScript.should_not_receive(:validate)
           @view.render(:javascript => 'application')
@@ -270,6 +267,7 @@ describe "ApplicationView" do
           File.stub!(:open).with(/sidebar.js$/, anything).and_yield(@sidebar_file)
           
           @view.stub!(:process_template).and_return("application", "sidebar")
+          @compress["embedded_js"] = false
         end
         
         it "should render multiple partials" do
@@ -295,6 +293,7 @@ describe "ApplicationView" do
       
       it "should return blank string if partial can't be found" do
         File.stub!(:exists?).and_return(false)
+        Epic::Compressor::JavaScript.should_receive(:compress).and_return("")
         lambda {
           @view.render(:javascript => 'application').should == ""
         }.should_not raise_error
@@ -303,15 +302,14 @@ describe "ApplicationView" do
     
     describe ":stylesheet" do
       before(:each) do
-        @config = mock('config', :compress_css? => false)
-        reset_constant(:CONFIG, @config)
-    
         @compressed_template = "compressed template"
         @processed_script = "<style type='text/css'>\n#{@processed_template}\n</style>"
         @compressed_script = "<style type='text/css'>\n#{@compressed_template}\n</style>"
         Epic::Compressor::Stylesheet.stub!(:compress).with("").and_return("")
         Epic::Compressor::Stylesheet.stub!(:compress).with(/.css/).and_return(@compressed_template)
         Epic::Validator::Stylesheet.stub!(:validate).and_return(true)
+        
+        @compress["css"] = true
       end
       
       describe "single" do
@@ -330,12 +328,11 @@ describe "ApplicationView" do
         end
         
         it "should render compressed without tags" do
-          @config.stub!(:compress_css?).and_return(true)
           @view.render(:stylesheet => 'application', :tags => false).should == @compressed_template
         end
         
         it "should render uncompressed without tags" do
-          @view.send(:configuration).compress["css"] = false
+          @compress["css"] = false
           @view.render(:stylesheet => 'application', :tags => false).should == @processed_template
         end
       end
