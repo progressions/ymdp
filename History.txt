@@ -1,4 +1,4 @@
-== 0.1.12 (in Git)
+== 0.1.12 2010-01-30
   * major enhancements
     * extracted compressor into <tt>epic</tt> gem
     * extracted validator into <tt>epic</tt> gem
