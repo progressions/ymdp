@@ -107,7 +107,6 @@ describe "Template" do
       }
       
       @js_template = YMDP::Compiler::Template::JavaScript.new(@params)
-      
     end
     
     it "should instantiate" do
@@ -124,7 +123,7 @@ describe "Template" do
       @erb = mock('erb', :result => "processed template output")
       ERB.should_receive(:new).with("unprocessed", anything, anything).and_return(@erb)
       
-      Epic::Compressor::JavaScript.stub!(:compress).and_return("compressed template output")
+      Epic::Compressor.stub!(:new).and_return(mock('compressor', :compress => "compressed template output"))
       
       F.stub!(:save_to_file).with("processed template output")
       
@@ -137,7 +136,7 @@ describe "Template" do
       @erb = mock('erb', :result => "processed template output")
       ERB.should_receive(:new).with("unprocessed", anything, anything).and_return(@erb)      
       
-      Epic::Compressor::JavaScript.stub!(:compress).and_return("compressed template")
+      Epic::Compressor.stub!(:new).and_return(mock('compressor', :compress => "compressed template"))
       File.stub!(:read).with("filename.js").and_return("unprocessed")
       
       F.stub!(:save_to_file)

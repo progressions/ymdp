@@ -193,7 +193,10 @@ describe "ApplicationView" do
         @compressed_template = "compressed template"
         @processed_script = "<script type='text/javascript'>\n#{@processed_template}\n</script>"
         @compressed_script = "<script type='text/javascript'>\n#{@compressed_template}\n</script>"
-        Epic::Compressor::JavaScript.stub!(:compress).and_return(@compressed_template)
+        
+        @compressor = mock('compressor')
+        @compressor.stub!(:compress).and_return(@compressed_template)
+        Epic::Compressor.stub!(:new).and_return(@compressor)
 
         @js_validator = mock('js_validator', :validate => true)
         Epic::Validator::JavaScript.stub!(:new).and_return(@js_validator)
@@ -293,7 +296,7 @@ describe "ApplicationView" do
       
       it "should return blank string if partial can't be found" do
         File.stub!(:exists?).and_return(false)
-        Epic::Compressor::JavaScript.should_receive(:compress).and_return("")
+        @compressor.should_receive(:compress).and_return("")
         lambda {
           @view.render(:javascript => 'application').should == ""
         }.should_not raise_error
@@ -305,8 +308,9 @@ describe "ApplicationView" do
         @compressed_template = "compressed template"
         @processed_script = "<style type='text/css'>\n#{@processed_template}\n</style>"
         @compressed_script = "<style type='text/css'>\n#{@compressed_template}\n</style>"
-        Epic::Compressor::Stylesheet.stub!(:compress).with("").and_return("")
-        Epic::Compressor::Stylesheet.stub!(:compress).with(/.css/).and_return(@compressed_template)
+        
+        Epic::Compressor.stub!(:new).with("").and_return(mock('compressor', :compress => ""))
+        Epic::Compressor.stub!(:new).with(/.css/).and_return(mock('compressor', :compress => @compressed_template))
         Epic::Validator::Stylesheet.stub!(:validate).and_return(true)
         
         @compress["css"] = true
@@ -351,7 +355,7 @@ describe "ApplicationView" do
           File.stub!(:open).with(/application.css$/, anything).and_yield(@application_file)
           File.stub!(:open).with(/sidebar.css$/, anything).and_yield(@sidebar_file)
           
-          Epic::Compressor::Stylesheet.stub!(:compress).with(/applicationsidebar.css/).and_return("application\nsidebar")
+          Epic::Compressor.stub!(:new).with(/applicationsidebar.css/).and_return(mock('compressor', :compress => "application\nsidebar"))
           
           @view.stub!(:process_template).and_return("application", "sidebar")
         end
@@ -379,7 +383,7 @@ describe "ApplicationView" do
       
       it "should return blank string if partial can't be found" do
         File.stub!(:exists?).and_return(false)
-        Epic::Compressor::Stylesheet.should_receive(:compress).with(/application.css/).and_return("")
+        Epic::Compressor.should_receive(:new).with(/application.css/).and_return(mock('compressor', :compress => ""))
         # lambda {
           @view.render(:stylesheet => 'application').should == ""
         # }.should_not raise_error

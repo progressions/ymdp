@@ -301,7 +301,7 @@ module YMDP
           filename = @file.split("/").last
           tmp_filename = "#{TMP_PATH}/#{filename}"
           F.save_to_file(result, tmp_filename)
-          result = Epic::Compressor::JavaScript.compress(tmp_filename) if configuration.compress["embedded_js"]
+          result = Epic::Compressor.new(tmp_filename).compress if configuration.compress["embedded_js"]
           write_template_without_layout(result)
         end
       end
