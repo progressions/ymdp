@@ -12,7 +12,7 @@ require 'haml'
 require 'erb'
 require 'set'
 
-require 'base'
+require 'ymdp/base'
 require 'view/tag_helper'
 require 'view/asset_tag_helper'
 require 'f'
