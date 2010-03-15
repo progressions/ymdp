@@ -4,5 +4,5 @@ if ARGV[0] == "view"
     :application_path => "#{BASE_PATH}/app"
   }
   YMDP::Generator::Base.new(p).generate(ARGV[1])
-  Idiom::Base.translate("#{BASE_PATH}/app")
+  Idiom::Base.translate(:source => "#{BASE_PATH}/app")
 end
