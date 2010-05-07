@@ -12,9 +12,6 @@ unless defined?(YMDP_TEST)
     config.default_server = CONFIG["default_server"]
     config.host = CONFIG["host"]
     config.growl = CONFIG["growl"]
-    config.verbose = CONFIG["verbose"]
-    config.compress = CONFIG["compress"]
-    config.validate = CONFIG["validate"]
   
     config.add_path(:base_path, BASE_PATH)
     config.servers = SERVERS

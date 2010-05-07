@@ -29,6 +29,18 @@ module YMDP
         raise ArgumentError.new("domain is required") unless @domain
         raise ArgumentError.new("server is required") unless @server
         raise ArgumentError.new("base_path is required") unless @base_path
+        
+        if CONFIG.exists?(@domain)
+          @domain_config = CONFIG[@domain]
+        else
+          @domain_config = CONFIG
+        end
+        
+        YMDP::Base.configure do |config|
+          config.verbose = @domain_config["verbose"]
+          config.compress = @domain_config["compress"]
+          config.validate = @domain_config["validate"]
+        end
       end
       
       # Perform all the processing for a single domain.

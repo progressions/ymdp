@@ -106,6 +106,10 @@ module YMDP
       def [](key)
         @config.get(base, key)
       end
+      
+      def exists?(*args)
+        @config.exists?(base, *args)
+      end
     
       def options(*args)
         @config.get(base, *args)
@@ -122,7 +126,7 @@ module YMDP
         $stdout.puts "Create #{filename} with the following command:\n\n  ./script/config" 
         $stdout.puts
   
-        raise "File not found: #{filename}"  
+        raise "File not found: #{filename}"
       end      
     end
     
