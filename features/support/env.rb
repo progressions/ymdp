@@ -1,5 +1,5 @@
-require 'vendor/gems/environment'
-Bundler.require_env :cucumber
+# require 'vendor/gems/environment'
+Bundler.require :cucumber
 
 require 'spec/expectations'
 require 'spec/mocks'

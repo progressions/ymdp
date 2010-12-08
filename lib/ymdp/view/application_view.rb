@@ -222,12 +222,19 @@ module YMDP
     
     # Searches all the possible paths to find a match for this partial name.
     #
-    def find_partial(filename)
+    def find_partial(full_path)
       path = nil
       ["views", "views/shared"].each do |dir|
         
-        # TODO: Refactor this so it doesn't use BASE_PATH
-        basic_path = "#{BASE_PATH}/app/#{dir}/_#{filename}.html"
+        p = full_path.split("/")
+        filename = p.pop
+        
+        filename = "_#{filename}"
+        p.push(filename)
+        
+        full_path = p.join("/")
+        
+        basic_path = "#{BASE_PATH}/app/#{dir}/#{full_path}.html"
         
         ["", ".haml", ".erb"].each do |extension|
           if File.exists?(basic_path + extension)
