@@ -232,9 +232,9 @@ module YMDP
         filename = "_#{filename}"
         p.push(filename)
         
-        full_path = p.join("/")
+        final_path = p.join("/")
         
-        basic_path = "#{BASE_PATH}/app/#{dir}/#{full_path}.html"
+        basic_path = "#{BASE_PATH}/app/#{dir}/#{final_path}.html"
         
         ["", ".haml", ".erb"].each do |extension|
           if File.exists?(basic_path + extension)
