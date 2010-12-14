@@ -7,6 +7,7 @@ ASSETS_ROOT = "#{BASE_PATH}/app/assets"
 YRB_ROOT = "#{ASSETS_ROOT}/yrb"
 
 namespace :keys do
+  desc "Add new translation keys"
   task :add_new do
     Dir["./app/assets/yrb/*.pres"].each do |path|
       # system "cat app/assets/new/keys_en-US.pres >> app/assets/yrb/keys_en-US.pres"
@@ -15,6 +16,7 @@ namespace :keys do
     end
   end
   
+  desc "Add new translation keys since ENV['date']"
   task :new_since do
     @date = ENV["date"]
     if @date
@@ -32,6 +34,7 @@ namespace :keys do
     end
   end
   
+  desc "Combine translation key files"
   task :combine do
     system "rm #{TMP_PATH}/*"
     each_locale do |path|
@@ -55,6 +58,7 @@ namespace :keys do
     system "rm #{TMP_PATH}/*"
   end
   
+  desc "Destroy a translation key"
   task :destroy do
     system "rm #{TMP_PATH}/*"
     
@@ -80,6 +84,7 @@ namespace :keys do
     end
   end
   
+  desc "Rename a translation key"
   task :rename do
     system "rm #{TMP_PATH}/*"
     
@@ -102,26 +107,7 @@ namespace :keys do
     system "rm #{TMP_PATH}/*"
   end
   
-  # task :unused do
-  #   # this probably would be more complicated than it's worth
-  #   
-  #   keys = []
-  #   unused_keys = []
-  #   File.open("#{YRB_ROOT}/keys_en-US.pres", "r") do |f|
-  #     f.readlines.each do |line|
-  #       key = parse_yrb(line).first
-  #       keys << key unless key.blank?
-  #     end
-  #   end
-  #   
-  #   keys.each do |key|
-  #     puts "grep #{key} ./servers/* -R -i"
-  #     if `grep #{key} ./servers/* -R -i`.length < 10
-  #       puts "OMG"
-  #     end
-  #   end
-  # end
-  
+  desc "List translation keys"
   task :list do
     each_locale do |path|
       filename = path.split("/").last
@@ -140,6 +126,7 @@ namespace :keys do
     end
   end
   
+  desc "Convert YRB translation files to YAML"
   task :convert_to_yml do
     each_locale do |path|
       # puts path
