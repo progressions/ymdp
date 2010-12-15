@@ -47,6 +47,7 @@ module YMDP
           
           @file = params[:file]
           @assets_directory = "/om/assets/#{servers[@domain]['assets_id']}"
+          @assets_url = "http://#{servers[@domain]['application_id']}.yom.mail.yahoo.net#{@assets_directory}"
           @hash = params[:git_hash]
           @message = params[:message]
           
