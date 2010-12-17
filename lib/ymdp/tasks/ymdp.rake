@@ -511,6 +511,7 @@ def deploy(application, path, options={})
 end
 
 def deploy_path(application, path, options={})
+  options ||= {}
   puts "\nDeploying #{application}: #{path}"
   sync = options[:sync]
 
