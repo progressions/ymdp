@@ -46,7 +46,7 @@ module YMDP
           raise StandardError.new("Server name does not exist in server settings.") unless @server
           
           @file = params[:file]
-          @assets_directory = "/om/assets/#{servers[@domain]['assets_id']}"
+          @assets_directory = "/yahoo/mail/assets"
           @assets_url = "http://#{servers[@domain]['application_id']}.yom.mail.yahoo.net#{@assets_directory}"
           @hash = params[:git_hash]
           @message = params[:message]
