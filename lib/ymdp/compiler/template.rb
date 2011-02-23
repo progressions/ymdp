@@ -184,12 +184,21 @@ module YMDP
           @content = result
           layout = result
           
+          view_layout = "#{paths[:base_path]}\/app\/views\/layouts\/#{@view}.html"
           application_layout = "#{paths[:base_path]}\/app\/views\/layouts\/application.html"
-          haml_layout = application_layout + ".haml"
+          
+          haml_view_layout = view_layout + ".haml"
+          haml_application_layout = application_layout + ".haml"
+          
+          if File.exists?(haml_view_layout)
+            layout_name = haml_view_layout
+          else
+            layout_name = haml_application_layout
+          end
         
-          if File.exists?(haml_layout)
-            template = File.read(haml_layout)
-            layout = process_haml(template, haml_layout) do
+          if File.exists?(layout_name)
+            template = File.read(layout_name)
+            layout = process_haml(template, layout_name) do
               @content
             end
           end
