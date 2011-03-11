@@ -279,6 +279,9 @@ module YMDP
     
     def write_javascript_asset(output, filename)
       path = "#{server_path}/assets/javascripts/#{filename}.js"
+      
+      $stdout.puts "Writing #{path}"
+        
       File.open(path, "w") do |f|
         f.write(output)
       end
@@ -286,6 +289,9 @@ module YMDP
     
     def write_stylesheet_asset(output, filename)
       path = "#{server_path}/assets/stylesheets/#{filename}.css"
+      
+      $stdout.puts "Writing #{path}"
+      
       File.open(path, "w") do |f|
         f.write(output)
       end
