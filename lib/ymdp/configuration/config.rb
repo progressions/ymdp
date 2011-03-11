@@ -65,6 +65,8 @@ module YMDP
       #
       attr_accessor :jslint_settings
       
+      attr_accessor :external_assets
+      
       def initialize #:nodoc:
         @paths = {}
         @content_variables = {}

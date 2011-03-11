@@ -180,8 +180,8 @@ module YMDP
       end
         
       output << render_html_partial(params)
-      output << render_javascript_partial(params)
-      output << render_stylesheet_partial(params)
+      output << render_javascript_partial(params) if params[:javascript]
+      output << render_stylesheet_partial(params) if params[:stylesheet]
       
       output.flatten.join("\n")
     end
@@ -247,18 +247,48 @@ module YMDP
     end
     
     def render_javascript_partial(params)
+      filename = params[:filename] || params[:javascript].to_a.join("_")
+      
+      if configuration.external_assets["javascripts"]
+        tags = false
+      else
+        tags = params[:tags]
+      end
+      
       output = []
       # Render a JavaScript partial.
       #
       if params[:javascript]
         content = render_javascripts(params[:javascript].to_a, params[:filename])
         unless content.blank?
-          output << "<script type='text/javascript'>" if params[:tags]
+          output << "<script type='text/javascript'>" if tags
           output << content
-          output << "</script>" if params[:tags]
+          output << "</script>" if tags
         end
       end
       output
+      
+      if configuration.external_assets["javascripts"] && params[:tags]
+        write_javascript_asset(output, filename)
+        
+        "<script type='text/javascript' src='#{assets_directory}/javascripts/#{filename}.js'></script>"
+      else
+        output
+      end
+    end
+    
+    def write_javascript_asset(output, filename)
+      path = "#{server_path}/assets/javascripts/#{filename}.js"
+      File.open(path, "w") do |f|
+        f.write(output)
+      end
+    end
+    
+    def write_stylesheet_asset(output, filename)
+      path = "#{server_path}/assets/stylesheets/#{filename}.css"
+      File.open(path, "w") do |f|
+        f.write(output)
+      end
     end
     
     # Renders a JavaScript partial.
@@ -292,16 +322,25 @@ module YMDP
     # Render a CSS partial.
     #
     def render_stylesheet_partial(params)
+      filename = params[:filename] || params[:stylesheet].to_a.join("_")
+      external_asset = params[:tags] && configuration.external_assets["javascripts"]
       output = []
       if params[:stylesheet]
         content = render_stylesheets(params[:stylesheet].to_a, params[:filename])
         unless content.blank?
-          output << "<style type='text/css'>" if params[:tags]
+          output << "<style type='text/css'>" unless external_asset
           output << content
-          output << "</style>" if params[:tags]
+          output << "</style>" unless external_asset
         end
       end
-      output      
+      
+      if external_asset
+        write_stylesheet_asset(output, filename)
+        
+        "<link rel='stylesheet' type='text/css' href='#{assets_directory}/stylesheets/#{filename}.css'></link>"
+      else
+        output
+      end
     end
     
     # Renders a JavaScript partial.

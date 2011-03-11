@@ -36,10 +36,14 @@ module YMDP
           @domain_config = CONFIG
         end
         
+        @domain_config["validate"]["embedded_js"]["build"] = false if @domain_config["external_assets"]["javascripts"]
+        @domain_config["validate"]["embedded_js"]["deploy"] = false if @domain_config["external_assets"]["javascripts"]
+        
         YMDP::Base.configure do |config|
           config.verbose = @domain_config["verbose"]
           config.compress = @domain_config["compress"]
           config.validate = @domain_config["validate"]
+          config.external_assets = @domain_config["external_assets"]
         end
       end
       
@@ -135,6 +139,7 @@ module YMDP
         FileUtils.rm_rf(Dir.glob("#{dir}/assets/yrb/*"))
         FileUtils.rm_rf(Dir.glob("#{TMP_PATH}/*"))
         FileUtils.mkdir_p(TMP_PATH)
+        FileUtils.mkdir_p("#{dir}/assets/stylesheets/")
       end
 
       # Format text in a standard way for output to the screen.

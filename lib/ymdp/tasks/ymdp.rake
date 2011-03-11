@@ -3,7 +3,7 @@ require 'epic'
 
 begin
   CATEGORIES = YAML.load_file("./config/categories.yml")["categories"] unless defined?(CATEGORIES)
-rescue
+rescue StandardError => e
   CATEGORIES = {} unless defined?(CATEGORIES)
 end
 
@@ -14,7 +14,8 @@ def set_application_variables(application)
   @application_id = SERVERS[@application]["application_id"]
   @assets_id = SERVERS[@application]["assets_id"]
   @dir = @application
-rescue
+rescue StandardError => e
+  $stdout.puts "Rescued error: #{e.message}"
 end
 
 def create_from_servers
@@ -335,6 +336,9 @@ namespace :sync do
   
       desc "Syncs javascript assets to the #{key} server"
       task :javascripts => [set_task, :set_javascripts, :set_sync, :deploy]
+  
+      desc "Syncs stylesheet assets to the #{key} server"
+      task :stylesheets => [set_task, :set_stylesheets, :set_sync, :deploy]
   
       desc "Syncs image assets to the #{key} server"
       task :images => [set_task, :set_images, :set_sync, :deploy]
