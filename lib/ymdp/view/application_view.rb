@@ -247,7 +247,7 @@ module YMDP
     end
     
     def render_javascript_partial(params)
-      filename = params[:filename] || params[:javascript].to_a.join("_")
+      filename = params[:filename] || params[:javascript].to_a.join("_").gsub("/","_")
       
       if configuration.external_assets["javascripts"]
         tags = false
@@ -300,7 +300,7 @@ module YMDP
     # Renders a JavaScript partial.
     #
     def render_javascripts(filenames, combined_filename=nil)
-      filenames_str = combined_filename || filenames.join()
+      filenames_str = combined_filename || filenames.join("_").gsub("/","_")
       
       filenames.map! do |filename|
         filename.gsub!(/\.js$/, "")
@@ -352,7 +352,7 @@ module YMDP
     # Renders a JavaScript partial.
     #
     def render_stylesheets(filenames, combined_filename=nil)
-      filenames_str = combined_filename || filenames.join()
+      filenames_str = combined_filename || filenames.join().gsub("/", "_")
       tmp_filename = "#{TMP_PATH}/#{filenames_str}.css"
       
       filenames.map! do |filename|

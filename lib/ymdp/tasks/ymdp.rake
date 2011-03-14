@@ -506,6 +506,7 @@ def deploy(application, path, options={})
   puts "\nDeploying #{application}: #{path}"
   sync = options[:sync]
 
+  Rake::Task["jasmine:ci:all"].invoke if CONFIG.test_javascripts?
   Rake::Task["validate:html"].invoke if CONFIG.validate_html?
   Rake::Task["validate:embedded_js"].invoke if CONFIG.validate_embedded_js?
   Rake::Task["validate:#{application}:javascripts"].invoke if CONFIG.validate_js_assets?
@@ -519,6 +520,7 @@ def deploy_path(application, path, options={})
   puts "\nDeploying #{application}: #{path}"
   sync = options[:sync]
 
+  Rake::Task["jasmine:ci:all"].invoke if CONFIG.test_javascripts?
   Rake::Task["validate:html"].invoke if CONFIG.validate_html?
   Rake::Task["validate:embedded_js"].invoke if CONFIG.validate_embedded_js?
   Rake::Task["validate:#{application}:javascripts"].invoke if CONFIG.validate_js_assets?

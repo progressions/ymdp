@@ -67,6 +67,8 @@ module YMDP
       
       attr_accessor :external_assets
       
+      attr_accessor :test_javascripts
+      
       def initialize #:nodoc:
         @paths = {}
         @content_variables = {}
@@ -153,6 +155,10 @@ module YMDP
       
       def password
         options("password")
+      end
+      
+      def test_javascripts?
+        options("test_javascripts", YMDP_ENV)
       end
       
       def compress_embedded_js?
