@@ -67,7 +67,11 @@ module YMDP
     #   <script src='http://www.myserver.com/javascripts/application.js' type='text/javascript
     #   charset='utf-8'></script>
     #
-    def javascript_include(filename)
+    def javascript_include(filename, options={})
+      if filename == :defaults
+        render_default_javascripts(options)
+        filename = "defaults.js"
+      end
       unless filename =~ /^http/
         filename = "#{@assets_directory}/javascripts/#{filename}"
       end
@@ -192,7 +196,7 @@ module YMDP
     #    
     def render_html_partial(params)
       output = []
-
+      
       if params[:partial]
         params[:partial].to_a.each do |partial|
           output << render_partial(partial)
@@ -246,8 +250,34 @@ module YMDP
       path
     end
     
+    def render_default_javascripts(options={})
+      default_javascripts = ['application', 'params', 'browser', 'data', 'ajax', 'user', 'init', 'reporter', 'debug', 'tag_helper', 'launcher', 'logger', 'i18n', 'flash', 'ab_testing', 'education']
+      
+      filenames = default_javascripts.map do |filename|
+        File.join(File.dirname(__FILE__), "..", "javascripts", "#{filename}.js")
+      end
+      
+      filenames = filter_filenames(filenames, options)
+      output = combine_files(filenames)
+      write_javascript_asset(output, "defaults")
+    end
+    
+    def filter_filenames(filenames, options={})
+      if options[:only]
+        filenames = filenames.select do |filename|
+          filename =~ /\/#{filename}.js/
+        end
+      end
+      if options[:except]
+        filenames = filenames.reject do |filename|
+          filename =~ /\/#{filename}.js/
+        end
+      end
+      filenames
+    end
+    
     def render_javascript_partial(params)
-      filename = params[:filename] || params[:javascript].to_a.join("_").gsub("/","_")
+      filename = params[:filename] || params[:javascript].to_a.join("_")
       
       if configuration.external_assets["javascripts"]
         tags = false
@@ -300,7 +330,7 @@ module YMDP
     # Renders a JavaScript partial.
     #
     def render_javascripts(filenames, combined_filename=nil)
-      filenames_str = combined_filename || filenames.join("_").gsub("/","_")
+      filenames_str = combined_filename || filenames.join().gsub("/", "_")
       
       filenames.map! do |filename|
         filename.gsub!(/\.js$/, "")
