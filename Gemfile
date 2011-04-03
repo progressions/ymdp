@@ -1,3 +1,5 @@
+source :rubygems
+
 gem "rspec", ">= 1.2.6"
 gem "polyglot"
 gem "treetop"

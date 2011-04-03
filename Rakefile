@@ -35,43 +35,43 @@ rescue LoadError
 end
 
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
-  spec.spec_opts = ['-c']
-end
-
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov_opts = ['--exclude', '.gem,Library,spec', '--sort', 'coverage']
-  spec.rcov = true
-end
-
-task :bundle do
-  YMDP_TEST = true
-  require 'vendor/gems/environment'
-  Bundler.require_env
-end
-
-task :spec => [:bundle, :check_dependencies]
-
-task :default => :spec
-
-task :rcov => :bundle
-
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
-
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "YMDP #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
-
-require 'cucumber/rake/task'
-Cucumber::Rake::Task.new do |t|
-  t.cucumber_opts = "--format pretty"
-end
+# require 'spec/rake/spectask'
+# Spec::Rake::SpecTask.new(:spec) do |spec|
+#   spec.libs << 'lib' << 'spec'
+#   spec.spec_files = FileList['spec/**/*_spec.rb']
+#   spec.spec_opts = ['-c']
+# end
+# 
+# Spec::Rake::SpecTask.new(:rcov) do |spec|
+#   spec.libs << 'lib' << 'spec'
+#   spec.pattern = 'spec/**/*_spec.rb'
+#   spec.rcov_opts = ['--exclude', '.gem,Library,spec', '--sort', 'coverage']
+#   spec.rcov = true
+# end
+# 
+# task :bundle do
+#   YMDP_TEST = true
+#   require 'vendor/gems/environment'
+#   Bundler.require_env
+# end
+# 
+# task :spec => [:bundle, :check_dependencies]
+# 
+# task :default => :spec
+# 
+# task :rcov => :bundle
+# 
+# require 'rake/rdoctask'
+# Rake::RDocTask.new do |rdoc|
+#   version = File.exist?('VERSION') ? File.read('VERSION') : ""
+# 
+#   rdoc.rdoc_dir = 'rdoc'
+#   rdoc.title = "YMDP #{version}"
+#   rdoc.rdoc_files.include('README*')
+#   rdoc.rdoc_files.include('lib/**/*.rb')
+# end
+# 
+# require 'cucumber/rake/task'
+# Cucumber::Rake::Task.new do |t|
+#   t.cucumber_opts = "--format pretty"
+# end
