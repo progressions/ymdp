@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.3.1"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
-  s.date = %q{2011-03-11}
+  s.date = %q{2011-04-03}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
   s.extra_rdoc_files = [
@@ -53,6 +53,23 @@ Gem::Specification.new do |s|
     "lib/ymdp/generator/templates/stylesheet.css",
     "lib/ymdp/generator/templates/translation.pres",
     "lib/ymdp/generator/templates/view.html.haml",
+    "lib/ymdp/javascripts/ab_testing.js",
+    "lib/ymdp/javascripts/ajax.js",
+    "lib/ymdp/javascripts/application.js",
+    "lib/ymdp/javascripts/browser.js",
+    "lib/ymdp/javascripts/data.js",
+    "lib/ymdp/javascripts/debug.js",
+    "lib/ymdp/javascripts/education.js",
+    "lib/ymdp/javascripts/flash.js",
+    "lib/ymdp/javascripts/help.js",
+    "lib/ymdp/javascripts/i18n.js",
+    "lib/ymdp/javascripts/init.js",
+    "lib/ymdp/javascripts/launcher.js",
+    "lib/ymdp/javascripts/logger.js",
+    "lib/ymdp/javascripts/params.js",
+    "lib/ymdp/javascripts/reporter.js",
+    "lib/ymdp/javascripts/tag_helper.js",
+    "lib/ymdp/javascripts/user.js",
     "lib/ymdp/tasks/build.rake",
     "lib/ymdp/tasks/keys.rake",
     "lib/ymdp/tasks/ymdp.rake",
