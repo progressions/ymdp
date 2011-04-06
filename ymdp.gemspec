@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.4.5"
+  s.version = "0.4.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Coleman"]
@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
     "lib/ymdp/javascripts/ab_testing.js",
     "lib/ymdp/javascripts/ajax.js",
     "lib/ymdp/javascripts/application.js",
+    "lib/ymdp/javascripts/authorization.js",
     "lib/ymdp/javascripts/browser.js",
     "lib/ymdp/javascripts/data.js",
     "lib/ymdp/javascripts/debug.js",
