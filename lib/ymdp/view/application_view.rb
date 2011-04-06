@@ -251,7 +251,7 @@ module YMDP
     end
     
     def render_default_javascripts(options={})
-      default_javascripts = ['application', 'authorization', 'params', 'browser', 'data', 'ajax', 'user', 'init', 'reporter', 'debug', 'tag_helper', 'launcher', 'logger', 'i18n', 'flash', 'ab_testing', 'education']
+      default_javascripts = ['application', 'params', 'browser', 'data', 'ajax', 'user', 'init', 'reporter', 'debug', 'tag_helper', 'launcher', 'logger', 'i18n', 'flash', 'ab_testing', 'education', 'authorization']
       
       filenames = default_javascripts.map do |filename|
         File.join(File.dirname(__FILE__), "..", "javascripts", "#{filename}.js")
