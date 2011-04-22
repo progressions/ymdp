@@ -155,16 +155,8 @@ module YMDP
         options("password")
       end
       
-      def compress_embedded_js?
-        options("compress", "embedded_js")
-      end
-    
-      def compress_js_assets?
-        options("compress", "js_assets")
-      end
-    
-      def compress_css?
-        options("compress", "css")
+      def compress?
+        options("compress")
       end
     
       def validate_embedded_js?

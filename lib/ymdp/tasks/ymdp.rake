@@ -511,7 +511,7 @@ def deploy(application, path, options={})
   Rake::Task["validate:#{application}:javascripts"].invoke if CONFIG.validate_js_assets?
   Rake::Task["validate:#{application}:json"].invoke if CONFIG.validate_json_assets?
 
-  ymdt.put(:application => application, :path => path, :sync => sync)
+  ymdt.put(:application => application, :path => path, :sync => sync, :compress => CONFIG.compress?)
 end
 
 def deploy_path(application, path, options={})
@@ -539,7 +539,7 @@ def deploy_path(application, path, options={})
   
       if file =~ Regexp.new(path)
         puts file
-        ymdt.put(:application => application, :path => new_path, :sync => sync)
+        ymdt.put(:application => application, :path => new_path, :sync => sync, :compress => CONFIG.compress?)
       end
     end
   end
