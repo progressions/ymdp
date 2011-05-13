@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.6.0"
+  s.version = "0.7.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Isaac Priestley"]
-  s.date = %q{2011-05-06}
+  s.date = %q{2011-05-13}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
   s.extra_rdoc_files = [
@@ -54,24 +54,42 @@ Gem::Specification.new do |s|
     "lib/ymdp/generator/templates/stylesheet.css",
     "lib/ymdp/generator/templates/translation.pres",
     "lib/ymdp/generator/templates/view.html.haml",
-    "lib/ymdp/javascripts/ab_testing.js",
-    "lib/ymdp/javascripts/ajax.js",
-    "lib/ymdp/javascripts/application.js",
-    "lib/ymdp/javascripts/authorization.js",
-    "lib/ymdp/javascripts/browser.js",
-    "lib/ymdp/javascripts/data.js",
-    "lib/ymdp/javascripts/debug.js",
-    "lib/ymdp/javascripts/education.js",
-    "lib/ymdp/javascripts/flash.js",
-    "lib/ymdp/javascripts/help.js",
-    "lib/ymdp/javascripts/i18n.js",
-    "lib/ymdp/javascripts/init.js",
-    "lib/ymdp/javascripts/launcher.js",
-    "lib/ymdp/javascripts/logger.js",
-    "lib/ymdp/javascripts/params.js",
-    "lib/ymdp/javascripts/reporter.js",
-    "lib/ymdp/javascripts/tag_helper.js",
-    "lib/ymdp/javascripts/user.js",
+    "lib/ymdp/javascripts/jquery/ab_testing.js",
+    "lib/ymdp/javascripts/jquery/ajax.js",
+    "lib/ymdp/javascripts/jquery/application.js",
+    "lib/ymdp/javascripts/jquery/authorization.js",
+    "lib/ymdp/javascripts/jquery/browser.js",
+    "lib/ymdp/javascripts/jquery/data.js",
+    "lib/ymdp/javascripts/jquery/debug.js",
+    "lib/ymdp/javascripts/jquery/education.js",
+    "lib/ymdp/javascripts/jquery/flash.js",
+    "lib/ymdp/javascripts/jquery/help.js",
+    "lib/ymdp/javascripts/jquery/i18n.js",
+    "lib/ymdp/javascripts/jquery/init.js",
+    "lib/ymdp/javascripts/jquery/launcher.js",
+    "lib/ymdp/javascripts/jquery/logger.js",
+    "lib/ymdp/javascripts/jquery/params.js",
+    "lib/ymdp/javascripts/jquery/reporter.js",
+    "lib/ymdp/javascripts/jquery/tag_helper.js",
+    "lib/ymdp/javascripts/jquery/user.js",
+    "lib/ymdp/javascripts/prototype/ab_testing.js",
+    "lib/ymdp/javascripts/prototype/ajax.js",
+    "lib/ymdp/javascripts/prototype/application.js",
+    "lib/ymdp/javascripts/prototype/authorization.js",
+    "lib/ymdp/javascripts/prototype/browser.js",
+    "lib/ymdp/javascripts/prototype/data.js",
+    "lib/ymdp/javascripts/prototype/debug.js",
+    "lib/ymdp/javascripts/prototype/education.js",
+    "lib/ymdp/javascripts/prototype/flash.js",
+    "lib/ymdp/javascripts/prototype/help.js",
+    "lib/ymdp/javascripts/prototype/i18n.js",
+    "lib/ymdp/javascripts/prototype/init.js",
+    "lib/ymdp/javascripts/prototype/launcher.js",
+    "lib/ymdp/javascripts/prototype/logger.js",
+    "lib/ymdp/javascripts/prototype/params.js",
+    "lib/ymdp/javascripts/prototype/reporter.js",
+    "lib/ymdp/javascripts/prototype/tag_helper.js",
+    "lib/ymdp/javascripts/prototype/user.js",
     "lib/ymdp/tasks/build.rake",
     "lib/ymdp/tasks/keys.rake",
     "lib/ymdp/tasks/ymdp.rake",
