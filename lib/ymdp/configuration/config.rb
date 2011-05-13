@@ -67,6 +67,8 @@ module YMDP
       
       attr_accessor :external_assets
       
+      attr_accessor :javascript_library
+      
       def initialize #:nodoc:
         @paths = {}
         @content_variables = {}
@@ -90,6 +92,14 @@ module YMDP
         path = "#{CONFIG_PATH}/#{filename}".gsub(/\.yml$/, "")
         path = "#{path}.yml"
         @content_variables = YAML.load_file(path)
+      end
+      
+      def prototype
+        @javascript_library = "prototype"
+      end
+      
+      def jquery
+        @javascript_library = "jquery"
       end
     end
     
