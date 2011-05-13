@@ -257,11 +257,12 @@ module YMDP
       #
       default_javascripts = ['application', 'params', 'browser', 'data', 'ajax', 'user', 'init', 'reporter', 'debug', 'tag_helper', 'launcher', 'logger', 'i18n', 'flash', 'ab_testing', 'education', 'authorization']
       
-      filenames = default_javascripts.map do |filename|
+      filenames = filter_filenames(default_javascripts, options)
+      
+      filenames = filenames.map do |filename|
         File.join(File.dirname(__FILE__), "..", "javascripts", library_path, "#{filename}.js")
       end
       
-      filenames = filter_filenames(filenames, options)
       output = combine_files(filenames)
       write_javascript_asset(output, "defaults")
     end
@@ -269,12 +270,12 @@ module YMDP
     def filter_filenames(filenames, options={})
       if options[:only]
         filenames = filenames.select do |filename|
-          filename =~ /\/#{filename}.js/
+          options[:only].include?(filename)
         end
       end
       if options[:except]
         filenames = filenames.reject do |filename|
-          filename =~ /\/#{filename}.js/
+          options[:except].include?(filename)
         end
       end
       filenames
