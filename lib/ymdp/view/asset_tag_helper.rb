@@ -18,7 +18,7 @@ module YMDP
         options[:target] ||= "_blank"
       else
         # this will create an in-YMDP link
-        options[:onclick] = "YAHOO.launcher.l('#{url_or_view}'); return false;"
+        options[:onclick] = "Launcher.l('#{url_or_view}'); return false;"
         options[:href] = "#"
       end
       content_tag("a", text, options)

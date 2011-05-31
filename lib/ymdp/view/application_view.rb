@@ -416,7 +416,13 @@ module YMDP
     def render_without_compression(path, tags=true)
       output = ""
     
-      if File.exists?(path)        
+      if File.exists?("#{path}.coffee")
+        path = "#{path}.coffee"
+        $stdout.puts("Parsing #{path}")
+        template = File.read(path)
+        output = process_coffee(template)
+      elsif File.exists?(path)
+        $stdout.puts("Parsing #{path}")
         template = File.read(path)
         output = process_template(template)
       end

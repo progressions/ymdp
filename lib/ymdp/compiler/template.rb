@@ -278,6 +278,10 @@ module YMDP
             yield
           end
         end
+        
+        def process_coffee(template, filename=nil)
+          CoffeeScript.compile(process_template(template))
+        end
   
         # Write this template with the application layout applied.
         #
