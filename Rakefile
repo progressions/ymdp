@@ -16,7 +16,7 @@ begin
     gem.add_runtime_dependency "json", ">= 0"
     gem.add_runtime_dependency "hpricot", ">= 0"
     gem.add_runtime_dependency "ruby-growl", ">= 0"
-    gem.add_runtime_dependency "activesupport", ">= 0"
+    gem.add_runtime_dependency "activesupport", ">= 3.0.0"
     gem.add_runtime_dependency "sishen-rtranslate", ">= 0"
     gem.add_runtime_dependency "progressions-basepath", ">= 0"
     gem.add_runtime_dependency "progressions-g", ">= 0"
