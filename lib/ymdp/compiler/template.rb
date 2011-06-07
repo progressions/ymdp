@@ -70,7 +70,7 @@ module YMDP
           content_variables.to_a.each do |key, value|
             attribute = "@#{key}"
             instance_variable_set(attribute, value) unless instance_variable_defined?(attribute)
-            class_eval %(
+            self.class.class_eval %(
               attr_accessor :#{key}
             )
           end
