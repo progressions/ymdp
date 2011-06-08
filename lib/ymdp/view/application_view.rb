@@ -78,6 +78,13 @@ module YMDP
       "<script src='#{filename}' type='text/javascript' charset='utf-8'></script>"
     end
     
+    def combo(filenames, options={})
+      paths = filenames.map do |filename|
+        "javascripts/#{filename}"
+      end.join("&")
+      "<script src=\"/yahoo/mail/combo?#{paths}\"></script>"
+    end
+    
     # Renders a link to include Firebug Lite for debugging JavaScript in Internet Explorer.
     # 
     def include_firebug_lite
@@ -148,7 +155,7 @@ module YMDP
     # combined file only exists on disc while it's being compressed and/or validated, but
     # in the future this may be expanded to save multiple files as a single external asset.
     # 
-    #   render :javascript = ['application', 'flash', 'debug'], :filename => 'javascripts'
+    #   render :javascript => ['application', 'flash', 'debug'], :filename => 'javascripts'
     #
     # Currently the <tt>:filename</tt> parameter is simply a convenience.
     #
@@ -291,6 +298,7 @@ module YMDP
       end
       
       output = []
+      
       # Render a JavaScript partial.
       #
       if params[:javascript]
