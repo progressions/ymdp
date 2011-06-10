@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Isaac Priestley"]
-  s.date = %q{2011-06-07}
+  s.date = %q{2011-06-10}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
   s.extra_rdoc_files = [
