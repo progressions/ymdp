@@ -77,7 +77,7 @@ module YMDP
       def process_all_files(path)
         Dir["#{path}**/*"].each do |f|
           build_file(f)
-        end    
+        end
       end
   
       # Build this file if it's either:
@@ -98,6 +98,8 @@ module YMDP
         if build?(file)
           if file =~ /(\.haml|\.erb)$/
             YMDP::Compiler::Template::View.new(params).build
+          elsif file =~ /\.coffee$/
+            YMDP::Compiler::Template::CoffeeScript.new(params).build
           elsif file =~ /\.js$/
             YMDP::Compiler::Template::JavaScript.new(params).build
           end

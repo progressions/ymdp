@@ -117,6 +117,8 @@ module YMDP
     
       def [](key)
         @config.get(base, key)
+      rescue StandardError => e
+        raise ArgumentError.new("Could not find #{base}, #{key}")
       end
       
       def exists?(*args)

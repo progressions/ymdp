@@ -280,7 +280,7 @@ module YMDP
         end
         
         def process_coffee(template, filename=nil)
-          CoffeeScript.compile(process_template(template))
+          ::CoffeeScript.compile(process_template(template))
         end
   
         # Write this template with the application layout applied.
@@ -314,6 +314,22 @@ module YMDP
         def write_template(result)
           filename = @file.split("/").last
           tmp_filename = "#{TMP_PATH}/#{filename}"
+          F.save_to_file(result, tmp_filename)
+          write_template_without_layout(result)
+        end
+      end
+      
+      class CoffeeScript < View
+        # Compile CoffeeScript into JavaScript and write it
+        #
+        def write_template(result)
+          @file.gsub!(/\.coffee$/, "")
+          filename = @file.split("/").last
+          tmp_filename = "#{TMP_PATH}/#{filename}"
+          
+          # result = process_coffee(process_template(result))
+          result = process_coffee(result)
+          
           F.save_to_file(result, tmp_filename)
           write_template_without_layout(result)
         end
