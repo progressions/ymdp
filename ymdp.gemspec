@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ymdp}
-  s.version = "0.8.4"
+  s.version = "0.8.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Isaac Priestley"]
-  s.date = %q{2011-07-06}
+  s.date = %q{2011-07-11}
   s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
   s.email = %q{progressions@gmail.com}
   s.extra_rdoc_files = [
@@ -55,23 +55,36 @@ Gem::Specification.new do |s|
     "lib/ymdp/generator/templates/translation.pres",
     "lib/ymdp/generator/templates/view.html.haml",
     "lib/ymdp/javascripts/jquery/ab_testing.js",
+    "lib/ymdp/javascripts/jquery/ab_testing.js.coffee",
     "lib/ymdp/javascripts/jquery/ajax.js",
+    "lib/ymdp/javascripts/jquery/ajax.js.coffee",
     "lib/ymdp/javascripts/jquery/application.js",
+    "lib/ymdp/javascripts/jquery/application.js.coffee",
     "lib/ymdp/javascripts/jquery/authorization.js",
+    "lib/ymdp/javascripts/jquery/authorization.js.coffee",
     "lib/ymdp/javascripts/jquery/browser.js",
+    "lib/ymdp/javascripts/jquery/browser.js.coffee",
     "lib/ymdp/javascripts/jquery/data.js",
+    "lib/ymdp/javascripts/jquery/data.js.coffee",
     "lib/ymdp/javascripts/jquery/debug.js",
+    "lib/ymdp/javascripts/jquery/debug.js.coffee",
     "lib/ymdp/javascripts/jquery/education.js",
     "lib/ymdp/javascripts/jquery/flash.js",
     "lib/ymdp/javascripts/jquery/help.js",
     "lib/ymdp/javascripts/jquery/i18n.js",
     "lib/ymdp/javascripts/jquery/init.js",
+    "lib/ymdp/javascripts/jquery/init.js.coffee",
     "lib/ymdp/javascripts/jquery/launcher.js",
+    "lib/ymdp/javascripts/jquery/launcher.js.coffee",
     "lib/ymdp/javascripts/jquery/logger.js",
+    "lib/ymdp/javascripts/jquery/logger.js.coffee",
     "lib/ymdp/javascripts/jquery/params.js",
+    "lib/ymdp/javascripts/jquery/params.js.coffee",
     "lib/ymdp/javascripts/jquery/reporter.js",
+    "lib/ymdp/javascripts/jquery/reporter.js.coffee",
     "lib/ymdp/javascripts/jquery/tag_helper.js",
     "lib/ymdp/javascripts/jquery/user.js",
+    "lib/ymdp/javascripts/jquery/user.js.coffee",
     "lib/ymdp/javascripts/prototype/ab_testing.js",
     "lib/ymdp/javascripts/prototype/ajax.js",
     "lib/ymdp/javascripts/prototype/application.js",
