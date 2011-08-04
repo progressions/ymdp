@@ -112,6 +112,13 @@ YMDP.init = ->
 YMDP.Init.browser = ->
   if $.browser.webkit
     $('body').addClass('webkit')
+  if $.browser.safari
+    $('body').addClass('safari')
+  if $.browser.msie
+    $('body').addClass('msie')
+  if $.browser.mozilla
+    $('body').addClass('mozilla')
+  $('body').addClass("version_#{$.browser.version}")
   
 
 YMDP.Init.resources = ->
