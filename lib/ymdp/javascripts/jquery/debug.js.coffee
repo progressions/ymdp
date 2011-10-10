@@ -52,6 +52,8 @@ window.Debug =
       "undefined"
     else if (obj == null)
       "null"
+    else if obj.message
+      obj.message
     else if (obj.inspect)
       obj.inspect()
     else

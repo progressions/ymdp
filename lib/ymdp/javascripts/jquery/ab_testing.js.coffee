@@ -13,26 +13,10 @@ window.ABTesting =
     ABTesting.on = false
   
   randomAB: ->
-    Math.floor(Math.random()*2) ? "a" : "b"
-
-  get: (content_id) ->
-    url = "ymdp/experiment"
-    
-    OIB.get url, 
-      "domain": View.domain
-    , (response) ->
-      ABTesting.success(content_id, response)
-    , (response) ->
-      ABTesting.error(response)
-
-  
-  post: (params) ->
-    params = params || {}
-    OIB.post "ymdp/view", params, (response) ->
-      Debug.log("ABTesting.post success", response)
-    , (response) ->
-      Debug.error("ABTesting.post error", response)
-
+    if Math.floor(Math.random()*2)
+      "a"
+    else
+      "b"
   
   postView: (experimentId) ->
     params = 
@@ -69,7 +53,7 @@ window.ABTesting =
     
     experiment = response.experiment
     
-    if typeof(experiment) != 'undefined'
+    if experiment
       content = ABTesting.content(experiment)
       experimentId = response.experiment.id
 
@@ -77,8 +61,7 @@ window.ABTesting =
       ABTesting.replaceContents(content_id, content)        
     else 
       Debug.log("No experiment running")
-    
-    YMDP.Init.showAndFinish()
+      YMDP.Init.showAndFinish()
   
   replaceContents: (content_id, content) ->
     openmail.Application.filterHTML
@@ -90,3 +73,20 @@ window.ABTesting =
   
   content: (experiment) ->
     experiment["content_" + ABTesting.variable]
+
+  get: (content_id) ->
+    url = "ymdp/experiment"
+    
+    OIB.get url, 
+      "domain": View.domain
+    , (response) ->
+      ABTesting.success(content_id, response)
+    , (response) ->
+      ABTesting.error(response)
+  
+  post: (params) ->
+    params = params || {}
+    OIB.post "ymdp/view", params, (response) ->
+      Debug.log("ABTesting.post success", response)
+    , (response) ->
+      Debug.error("ABTesting.post error", response)
