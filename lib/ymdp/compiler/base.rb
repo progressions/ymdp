@@ -226,6 +226,10 @@ module YMDP
       def build?(file)
         !partial?(file) && !layout?(file)
       end
+
+      def config_path
+        "#{base_path}/config"
+      end
       
       def app_path
         "#{base_path}/app"
