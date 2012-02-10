@@ -58,6 +58,7 @@ module YMDP
           process_path("#{base_path}/app/#{dir}/")
         end
         process_all_translations
+        copy_config_files
         copy_images
       end
 
