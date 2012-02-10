@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{ymdp}
-  s.version = "0.8.8"
+  s.name = "ymdp"
+  s.version = "0.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Isaac Priestley"]
-  s.date = %q{2011-10-10}
-  s.description = %q{Framework for developing applications in the Yahoo! Mail Development Platform.}
-  s.email = %q{progressions@gmail.com}
+  s.date = "2012-02-10"
+  s.description = "Framework for developing applications in the Yahoo! Mail Development Platform."
+  s.email = "progressions@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE",
     "README.rdoc"
@@ -114,25 +114,10 @@ Gem::Specification.new do |s|
     "spec/ymdp_spec.rb",
     "ymdp.gemspec"
   ]
-  s.homepage = %q{http://github.com/progressions/ymdp}
+  s.homepage = "http://github.com/progressions/ymdp"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.0}
-  s.summary = %q{Framework for developing applications in the Yahoo! Mail Development Platform}
-  s.test_files = [
-    "spec/application_spec.rb",
-    "spec/application_view_spec.rb",
-    "spec/compiler_spec.rb",
-    "spec/compiler_template_spec.rb",
-    "spec/configuration_spec.rb",
-    "spec/default_settings.rb",
-    "spec/domains_spec.rb",
-    "spec/file_spec.rb",
-    "spec/git_helper_spec.rb",
-    "spec/spec_helper.rb",
-    "spec/stubs.rb",
-    "spec/ymdp_base_spec.rb",
-    "spec/ymdp_spec.rb"
-  ]
+  s.rubygems_version = "1.8.12"
+  s.summary = "Framework for developing applications in the Yahoo! Mail Development Platform"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
