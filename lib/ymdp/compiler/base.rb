@@ -79,6 +79,27 @@ module YMDP
           build_file(f)
         end
       end
+
+      # Copy the appropriate version of the configuration files (config.xml, auth.xml) into the compiled source code.
+      # 
+      def copy_config_files
+        copy_config
+        copy_auth
+      end
+
+      def copy_config
+        $stdout.puts "Copying ./config/config.xml.#{domain}"
+        source_path = "#{config_path}/config.xml.#{domain}"
+        destination_path = "#{servers_path}/#{domain}/config.xml"
+        FileUtils.cp_r(source_path, destination_path)
+      end
+
+      def copy_auth
+        $stdout.puts "Copying ./auth/auth.xml.#{domain}"
+        source_path = "#{config_path}/auth.xml.#{domain}"
+        destination_path = "#{servers_path}/#{domain}/auth.xml"
+        FileUtils.cp_r(source_path, destination_path)
+      end
   
       # Build this file if it's either:
       # * a view, but not a partial or layout, or
