@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class YMDP::Configuration::Setter - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../../index.html">Home</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/ymdp/configuration/config.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../../Object.html">Object</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-add_content_variable">#add_content_variable</a>
+    
+    <li><a href="#method-i-add_path">#add_path</a>
+    
+    <li><a href="#method-i-jquery">#jquery</a>
+    
+    <li><a href="#method-i-load_content_variables">#load_content_variables</a>
+    
+    <li><a href="#method-i-prototype">#prototype</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../../LICENSE.html">LICENSE</a>
+  
+    <li class="file"><a href="../../README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../YMDP.html">YMDP</a>
+  
+    <li><a href="../../YMDP/ApplicationView.html">YMDP::ApplicationView</a>
+  
+    <li><a href="../../YMDP/AssetTagHelper.html">YMDP::AssetTagHelper</a>
+  
+    <li><a href="../../YMDP/Base.html">YMDP::Base</a>
+  
+    <li><a href="../../YMDP/Compiler.html">YMDP::Compiler</a>
+  
+    <li><a href="../../YMDP/Compiler/Base.html">YMDP::Compiler::Base</a>
+  
+    <li><a href="../../YMDP/Compiler/Domains.html">YMDP::Compiler::Domains</a>
+  
+    <li><a href="../../YMDP/Compiler/Options.html">YMDP::Compiler::Options</a>
+  
+    <li><a href="../../YMDP/Compiler/Template.html">YMDP::Compiler::Template</a>
+  
+    <li><a href="../../YMDP/Compiler/Template/Base.html">YMDP::Compiler::Template::Base</a>
+  
+    <li><a href="../../YMDP/Compiler/Template/CoffeeScript.html">YMDP::Compiler::Template::CoffeeScript</a>
+  
+    <li><a href="../../YMDP/Compiler/Template/JavaScript.html">YMDP::Compiler::Template::JavaScript</a>
+  
+    <li><a href="../../YMDP/Compiler/Template/View.html">YMDP::Compiler::Template::View</a>
+  
+    <li><a href="../../YMDP/Compiler/Template/YRB.html">YMDP::Compiler::Template::YRB</a>
+  
+    <li><a href="../../YMDP/Configuration.html">YMDP::Configuration</a>
+  
+    <li><a href="../../YMDP/Configuration/Base.html">YMDP::Configuration::Base</a>
+  
+    <li><a href="../../YMDP/Configuration/Config.html">YMDP::Configuration::Config</a>
+  
+    <li><a href="../../YMDP/Configuration/Servers.html">YMDP::Configuration::Servers</a>
+  
+    <li><a href="../../YMDP/Configuration/Setter.html">YMDP::Configuration::Setter</a>
+  
+    <li><a href="../../YMDP/FormTagHelper.html">YMDP::FormTagHelper</a>
+  
+    <li><a href="../../YMDP/GitHelper.html">YMDP::GitHelper</a>
+  
+    <li><a href="../../YMDP/LinkTagHelper.html">YMDP::LinkTagHelper</a>
+  
+    <li><a href="../../YMDP/View.html">YMDP::View</a>
+  
+    <li><a href="../../ActionView.html">ActionView</a>
+  
+    <li><a href="../../ActionView/Helpers.html">ActionView::Helpers</a>
+  
+    <li><a href="../../ActionView/Helpers/TagHelper.html">ActionView::Helpers::TagHelper</a>
+  
+    <li><a href="../../Application.html">Application</a>
+  
+    <li><a href="../../Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class YMDP::Configuration::Setter</h1>
+
+  <div id="description" class="description">
+    
+<p>Provides an interface to set global configuration variables inside a block.</p>
+
+<p>Used by the <a href="../Base.html">YMDP::Base</a> <code>configure</code>
+method.</p>
+
+<h2 id="label-Examples">Examples</h2>
+
+<p>In the following example, the <code>config</code> variable inside the block
+is an instance of <a href="Setter.html">YMDP::Configuration::Setter</a>.</p>
+
+<pre class="ruby"><span class="ruby-constant">YMDP</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">configure</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">config</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">username</span> = <span class="ruby-string">'malreynolds'</span>
+  <span class="ruby-identifier">config</span>.<span class="ruby-identifier">load_content_variables</span>(<span class="ruby-string">'content'</span>)
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>It is then up to <a
+href="../Base.html#method-c-configure">YMDP::Base.configure</a> to take the
+<a href="Setter.html">Setter</a> instance and set all the  appropriate
+options based on its settings.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-compress" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">compress</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Hash value containing settings which tell the application when to compress
+CSS and JavaScript.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-content_variables" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">content_variables</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Hash value containing content variables which are made available to the
+views at build time.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-default_server" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">default_server</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>String value containing the <a
+href="Setter.html#attribute-i-default_server">#default_server</a> name.
+Matches the related entry in the  <code>servers</code> hash to define which
+server is the default for rake tasks such as  <code>deploy</code>.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-external_assets" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">external_assets</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-growl" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">growl</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Boolean value which sets whether Growl notifications should be used when
+compiling  and deploying the application.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-host" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">host</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Host name for the website backend of this application.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-javascript_library" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">javascript_library</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-jslint_settings" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">jslint_settings</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p><a href="../Configuration.html">Configuration</a> options for JSLint
+JavaScript validator. Should be maintained in
+<code>jslint_settings.yml</code>.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-password" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">password</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>String value containing the password used to communicate with the Yahoo!
+Mail Development Platform to deploy the application.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-paths" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">paths</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Hash value containing paths used by the application to locate its files.
+This can be used to overwrite default settings.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-servers" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">servers</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Hash value containing application data about the servers, such as their
+asset and application IDs.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-username" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">username</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>String value containing the login used to communicate with the Yahoo! Mail
+Development Platform to deploy the application.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-validate" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">validate</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Hash value containing settings which tell the application when to validate
+HTML and JavaScript.</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-verbose" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">verbose</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Boolean value which sets whether to output verbose messages or not.</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-add_content_variable" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_content_variable</span><span
+            class="method-args">(name, value)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds an entry to the <code>content_variables</code> hash.</p>
+          
+
+          
+          <div class="method-source-code" id="add_content_variable-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/configuration/config.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_content_variable</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-ivar">@content_variables</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">value</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_content_variable-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_content_variable-method -->
+
+    
+      <div id="method-i-add_path" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_path</span><span
+            class="method-args">(name, value)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds an entry to the <code>paths</code> hash.</p>
+          
+
+          
+          <div class="method-source-code" id="add_path-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/configuration/config.rb, line 79</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_path</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-ivar">@paths</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">value</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_path-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_path-method -->
+
+    
+      <div id="method-i-jquery" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">jquery</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="jquery-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/configuration/config.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">jquery</span>
+  <span class="ruby-ivar">@javascript_library</span> = <span class="ruby-string">&quot;jquery&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- jquery-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- jquery-method -->
+
+    
+      <div id="method-i-load_content_variables" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">load_content_variables</span><span
+            class="method-args">(filename)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Loads the <code>content_variables</code> hash from a Yaml file.</p>
+          
+
+          
+          <div class="method-source-code" id="load_content_variables-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/configuration/config.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_content_variables</span>(<span class="ruby-identifier">filename</span>)
+  <span class="ruby-identifier">path</span> = <span class="ruby-node">&quot;#{CONFIG_PATH}/#{filename}&quot;</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\.yml$/</span>, <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-identifier">path</span> = <span class="ruby-node">&quot;#{path}.yml&quot;</span>
+  <span class="ruby-ivar">@content_variables</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-identifier">path</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- load_content_variables-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- load_content_variables-method -->
+
+    
+      <div id="method-i-prototype" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prototype</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="prototype-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/configuration/config.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prototype</span>
+  <span class="ruby-ivar">@javascript_library</span> = <span class="ruby-string">&quot;prototype&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- prototype-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- prototype-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

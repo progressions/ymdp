@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class YMDP::Compiler::Template::Base - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../../../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../../../index.html">Home</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/ymdp/compiler/template.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../../Base.html">YMDP::Base</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-base_filename">#base_filename</a>
+    
+    <li><a href="#method-i-build">#build</a>
+    
+    <li><a href="#method-i-destination_path">#destination_path</a>
+    
+    <li><a href="#method-i-partial-3F">#partial?</a>
+    
+    <li><a href="#method-i-process_template">#process_template</a>
+    
+    <li><a href="#method-i-processed_template">#processed_template</a>
+    
+    <li><a href="#method-i-server_path">#server_path</a>
+    
+    <li><a href="#method-i-servers_path">#servers_path</a>
+    
+    <li><a href="#method-i-set_content_variables">#set_content_variables</a>
+    
+    <li><a href="#method-i-verbose">#verbose</a>
+    
+    <li><a href="#method-i-verbose-3F">#verbose?</a>
+    
+    <li><a href="#method-i-write_template">#write_template</a>
+    
+    <li><a href="#method-i-write_template_with_layout">#write_template_with_layout</a>
+    
+    <li><a href="#method-i-write_template_without_layout">#write_template_without_layout</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../../../LICENSE.html">LICENSE</a>
+  
+    <li class="file"><a href="../../../README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../../YMDP.html">YMDP</a>
+  
+    <li><a href="../../../YMDP/ApplicationView.html">YMDP::ApplicationView</a>
+  
+    <li><a href="../../../YMDP/AssetTagHelper.html">YMDP::AssetTagHelper</a>
+  
+    <li><a href="../../../YMDP/Base.html">YMDP::Base</a>
+  
+    <li><a href="../../../YMDP/Compiler.html">YMDP::Compiler</a>
+  
+    <li><a href="../../../YMDP/Compiler/Base.html">YMDP::Compiler::Base</a>
+  
+    <li><a href="../../../YMDP/Compiler/Domains.html">YMDP::Compiler::Domains</a>
+  
+    <li><a href="../../../YMDP/Compiler/Options.html">YMDP::Compiler::Options</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template.html">YMDP::Compiler::Template</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template/Base.html">YMDP::Compiler::Template::Base</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template/CoffeeScript.html">YMDP::Compiler::Template::CoffeeScript</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template/JavaScript.html">YMDP::Compiler::Template::JavaScript</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template/View.html">YMDP::Compiler::Template::View</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template/YRB.html">YMDP::Compiler::Template::YRB</a>
+  
+    <li><a href="../../../YMDP/Configuration.html">YMDP::Configuration</a>
+  
+    <li><a href="../../../YMDP/Configuration/Base.html">YMDP::Configuration::Base</a>
+  
+    <li><a href="../../../YMDP/Configuration/Config.html">YMDP::Configuration::Config</a>
+  
+    <li><a href="../../../YMDP/Configuration/Servers.html">YMDP::Configuration::Servers</a>
+  
+    <li><a href="../../../YMDP/Configuration/Setter.html">YMDP::Configuration::Setter</a>
+  
+    <li><a href="../../../YMDP/FormTagHelper.html">YMDP::FormTagHelper</a>
+  
+    <li><a href="../../../YMDP/GitHelper.html">YMDP::GitHelper</a>
+  
+    <li><a href="../../../YMDP/LinkTagHelper.html">YMDP::LinkTagHelper</a>
+  
+    <li><a href="../../../YMDP/View.html">YMDP::View</a>
+  
+    <li><a href="../../../ActionView.html">ActionView</a>
+  
+    <li><a href="../../../ActionView/Helpers.html">ActionView::Helpers</a>
+  
+    <li><a href="../../../ActionView/Helpers/TagHelper.html">ActionView::Helpers::TagHelper</a>
+  
+    <li><a href="../../../Application.html">Application</a>
+  
+    <li><a href="../../../Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class YMDP::Compiler::Template::Base</h1>
+
+  <div id="description" class="description">
+    
+<p>Process source files into usable code.</p>
+
+<p>Source files can be HTML, Haml, ERB, <a
+href="JavaScript.html">JavaScript</a>, or CSS files.</p>
+
+<p>Files with an extension of “.haml” will be processed with Haml, all
+others will use ERB.</p>
+
+<h3 id="label-Examples">Examples</h3>
+
+<pre>YMDP::Compiler::Template::View.new(params).build
+
+YMDP::Compiler::Template::JavaScript.new(params).build
+
+@template = YMDP::Compiler::Template::Base.new(params)</pre>
+
+<h3 id="label-Options"><a href="../Options.html">Options</a></h3>
+
+<pre>verbose::     boolean value, output verbose notices,
+domain::      string, indicates which domain the template is compiling to,
+file::        filename of the template in question,
+hash::        git hash of the latest commit,
+message::     commit message of the latest commit.</pre>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-assets_directory" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">assets_directory</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-domain" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">domain</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-file" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">file</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-hash" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">hash</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-host" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">host</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-message" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">message</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-server" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">server</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(params)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-ivar">@verbose</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:verbose</span>]
+  <span class="ruby-ivar">@domain</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:domain</span>]
+  <span class="ruby-ivar">@host</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:host</span>]
+  
+  <span class="ruby-identifier">server_settings</span> = <span class="ruby-identifier">servers</span>[<span class="ruby-ivar">@domain</span>]
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">server_settings</span>
+    <span class="ruby-ivar">@server</span> = <span class="ruby-identifier">server_settings</span>[<span class="ruby-string">&quot;server&quot;</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">StandardError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;Server settings are required.&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">StandardError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;Server name does not exist in server settings.&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@server</span>
+  
+  <span class="ruby-ivar">@file</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:file</span>]
+  <span class="ruby-ivar">@assets_directory</span> = <span class="ruby-string">&quot;/yahoo/mail/assets&quot;</span>
+  <span class="ruby-ivar">@assets_url</span> = <span class="ruby-node">&quot;http://#{servers[@domain]['application_id']}.yom.mail.yahoo.net#{@assets_directory}&quot;</span>
+  <span class="ruby-ivar">@hash</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:git_hash</span>]
+  <span class="ruby-ivar">@message</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:message</span>]
+  
+  <span class="ruby-identifier">set_content_variables</span>
+  
+  <span class="ruby-ivar">@view</span> = <span class="ruby-identifier">base_filename</span>(<span class="ruby-ivar">@file</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;/&quot;</span>).<span class="ruby-identifier">last</span>)
+  <span class="ruby-constant">Application</span>.<span class="ruby-identifier">current_view</span> = <span class="ruby-ivar">@view</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-base_filename" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">base_filename</span><span
+            class="method-args">(filename)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="base_filename-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">base_filename</span>(<span class="ruby-identifier">filename</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Define in child&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- base_filename-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- base_filename-method -->
+
+    
+      <div id="method-i-build" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Compile this view unless it is a partial.</p>
+          
+
+          
+          <div class="method-source-code" id="build-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 87</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build</span>
+  <span class="ruby-comment"># puts &quot;Base build&quot;</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">partial?</span>
+    <span class="ruby-identifier">write_template</span>(<span class="ruby-identifier">processed_template</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- build-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- build-method -->
+
+    
+      <div id="method-i-destination_path" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">destination_path</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Produces the destination path of this template, in the servers directory
+for the given domain.</p>
+
+<h3 id="method-i-destination_path-label-Examples">Examples</h3>
+
+<p>If the source file is:</p>
+
+<pre>app/views/authorize.html.haml</pre>
+
+<p>The destination file will be:</p>
+
+<pre>servers/staging/views/authorize.html.haml</pre>
+          
+
+          
+          <div class="method-source-code" id="destination_path-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 131</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">destination_path</span>
+  <span class="ruby-comment"># just the file, with no directory</span>
+  <span class="ruby-identifier">filename</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-ivar">@file</span>)
+
+  <span class="ruby-comment"># just the filename, with no extension</span>
+  <span class="ruby-identifier">filename</span> = <span class="ruby-identifier">convert_filename</span>(<span class="ruby-identifier">filename</span>)
+
+  <span class="ruby-comment"># just the directory, with no file </span>
+  <span class="ruby-identifier">directory</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-ivar">@file</span>)
+
+  <span class="ruby-comment"># replace the app directory with the server directory</span>
+  <span class="ruby-identifier">relative_directory</span> = <span class="ruby-identifier">directory</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-node">&quot;#{paths[:base_path]}/app&quot;</span>, <span class="ruby-identifier">server_path</span>)
+
+  <span class="ruby-comment"># make the directory if it doesn't exist</span>
+  <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-identifier">relative_directory</span>)
+
+  <span class="ruby-node">&quot;#{relative_directory}/#{filename}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- destination_path-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- destination_path-method -->
+
+    
+      <div id="method-i-partial-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">partial?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>If the filename begins with a <code>_</code> it’s a partial.</p>
+          
+
+          
+          <div class="method-source-code" id="partial-3F-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">partial?</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-ivar">@file</span>) <span class="ruby-operator">=~</span> <span class="ruby-regexp">%r^_/</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- partial-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- partial-3F-method -->
+
+    
+      <div id="method-i-process_template" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_template</span><span
+            class="method-args">(template)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Implemented in child classes, this defines what must be done to process a
+template.</p>
+          
+
+          
+          <div class="method-source-code" id="process_template-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_template</span>(<span class="ruby-identifier">template</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Define in child&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- process_template-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- process_template-method -->
+
+    
+      <div id="method-i-processed_template" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">processed_template</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the compiled template code after its Haml or ERB has been
+processed.</p>
+          
+
+          
+          <div class="method-source-code" id="processed_template-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 96</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">processed_template</span>
+  <span class="ruby-comment"># &quot;Base processed_template&quot;</span>
+  <span class="ruby-identifier">result</span> = <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-identifier">template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-ivar">@file</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@file</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%r\.haml$/</span>
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">process_haml</span>(<span class="ruby-identifier">template</span>, <span class="ruby-ivar">@file</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">process_template</span>(<span class="ruby-identifier">template</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- processed_template-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- processed_template-method -->
+
+    
+      <div id="method-i-server_path" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">server_path</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Path to the servers directory for the current domain.</p>
+          
+
+          
+          <div class="method-source-code" id="server_path-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 152</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">server_path</span>
+  <span class="ruby-node">&quot;#{servers_path}/#{@domain}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- server_path-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- server_path-method -->
+
+    
+      <div id="method-i-servers_path" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">servers_path</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="servers_path-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 219</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">servers_path</span>
+  <span class="ruby-node">&quot;#{paths[:base_path]}/servers&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- servers_path-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- servers_path-method -->
+
+    
+      <div id="method-i-set_content_variables" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_content_variables</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Parsed from the file ‘content.yml’ each of its keys is added to the
+environment as an instance variable, so they will be available inside the
+template.</p>
+          
+
+          
+          <div class="method-source-code" id="set_content_variables-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 69</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_content_variables</span>
+  <span class="ruby-identifier">content_variables</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">attribute</span> = <span class="ruby-node">&quot;@#{key}&quot;</span>
+    <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">attribute</span>, <span class="ruby-identifier">value</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">instance_variable_defined?</span>(<span class="ruby-identifier">attribute</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-node">%Q(
+      attr_accessor :#{key}
+    )</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_content_variables-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_content_variables-method -->
+
+    
+      <div id="method-i-verbose" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">verbose</span><span
+            class="method-args">(message)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Outputs a message if @verbose is on.</p>
+          
+
+          
+          <div class="method-source-code" id="verbose-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 158</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">verbose</span>(<span class="ruby-identifier">message</span>)
+  <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-identifier">message</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@verbose</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- verbose-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- verbose-method -->
+
+    
+      <div id="method-i-verbose-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">verbose?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Is the verbose setting on?</p>
+          
+
+          
+          <div class="method-source-code" id="verbose-3F-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">verbose?</span>
+  <span class="ruby-ivar">@verbose</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- verbose-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- verbose-3F-method -->
+
+    
+      <div id="method-i-write_template" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_template</span><span
+            class="method-args">(result)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Write this processed template to its destination file.</p>
+
+<p>Overwrite this method in child class to define whether the class  uses a
+template or not.</p>
+          
+
+          
+          <div class="method-source-code" id="write_template-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 214</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_template</span>(<span class="ruby-identifier">result</span>)
+  <span class="ruby-comment"># puts &quot;Base write_template&quot;</span>
+  <span class="ruby-identifier">write_template_with_layout</span>(<span class="ruby-identifier">result</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write_template-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write_template-method -->
+
+    
+      <div id="method-i-write_template_with_layout" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_template_with_layout</span><span
+            class="method-args">(result)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Writes the input string to the destination file, passing it through the
+application template.</p>
+
+<p>The application layout can be either Haml or ERB.</p>
+          
+
+          
+          <div class="method-source-code" id="write_template_with_layout-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 182</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_template_with_layout</span>(<span class="ruby-identifier">result</span>)
+  <span class="ruby-comment"># puts &quot;Base write_template_with_layout&quot;</span>
+  <span class="ruby-ivar">@content</span> = <span class="ruby-identifier">result</span>
+  <span class="ruby-identifier">layout</span> = <span class="ruby-identifier">result</span>
+  
+  <span class="ruby-identifier">view_layout</span> = <span class="ruby-node">&quot;#{paths[:base_path]}\/app\/views\/layouts\/#{@view}.html&quot;</span>
+  <span class="ruby-identifier">application_layout</span> = <span class="ruby-node">&quot;#{paths[:base_path]}\/app\/views\/layouts\/application.html&quot;</span>
+  
+  <span class="ruby-identifier">haml_view_layout</span> = <span class="ruby-identifier">view_layout</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.haml&quot;</span>
+  <span class="ruby-identifier">haml_application_layout</span> = <span class="ruby-identifier">application_layout</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.haml&quot;</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">haml_view_layout</span>)
+    <span class="ruby-identifier">layout_name</span> = <span class="ruby-identifier">haml_view_layout</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">layout_name</span> = <span class="ruby-identifier">haml_application_layout</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">layout_name</span>)
+    <span class="ruby-identifier">template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">layout_name</span>)
+    <span class="ruby-identifier">layout</span> = <span class="ruby-identifier">process_haml</span>(<span class="ruby-identifier">template</span>, <span class="ruby-identifier">layout_name</span>) <span class="ruby-keyword">do</span>
+      <span class="ruby-ivar">@content</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">write_template_without_layout</span>(<span class="ruby-identifier">layout</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write_template_with_layout-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write_template_with_layout-method -->
+
+    
+      <div id="method-i-write_template_without_layout" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_template_without_layout</span><span
+            class="method-args">(result)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Writes the input string to the destination file without adding any layout.</p>
+          
+
+          
+          <div class="method-source-code" id="write_template_without_layout-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 164</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_template_without_layout</span>(<span class="ruby-identifier">result</span>)
+  <span class="ruby-identifier">path</span> = <span class="ruby-identifier">destination_path</span>
+  
+  <span class="ruby-comment"># puts &quot;\n\n\nBase write_template_without_layout: #{result}, #{path}&quot;</span>
+  
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">path</span>, <span class="ruby-string">&quot;w&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">result</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">verbose</span> <span class="ruby-node">&quot;Finished writing #{path}.\n&quot;</span>
+  
+  <span class="ruby-identifier">result</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write_template_without_layout-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write_template_without_layout-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class YMDP::Compiler::Template::JavaScript - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../../../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../../../index.html">Home</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/ymdp/compiler/template.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="View.html">YMDP::Compiler::Template::View</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-write_template">#write_template</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../../../LICENSE.html">LICENSE</a>
+  
+    <li class="file"><a href="../../../README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../../YMDP.html">YMDP</a>
+  
+    <li><a href="../../../YMDP/ApplicationView.html">YMDP::ApplicationView</a>
+  
+    <li><a href="../../../YMDP/AssetTagHelper.html">YMDP::AssetTagHelper</a>
+  
+    <li><a href="../../../YMDP/Base.html">YMDP::Base</a>
+  
+    <li><a href="../../../YMDP/Compiler.html">YMDP::Compiler</a>
+  
+    <li><a href="../../../YMDP/Compiler/Base.html">YMDP::Compiler::Base</a>
+  
+    <li><a href="../../../YMDP/Compiler/Domains.html">YMDP::Compiler::Domains</a>
+  
+    <li><a href="../../../YMDP/Compiler/Options.html">YMDP::Compiler::Options</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template.html">YMDP::Compiler::Template</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template/Base.html">YMDP::Compiler::Template::Base</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template/CoffeeScript.html">YMDP::Compiler::Template::CoffeeScript</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template/JavaScript.html">YMDP::Compiler::Template::JavaScript</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template/View.html">YMDP::Compiler::Template::View</a>
+  
+    <li><a href="../../../YMDP/Compiler/Template/YRB.html">YMDP::Compiler::Template::YRB</a>
+  
+    <li><a href="../../../YMDP/Configuration.html">YMDP::Configuration</a>
+  
+    <li><a href="../../../YMDP/Configuration/Base.html">YMDP::Configuration::Base</a>
+  
+    <li><a href="../../../YMDP/Configuration/Config.html">YMDP::Configuration::Config</a>
+  
+    <li><a href="../../../YMDP/Configuration/Servers.html">YMDP::Configuration::Servers</a>
+  
+    <li><a href="../../../YMDP/Configuration/Setter.html">YMDP::Configuration::Setter</a>
+  
+    <li><a href="../../../YMDP/FormTagHelper.html">YMDP::FormTagHelper</a>
+  
+    <li><a href="../../../YMDP/GitHelper.html">YMDP::GitHelper</a>
+  
+    <li><a href="../../../YMDP/LinkTagHelper.html">YMDP::LinkTagHelper</a>
+  
+    <li><a href="../../../YMDP/View.html">YMDP::View</a>
+  
+    <li><a href="../../../ActionView.html">ActionView</a>
+  
+    <li><a href="../../../ActionView/Helpers.html">ActionView::Helpers</a>
+  
+    <li><a href="../../../ActionView/Helpers/TagHelper.html">ActionView::Helpers::TagHelper</a>
+  
+    <li><a href="../../../Application.html">Application</a>
+  
+    <li><a href="../../../Object.html">Object</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class YMDP::Compiler::Template::JavaScript</h1>
+
+  <div id="description" class="description">
+    
+<p>Process templates for <a href="JavaScript.html">JavaScript</a> files.</p>
+
+<p><a href="JavaScript.html">JavaScript</a> files support ERB tags.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-write_template" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_template</span><span
+            class="method-args">(result)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Write the processed template without any layout.</p>
+
+<p>Run the <a href="JavaScript.html">JavaScript</a> compressor on the file if
+that option is turned on.</p>
+          
+
+          
+          <div class="method-source-code" id="write_template-source">
+            <pre><span class="ruby-comment"># File lib/ymdp/compiler/template.rb, line 314</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_template</span>(<span class="ruby-identifier">result</span>)
+  <span class="ruby-identifier">filename</span> = <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;/&quot;</span>).<span class="ruby-identifier">last</span>
+  <span class="ruby-identifier">tmp_filename</span> = <span class="ruby-node">&quot;#{TMP_PATH}/#{filename}&quot;</span>
+  <span class="ruby-constant">F</span>.<span class="ruby-identifier">save_to_file</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">tmp_filename</span>)
+  <span class="ruby-identifier">write_template_without_layout</span>(<span class="ruby-identifier">result</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write_template-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write_template-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
