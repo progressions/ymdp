@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "ymdp"
-  s.version = "0.9.2"
+  s.version = "0.10.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Isaac Priestley"]
-  s.date = "2012-02-10"
+  s.date = "2012-04-03"
   s.description = "Framework for developing applications in the Yahoo! Mail Development Platform."
   s.email = "progressions@gmail.com"
   s.extra_rdoc_files = [
@@ -27,6 +27,70 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "doc/ActionView.html",
+    "doc/ActionView/Helpers.html",
+    "doc/ActionView/Helpers/TagHelper.html",
+    "doc/Application.html",
+    "doc/LICENSE.html",
+    "doc/Object.html",
+    "doc/README_rdoc.html",
+    "doc/YMDP.html",
+    "doc/YMDP/ApplicationView.html",
+    "doc/YMDP/AssetTagHelper.html",
+    "doc/YMDP/Base.html",
+    "doc/YMDP/Compiler.html",
+    "doc/YMDP/Compiler/Base.html",
+    "doc/YMDP/Compiler/Domains.html",
+    "doc/YMDP/Compiler/Options.html",
+    "doc/YMDP/Compiler/Template.html",
+    "doc/YMDP/Compiler/Template/Base.html",
+    "doc/YMDP/Compiler/Template/CoffeeScript.html",
+    "doc/YMDP/Compiler/Template/JavaScript.html",
+    "doc/YMDP/Compiler/Template/View.html",
+    "doc/YMDP/Compiler/Template/YRB.html",
+    "doc/YMDP/Configuration.html",
+    "doc/YMDP/Configuration/Base.html",
+    "doc/YMDP/Configuration/Config.html",
+    "doc/YMDP/Configuration/Servers.html",
+    "doc/YMDP/Configuration/Setter.html",
+    "doc/YMDP/FormTagHelper.html",
+    "doc/YMDP/GitHelper.html",
+    "doc/YMDP/LinkTagHelper.html",
+    "doc/YMDP/View.html",
+    "doc/created.rid",
+    "doc/images/add.png",
+    "doc/images/brick.png",
+    "doc/images/brick_link.png",
+    "doc/images/bug.png",
+    "doc/images/bullet_black.png",
+    "doc/images/bullet_toggle_minus.png",
+    "doc/images/bullet_toggle_plus.png",
+    "doc/images/date.png",
+    "doc/images/delete.png",
+    "doc/images/find.png",
+    "doc/images/loadingAnimation.gif",
+    "doc/images/macFFBgHack.png",
+    "doc/images/package.png",
+    "doc/images/page_green.png",
+    "doc/images/page_white_text.png",
+    "doc/images/page_white_width.png",
+    "doc/images/plugin.png",
+    "doc/images/ruby.png",
+    "doc/images/tag_blue.png",
+    "doc/images/tag_green.png",
+    "doc/images/transparent.png",
+    "doc/images/wrench.png",
+    "doc/images/wrench_orange.png",
+    "doc/images/zoom.png",
+    "doc/index.html",
+    "doc/js/darkfish.js",
+    "doc/js/jquery.js",
+    "doc/js/navigation.js",
+    "doc/js/search.js",
+    "doc/js/search_index.js",
+    "doc/js/searcher.js",
+    "doc/rdoc.css",
+    "doc/table_of_contents.html",
     "features/data/app/assets/yrb/en-US/keys_en-US.pres",
     "features/data/app/javascripts/application.js",
     "features/data/app/stylesheets/application.css",
@@ -128,6 +192,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<treetop>, [">= 0"])
       s.add_runtime_dependency(%q<cucumber>, [">= 0"])
       s.add_runtime_dependency(%q<haml>, [">= 0"])
+      s.add_runtime_dependency(%q<sass>, [">= 0"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_runtime_dependency(%q<hpricot>, [">= 0"])
       s.add_runtime_dependency(%q<mime-types>, [">= 0"])
@@ -166,6 +231,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<treetop>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<haml>, [">= 0"])
+      s.add_dependency(%q<sass>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<hpricot>, [">= 0"])
       s.add_dependency(%q<mime-types>, [">= 0"])
@@ -205,6 +271,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<treetop>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<haml>, [">= 0"])
+    s.add_dependency(%q<sass>, [">= 0"])
     s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<hpricot>, [">= 0"])
     s.add_dependency(%q<mime-types>, [">= 0"])
