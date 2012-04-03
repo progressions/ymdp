@@ -223,7 +223,7 @@ module YMDP
         if path =~ /haml$/
           output = process_haml(template, path)
         else
-          output = process_template(template)
+          output = process_erb(template)
         end
       else
         raise "Could not find partial: #{filename}"
@@ -437,7 +437,7 @@ module YMDP
       elsif File.exists?(path)
         $stdout.puts("Parsing #{path}")
         template = File.read(path)
-        output = process_template(template)
+        output = process_erb(template)
       end
       
       output

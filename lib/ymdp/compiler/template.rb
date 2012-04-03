@@ -100,7 +100,7 @@ module YMDP
           if @file =~ /\.haml$/
             result = process_haml(template, @file)
           else
-            result = process_template(template)
+            result = process_erb(template)
           end
           result
         end
@@ -111,7 +111,7 @@ module YMDP
       
         # Implemented in child classes, this defines what must be done to process a template.
         #
-        def process_template(template)
+        def process_erb(template)
           raise "Define in child"
         end
   
@@ -259,8 +259,8 @@ module YMDP
   
         # Process this template with ERB.
         #
-        def process_template(template)
-          # puts "View process_template"
+        def process_erb(template)
+          # puts "View process_erb"
           ERB.new(template, 0, "%<>").result(binding)
         end
   
@@ -280,11 +280,11 @@ module YMDP
         end
         
         def process_coffee(template, filename=nil)
-          ::CoffeeScript.compile(process_template(template))
+          ::CoffeeScript.compile(process_erb(template))
         end
 
         def process_scss(template, filename=nil)
-          ::Sass.compile(template)
+          ::Sass.compile(process_erb(template))
         end
   
         # Write this template with the application layout applied.
@@ -331,7 +331,7 @@ module YMDP
           filename = @file.split("/").last
           tmp_filename = "#{TMP_PATH}/#{filename}"
           
-          # result = process_coffee(process_template(result))
+          # result = process_coffee(process_erb(result))
           result = process_coffee(result)
           
           F.save_to_file(result, tmp_filename)
