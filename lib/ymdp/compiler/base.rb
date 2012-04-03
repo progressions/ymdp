@@ -96,7 +96,7 @@ module YMDP
       end
 
       def copy_auth
-        $stdout.puts "Copying ./config/auth.xml.#{domain}"
+        $stdout.puts "Copying ./auth/auth.xml.#{domain}"
         source_path = "#{config_path}/auth.xml.#{domain}"
         destination_path = "#{servers_path}/#{domain}/auth.xml"
         FileUtils.cp_r(source_path, destination_path)

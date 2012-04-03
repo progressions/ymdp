@@ -282,6 +282,10 @@ module YMDP
         def process_coffee(template, filename=nil)
           ::CoffeeScript.compile(process_template(template))
         end
+
+        def process_scss(template, filename=nil)
+          ::Sass.compile(template)
+        end
   
         # Write this template with the application layout applied.
         #

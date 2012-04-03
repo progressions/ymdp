@@ -370,7 +370,7 @@ module YMDP
     #
     def render_stylesheet_partial(params)
       filename = params[:filename] || params[:stylesheet].to_a.join("_")
-      external_asset = params[:tags] && configuration.external_assets["javascripts"]
+      external_asset = params[:tags] && configuration.external_assets["stylesheets"]
       output = []
       if params[:stylesheet]
         content = render_stylesheets(params[:stylesheet].to_a, params[:filename])
@@ -390,7 +390,7 @@ module YMDP
       end
     end
     
-    # Renders a JavaScript partial.
+    # Renders a CSS partial.
     #
     def render_stylesheets(filenames, combined_filename=nil)
       filenames_str = combined_filename || filenames.join().gsub("/", "_")
@@ -408,7 +408,7 @@ module YMDP
       output
     end
     
-    # Concatenates all javascript files into one long string.
+    # Concatenates all files into one long string.
     #
     def combine_files(filenames)
       output = []
@@ -418,7 +418,7 @@ module YMDP
       output.join("\n")
     end
     
-    # Renders together a set of JavaScript files without 
+    # Renders together a set of files without 
     # compression, so they can be compressed as a single block.
     #
     def render_without_compression(path, tags=true)
@@ -429,6 +429,11 @@ module YMDP
         $stdout.puts("Parsing #{path}")
         template = File.read(path)
         output = process_coffee(template)
+      elsif File.exists?("#{path}.scss")
+        path = "#{path}.scss"
+        $stdout.puts("Parsing #{path}")
+        template = File.read(path)
+        output = process_scss(template)
       elsif File.exists?(path)
         $stdout.puts("Parsing #{path}")
         template = File.read(path)
