@@ -448,7 +448,7 @@ namespace :create do
   task :all do
     time("Created all applications") do
       SERVERS.each do |key, values|
-        create_directory_from_application(values["server"])
+        create_directory_from_application(key)
       end
     end
   end
