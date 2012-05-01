@@ -86,22 +86,34 @@ module YMDP
       def copy_config_files
         copy_config
         copy_auth
+        copy_config_images
       end
 
       def copy_config
-        $stdout.puts "Copying ./config/config.xml.#{domain}"
-        source_path = "#{config_path}/config.xml.#{domain}"
+        $stdout.puts "Copying config.xml for #{domain}"
+        source_path = "#{config_path}/environments/#{domain}/config.xml"
         destination_path = "#{servers_path}/#{domain}/config.xml"
         FileUtils.cp_r(source_path, destination_path)
       end
 
       def copy_auth
-        $stdout.puts "Copying ./auth/auth.xml.#{domain}"
-        source_path = "#{config_path}/auth.xml.#{domain}"
+        $stdout.puts "Copying auth.xml for #{domain}"
+        source_path = "#{config_path}/environments/#{domain}/auth.xml"
         destination_path = "#{servers_path}/#{domain}/auth.xml"
         FileUtils.cp_r(source_path, destination_path)
       end
   
+      def copy_config_images
+        ["full", "icon", "thumbnail"].each do |image|
+          source_path = "#{config_path}/environments/#{domain}/#{image}.png"
+          destination_path = "#{servers_path}/#{domain}/#{image}.png"
+          if File.exists?(source_path)
+            $stdout.puts "Copying #{image}.png for #{domain}"
+            FileUtils.cp_r(source_path, destination_path)
+          end
+        end
+      end
+
       # Build this file if it's either:
       # * a view, but not a partial or layout, or
       # * a JavaScript file.
