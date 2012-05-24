@@ -18,19 +18,18 @@ module YMDP
     #   # => ["en-US", "de-DE", "es-ES", "es-MX"]
     #
     def supported_languages
-      dirs = Dir["#{BASE_PATH}/app/assets/yrb/*"].map do |path|
-        filename = path.split("/").last
-        
-        filename
-      end
-      
-      dirs.unshift(dirs.delete("en-US"))
-      
-      raise "Default YRB key en-US not found" unless dirs.include?("en-US") 
-      
-      dirs
+      YAML.load_file("./config/idiom.yml")["locales"].keys
     end
-    
+
+    def translations
+      @translations ||= {}
+      
+      Dir["./config/locales/**/*.yml"].each do |file|
+        @translations.merge!(YAML.load_file(file))
+      end
+      @translations
+    end
+
     # Returns an array of country codes of English-speaking countries supported
     # by the application, based on the language-specific folders located in "app/assets/yrb".
     #

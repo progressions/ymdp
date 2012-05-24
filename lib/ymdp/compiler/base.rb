@@ -57,7 +57,7 @@ module YMDP
         ["views", "assets"].each do |dir|
           process_path("#{base_path}/app/#{dir}/")
         end
-        process_all_translations
+        # process_all_translations
         copy_config_files
         copy_images
       end
@@ -156,13 +156,14 @@ module YMDP
     
         # Concatenate together all the YRB ".pres" files for this language into one file in the tmp dir.
         #
-        F.concat_files("#{yrb_path}/#{lang}/*", tmp_file)
+        # F.concat_files("#{yrb_path}/#{lang}/*", tmp_file)
     
-        yrb = YMDP::Compiler::Template::YRB.new(:file => tmp_file, :domain => domain)
-        yrb.build
-        yrb.validate if CONFIG.validate_json_assets?
+        # yrb = YMDP::Compiler::Template::YRB.new(:file => tmp_file, :domain => domain)
+        # yrb = YMDP::Compiler::Template::Yaml.new(:file => tmp_file, :domain => domain)
+        # yrb.build
+        # yrb.validate if CONFIG.validate_json_assets?
         
-        FileUtils.rm(tmp_file)
+        # FileUtils.rm(tmp_file)
       end
   
       # Creates a fresh destination directory structure for the code to be compiled into.
@@ -256,7 +257,7 @@ module YMDP
       end
       
       def yrb_path
-        "#{assets_path}/yrb"
+        "#{config_path}/locales"
       end
       
       def images_path

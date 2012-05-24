@@ -137,7 +137,10 @@ window.User =
     
       Debug.log("YMDP.ymail_wssid is defined", YMDP.ymail_wssid)
     
-      success_function(YMDP.ymail_wssid)
+      try
+        success_function(YMDP.ymail_wssid)
+      catch wtf
+        Debug.log wtf
 
   # gets the guid from the Yahoo! environment and executes the success callback
   # if there is a guid, and the error callback if it's undefined

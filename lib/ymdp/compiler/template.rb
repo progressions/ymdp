@@ -339,6 +339,88 @@ module YMDP
         end
       end
 
+      # Process YAML format translation files.
+      #
+      # Convert them to a hash and write the hash to a JSON file.
+      #
+      # Each language can have as many YAML translation files as necessary.
+      # The files are converted into a single JSON file for each language.
+      #
+      class Yaml < Base
+        # Base directory for translations for this domain.
+        #
+        def directory
+          directory = "#{paths[:base_path]}/servers/#{@domain}/assets/yrb"
+          FileUtils.mkdir_p(directory)
+          directory
+        end
+  
+        # The destination of the compiled JSON file.
+        #
+        def destination_path
+          filename = convert_filename(@file.split("/").last)
+          "#{directory}/#{filename}"
+        end  
+  
+        # JSON values of the compiled translations.
+        #
+        def to_json
+          processed_template
+        end
+  
+        # Turn it back into a hash.
+        #
+        def to_hash
+          yaml
+        end
+        
+        # Parse Yaml file
+        #
+        def yaml
+          @yaml ||= ::YAML.load_file(@file)
+        end
+  
+        # Convert the hash to Yaml if you should want to do that.
+        #
+        def to_yaml
+          to_hash.to_yaml
+        end
+  
+        # This function is the file which is written to the destination--in this
+        # case, the JSON file.
+        #
+        def processed_template
+          yaml.to_json
+        end
+  
+        # Validate the JSON file.
+        #
+        def validate
+          Epic::Validator::JSON.new.validate(destination_path)
+        end
+  
+        private
+      
+        # Strip off the extension from original Yaml files.
+        #
+        def base_filename(filename)    
+          filename.gsub(/\.yaml/, "")
+        end
+  
+        # Take the base filename and add the ".json" extension.
+        #
+        def convert_filename(filename)
+          "#{base_filename(filename)}.json"
+        end
+  
+        # Write JSON file to its destination.
+        #
+        def write_template(result)
+          $stdout.puts destination_path if CONFIG.verbose?
+          write_template_without_layout(result)
+        end
+      end
+
       # Process Yahoo! Resource Bundle format translation files.
       #
       # Convert them to a hash and write the hash to a JSON file.
