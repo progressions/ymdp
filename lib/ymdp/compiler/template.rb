@@ -290,7 +290,7 @@ module YMDP
           if filename
             options[:filename] = filename
           end
-          ::Sass::Engine.new(template, options).render(self) do
+          ::Sass::Engine.new(template, options).render do
             yield
           end
         end

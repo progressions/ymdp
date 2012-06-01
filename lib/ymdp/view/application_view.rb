@@ -400,10 +400,9 @@ module YMDP
         filename.gsub!(/\.css$/, "")
         f = "#{BASE_PATH}/app/stylesheets/#{filename}.css"
         if !File.exists?(f)
-          f = "#{BASE_PATH}/app/stylesheets/#{filename}.scss"
-        else
-          $stdout.puts("Could not find #{filename}.css or #{filename}.scss")
+          f = "#{BASE_PATH}/app/stylesheets/#{filename}"
         end
+        f
       end
       
       output = combine_files(filenames)
@@ -429,7 +428,7 @@ module YMDP
     def render_without_compression(path="", tags=true)
       path ||= ""
       output = ""
-    
+
       if File.exists?("#{path}.coffee")
         path = "#{path}.coffee"
         $stdout.puts("Parsing #{path}")
