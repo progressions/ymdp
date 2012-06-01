@@ -27,6 +27,7 @@ module YMDP
       Dir["./config/locales/**/*.yml"].each do |file|
         @translations.merge!(YAML.load_file(file))
       end
+
       @translations
     end
 
@@ -397,7 +398,12 @@ module YMDP
       
       filenames.map! do |filename|
         filename.gsub!(/\.css$/, "")
-        "#{BASE_PATH}/app/stylesheets/#{filename}.css"
+        f = "#{BASE_PATH}/app/stylesheets/#{filename}.css"
+        if !File.exists?(f)
+          f = "#{BASE_PATH}/app/stylesheets/#{filename}.scss"
+        else
+          $stdout.puts("Could not find #{filename}.css or #{filename}.scss")
+        end
       end
       
       output = combine_files(filenames)
@@ -420,7 +426,8 @@ module YMDP
     # Renders together a set of files without 
     # compression, so they can be compressed as a single block.
     #
-    def render_without_compression(path, tags=true)
+    def render_without_compression(path="", tags=true)
+      path ||= ""
       output = ""
     
       if File.exists?("#{path}.coffee")

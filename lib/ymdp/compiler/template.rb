@@ -284,7 +284,15 @@ module YMDP
         end
 
         def process_scss(template, filename=nil)
-          ::Sass.compile(process_erb(template))
+          options = {
+            :syntax => :scss
+          }
+          if filename
+            options[:filename] = filename
+          end
+          ::Sass::Engine.new(template, options).render(self) do
+            yield
+          end
         end
   
         # Write this template with the application layout applied.

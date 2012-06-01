@@ -10,7 +10,7 @@
   GLOBAL CONSTANTS 
 ###
 
-window.View = 
+window.View =
   application: "<%= @application_name %>"
   domain: "<%= @domain %>"
   page_loaded: false
@@ -31,7 +31,7 @@ String.prototype.capitalize = () ->
 
 
 
-window.YMDP = 
+window.YMDP =
   Constants: {}
   
   # Shows the error view.
@@ -77,10 +77,13 @@ window.YMDP =
     setTimeout(callback_function, interval * 1000)
 
   showTranslations: () ->
-    Debug.log("begin YMDP.showTranslations")
-    I18n.findAndTranslateAll()
+    try
+      Debug.log("begin YMDP.showTranslations")
+      I18n.findAndTranslateAll()
 
-    # define I18n.localTranslations in the view template
-    I18n.localTranslations()
-  
-    Debug.log("end YMDP.showTranslations")
+      # define I18n.localTranslations in the view template
+      I18n.localTranslations()
+    
+      Debug.log("end YMDP.showTranslations")
+    catch omg
+      Debug.error(omg.message)
