@@ -25,7 +25,9 @@ module YMDP
       @translations ||= {}
       
       Dir["./config/locales/**/*.yml"].each do |file|
-        @translations.merge!(YAML.load_file(file))
+        @translations.merge!(YAML.load_file(file)) do |key, old, new|
+          old.merge new
+        end
       end
 
       @translations
