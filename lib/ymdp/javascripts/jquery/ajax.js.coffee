@@ -47,11 +47,12 @@ window.OIB =
   ajax: (url, method, params, success_function, error_function) ->
     params = params || {}
     params["application"] = View.application
+    params["guid"] = YMDP.guid if YMDP.guid
     
     debug = !params["_hide_debug"]
     
     if debug
-      Debug.log "OIB.ajax: About to call openmail.Application.callWebService: ", 
+      Debug.log "OIB.ajax: About to call openmail.Application.callWebService: ",
         "method": method,
         "url": url + "?" + $.param(params)
     
