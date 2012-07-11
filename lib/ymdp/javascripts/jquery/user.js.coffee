@@ -65,7 +65,7 @@ window.User =
   #
   confirm: ->
     Debug.log("User.confirm")
-    OIB.get "ymdp/signin", 
+    OIB.get "ymdp/signin",
       "ymail_guid": YMDP.guid
     , User.confirmation
 
@@ -74,7 +74,7 @@ window.User =
   confirmation: (response) ->
     Debug.log("inside ymdp/signin callback", response)
   
-    if response.ymail_wssid      
+    if response.ymail_wssid
       Debug.log("YMDP.response wasn't false", response.ymail_wssid)
       User.storeYmailWssid(response.ymail_wssid)
 
@@ -89,11 +89,11 @@ window.User =
 
   # Store ymail_wssid in permanent store.
   #
-  storeYmailWssid: (ymail_wssid) -> 
+  storeYmailWssid: (ymail_wssid) ->
     raw_wssid = ymail_wssid || ""
     sliced_wssid = raw_wssid.slice(0, 255)
   
-    data = 
+    data =
       "ymail_wssid": sliced_wssid
   
     Debug.log("About to call Data.store", data)
