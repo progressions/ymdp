@@ -20,12 +20,16 @@ window.Authorize =
     Debug.log("end of Authorize.init")
   
   assignUrl: (url) ->
+    Debug.log("assignUrl", url)
+
     url = url || Authorize.url
     url = url + "?" + $.param(Authorize.params)
     
+    $(".get_started").attr("href", url).attr("target", "_blank")
     $("#get_started_1").attr("href", url).attr("target", "_blank")
     $("#get_started_2").attr("href", url).attr("target", "_blank")
-    $(".get_started").attr("href", url).attr("target", "_blank")
+
+    Debug.log("just assigned url")
   
   authorize: ->
     Debug.log("Authorize.authorize")
