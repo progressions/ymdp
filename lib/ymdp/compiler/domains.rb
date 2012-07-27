@@ -21,7 +21,7 @@ module YMDP
         @options = options
         @servers = @options[:servers]
         @domains = @options[:domain] || all_domains
-        @domains = @domains.to_a
+        @domains = Array(@domains)
         @message = @options[:message]
 
         commit if @options[:commit]

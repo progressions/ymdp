@@ -207,7 +207,7 @@ module YMDP
       output = []
       
       if params[:partial]
-        params[:partial].to_a.each do |partial|
+        Array(params[:partial]).each do |partial|
           output << render_partial(partial)
         end
       end
@@ -291,7 +291,7 @@ module YMDP
     end
     
     def render_javascript_partial(params)
-      filename = params[:filename] || params[:javascript].to_a.join("_")
+      filename = params[:filename] || Array(params[:javascript]).join("_")
       
       if configuration.external_assets["javascripts"]
         tags = false
@@ -304,7 +304,7 @@ module YMDP
       # Render a JavaScript partial.
       #
       if params[:javascript]
-        content = render_javascripts(params[:javascript].to_a, params[:filename])
+        content = render_javascripts(Array(params[:javascript]), params[:filename])
         unless content.blank?
           output << "<script type='text/javascript'>" if tags
           output << content
@@ -371,11 +371,11 @@ module YMDP
     # Render a CSS partial.
     #
     def render_stylesheet_partial(params)
-      filename = params[:filename] || params[:stylesheet].to_a.join("_")
+      filename = params[:filename] || Array(params[:stylesheet]).join("_")
       external_asset = params[:tags] && configuration.external_assets["stylesheets"]
       output = []
       if params[:stylesheet]
-        content = render_stylesheets(params[:stylesheet].to_a, params[:filename])
+        content = render_stylesheets(Array(params[:stylesheet]), params[:filename])
         unless content.blank?
           output << "<style type='text/css'>" unless external_asset
           output << content
