@@ -311,8 +311,9 @@ module YMDP
           output << "</script>" if tags
         end
       end
-      output
       
+      output = output.join("\n")
+
       if configuration.external_assets["javascripts"] && params[:tags]
         write_javascript_asset(output, filename)
         
@@ -326,7 +327,7 @@ module YMDP
       path = "#{server_path}/assets/javascripts/#{filename}.js"
       
       $stdout.puts "Writing #{path}"
-        
+
       File.open(path, "w") do |f|
         f.write(output)
       end

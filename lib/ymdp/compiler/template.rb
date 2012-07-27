@@ -338,7 +338,7 @@ module YMDP
           @file.gsub!(/\.coffee$/, "")
           filename = @file.split("/").last
           tmp_filename = "#{TMP_PATH}/#{filename}"
-          
+
           # result = process_coffee(process_erb(result))
           result = process_coffee(result)
           
