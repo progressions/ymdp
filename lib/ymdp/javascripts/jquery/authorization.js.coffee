@@ -4,7 +4,7 @@
   Authorize and sign in the user.
 ###
 
-window.Authorize = 
+window.Authorize =
   init: (guid, default_state, params) ->
     Debug.log("Authorize.init")
     params = params || {}

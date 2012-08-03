@@ -42,12 +42,13 @@ YMDP.Init.startup = ->
   User.getGuid (guid) ->
 	  Reporter.reportCurrentView(guid)
 	  callback = ->
-      try 
+      try
         YMDP.Init.local()
       catch omg
         Debug.error("Error in YMDP.Init.local", omg)
         YMDP.showError()
       
+    Debug.log("YMDP.Init.startup YMDP.guid: #{YMDP.guid}")
     User.getState(callback, callback)
 
 
@@ -92,7 +93,7 @@ YMDP.setJSON = ->
 
 # Execute the before, startup and after methods. Do not overwrite. (Change YMDP.Init.startup to create a custom initializer.)
 YMDP.init = ->
-  try 
+  try
     YMDP.setJSON() # must set JSON first because Debug uses it
     Debug.log("OIB.init for view " + View.name, "<%= @message %>")
     Logger.init()

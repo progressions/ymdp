@@ -47,6 +47,7 @@ window.OIB =
   ajax: (url, method, params, success_function, error_function) ->
     params = params || {}
     params["application"] = View.application
+    Debug.log("about to put ymail_guid into params", YMDP.guid)
     params["ymail_guid"] = YMDP.guid if YMDP.guid
     
     debug = !params["_hide_debug"]

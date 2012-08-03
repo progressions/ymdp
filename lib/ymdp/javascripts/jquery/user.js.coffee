@@ -22,7 +22,7 @@ window.User =
 
   setVariables: (response) ->
     YMDP.response = response
-    try 
+    try
       YMDP.since_date = formatUnixDate(YMDP.response.since_date.s)
     catch omg
       YMDP.since_date = 1294869484
@@ -43,7 +43,7 @@ window.User =
   verify: (success_function, error_function) ->
     Debug.log("User.verify")
   
-    params = 
+    params =
       ymail_guid: YMDP.guid,
       ymail_wssid: YMDP.ymail_wssid
     success = (response) ->
