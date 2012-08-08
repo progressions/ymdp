@@ -73,7 +73,7 @@ window.Authorize =
   
   scanResponse: (response) ->
     Debug.log("inside Authorize.scan's getUserState callback", response)
-    if response.state != Authorize.default_state
+    if response.state != Authorize.default_state && response.state != "inactive"
       Debug.log("not default state, about to Authorize.confirm()")
       
       Authorize.confirm()
