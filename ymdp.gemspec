@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "ymdp"
-  s.version = "1.4.4"
+  s.version = "1.4.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Isaac Priestley"]
-  s.date = "2012-08-03"
+  s.date = "2012-08-08"
   s.description = "Framework for developing applications in the Yahoo! Mail Development Platform."
   s.email = "progressions@gmail.com"
   s.extra_rdoc_files = [
