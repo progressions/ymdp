@@ -336,7 +336,7 @@ module YMDP
     def write_stylesheet_asset(output, filename)
       path = "#{server_path}/assets/stylesheets/#{filename}.css"
       
-      $stdout.puts "Writing #{path} oh yeah"
+      $stdout.puts "Writing #{path}"
 
       output = Array(output).join("\n")
       
