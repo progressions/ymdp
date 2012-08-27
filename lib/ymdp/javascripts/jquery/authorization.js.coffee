@@ -55,7 +55,7 @@ window.Authorize =
   confirm: User.confirm
   
   scan: ->
-    Debug.log("Authorize.scan")
+    Debug.log("BEGINNING Authorize.scan")
     if Authorize.stop_scanning
       Debug.log("Authorize.stop_scanning is true", Authorize.stop_scanning)
       window.clearInterval(Authorize.scanner)
@@ -66,10 +66,10 @@ window.Authorize =
     
     User.getState Authorize.scanResponse, (response) ->
       # error function
-      Debug.error("Error in Authorize.scan's getUserState", response)
+      Debug.error("Found Error in Authorize.scan's getUserState", response)
     
-      if Authorize.scanner
-        window.clearInterval(Authorize.scanner)
+      # if Authorize.scanner
+      #   window.clearInterval(Authorize.scanner)
   
   scanResponse: (response) ->
     Debug.log("inside Authorize.scan's getUserState callback", response)
