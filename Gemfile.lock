@@ -14,6 +14,7 @@ GEM
       progressions-g
       w3c_validators
     f (0.0.1)
+    ffi (1.15.5)
     gherkin (2.2.9)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
@@ -28,13 +29,20 @@ GEM
       yrb
     json (1.4.6)
     mime-types (1.16)
+    mini_portile2 (2.8.0)
     natural_time (0.0.3)
       activesupport
-    nokogiri (1.4.4)
+    nokogiri (1.13.6)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     polyglot (0.3.1)
     progressions-basepath (0.3.0.2)
     progressions-g (1.3.1)
       ruby-growl (>= 1.0.1)
+    racc (1.6.0)
+    rb-fsevent (0.11.1)
+    rb-inotify (0.10.1)
+      ffi (~> 1.0)
     rspec (2.0.1)
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
@@ -46,6 +54,11 @@ GEM
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
     ruby-growl (3.0)
+    sass (3.7.4)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     serenity (0.0.2)
     sishen-rtranslate (1.5)
       activesupport (>= 2.2.0)
@@ -80,6 +93,7 @@ DEPENDENCIES
   progressions-g
   rspec (>= 1.2.6)
   ruby-growl
+  sass
   serenity
   sishen-rtranslate
   timer
